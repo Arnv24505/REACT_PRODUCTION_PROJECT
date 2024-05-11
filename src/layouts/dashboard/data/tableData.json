@@ -1,0 +1,80 @@
+{
+  "columns": [
+    { "Header": "function", "accessor": "function", "align": "left" },
+    { "Header": "employed", "accessor": "employed", "align": "center" },
+    { "Header": "action", "accessor": "action", "align": "center" },
+    { "Header": "war", "accessor": "action", "align": "center" }
+  ],
+  "rows": [
+    {
+      "function": "Manager - Organization",
+      "employed": "23/04/18",
+      "action": "Active",
+      "war": "end"
+    },
+    {
+      "function": "Programator - Developer",
+      "action": "Active"
+    },
+    {
+      "function": "Executive - Projects",
+      "employed": "19/09/17",
+      "action": "Inactive",
+      "war": "end"
+    },
+    {
+      "function": "Programator - Developer",
+      "employed": "24/12/08",
+      "action": "Inactive",
+      "war": "end"
+    },
+    {
+      "function": "Manager - Executive",
+      "employed": "04/10/21",
+      "action": "Active",
+      "war": "end"
+    },
+    {
+      "function": "Manager - Executive",
+      "employed": "04/10/21",
+      "action": "Inactive",
+      "war": "end"
+    },
+    {
+      "function": "Manager - Executive",
+      "employed": "04/10/21",
+      "action": "Active",
+      "war": "end"
+    },
+    {
+      "function": "Manager - Executive",
+      "employed": "04/10/21",
+      "action": "Active",
+      "war": "end"
+    },
+    {
+      "function": "Manager - Executive",
+      "employed": "04/10/21",
+      "action": "Inactive",
+      "war": "end"
+    },
+    {
+      "function": "Manager - Executive",
+      "employed": "04/10/21",
+      "action": "Active",
+      "war": "end"
+    },
+    {
+      "function": "Manager - Executive",
+      "employed": "04/10/21",
+      "action": "Active",
+      "war": "end"
+    },
+    {
+      "function": "Programator - Developer",
+      "employed": "14/09/20",
+      "action": "Inactive",
+      "war": "end"
+    }
+  ]
+}

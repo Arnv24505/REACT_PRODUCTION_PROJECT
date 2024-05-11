@@ -1,0 +1,52 @@
+[
+  {
+    "color": "dark",
+    "icon": "weekend",
+    "title": "Bookings",
+    "bottom": {
+      "color": "success",
+      "icon": "event",
+      "label": "than last week"
+    }
+  },
+  {
+    "icon": "leaderboard",
+    "title": "Today's Users",
+    "bottom": {
+      "color": "success",
+      "icon": "event",
+      "label": "than last month"
+    }
+  },
+  {
+    "color": "success",
+    "icon": "store",
+    "title": "Revenue",
+    "count": "34k",
+    "bottom": {
+      "color": "success",
+      "icon": "event",
+      "label": "than yesterday"
+    }
+  },
+  {
+    "color": "primary",
+    "icon": "person_add",
+    "title": "Followers",
+    "bottom": {
+      "color": "success",
+      "icon": "event",
+      "label": "Just updated"
+    }
+  },
+  {
+    "color": "warning",
+    "icon": "event",
+    "title": "Followers",
+    "bottom": {
+      "color": "success",
+      "icon": "event",
+      "label": "Just updated"
+    }
+  }
+]

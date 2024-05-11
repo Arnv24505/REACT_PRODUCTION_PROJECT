@@ -1,0 +1,36 @@
+[
+  {
+    "name": "Vasu",
+    "type": "Unknown",
+    "status": "Active",
+    "completion": 60,
+    "actionIcons": [ "add_circle_outline_icon", "done_all", "delete" ]
+  },
+  {
+    "name": "Yogesh",
+    "type": "Unknown",
+    "status": "Inactive",
+    "completion": 100,
+    "actionIcons": [ "add_circle_outline_icon", "done_all", "delete" ]
+  },
+  {
+    "name": "Rahul",
+    "type": "Unknown",
+    "status": "Active",
+    "completion": 100,
+    "actionIcons": [ "add_circle_outline_icon", "done_all", "delete" ]
+  },
+  {
+    "name": "Priya",
+    "type": "Unknown",
+    "status": "Inactive",
+    "completion": 100,
+    "actionIcons": [ "add_circle_outline_icon", "done_all", "delete" ]
+  },
+  {
+    "name": "Neha",
+    "type": "Unknown",
+    "status": "Inactive",
+    "actionIcons": [ "add_circle_outline_icon", "done_all", "delete" ]
+  }
+]

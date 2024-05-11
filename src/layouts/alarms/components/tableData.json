@@ -1,0 +1,178 @@
+[
+  {
+    "name": "Alarm 1",
+    "type": "Type A",
+    "status": "Active",
+    "ruleName": "Rule 1",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 2",
+    "type": "Type B",
+    "status": "Inactive",
+    "ruleName": "Rule 2",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 3",
+    "type": "Type C",
+    "status": "Active",
+    "ruleName": "Rule 3",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 4",
+    "type": "Type D",
+    "status": "Inactive",
+    "ruleName": "Rule 4",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 5",
+    "type": "Type E",
+    "status": "Active",
+    "ruleName": "Rule 5",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 6",
+    "type": "Type F",
+    "status": "Inactive",
+    "ruleName": "Rule 6",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 7",
+    "type": "Type G",
+    "status": "Active",
+    "ruleName": "Rule 7",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 8",
+    "type": "Type H",
+    "status": "Inactive",
+    "ruleName": "Rule 8",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 9",
+    "type": "Type I",
+    "status": "Active",
+    "ruleName": "Rule 9",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 10",
+    "type": "Type J",
+    "status": "Inactive",
+    "ruleName": "Rule 10",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 11",
+    "type": "Type K",
+    "status": "Active",
+    "ruleName": "Rule 11",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 12",
+    "type": "Type L",
+    "status": "Inactive",
+    "ruleName": "Rule 12",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 13",
+    "type": "Type M",
+    "status": "Active",
+    "ruleName": "Rule 13",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 14",
+    "type": "Type N",
+    "status": "Inactive",
+    "ruleName": "Rule 14",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 15",
+    "type": "Type O",
+    "status": "Active",
+    "ruleName": "Rule 15",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 16",
+    "type": "Type P",
+    "status": "Inactive",
+    "ruleName": "Rule 16",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 17",
+    "type": "Type Q",
+    "status": "Active",
+    "ruleName": "Rule 17",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 18",
+    "type": "Type R",
+    "status": "Inactive",
+    "ruleName": "Rule 18",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 19",
+    "type": "Type S",
+    "status": "Active",
+    "ruleName": "Rule 19",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 20",
+    "type": "Type T",
+    "status": "Inactive",
+    "ruleName": "Rule 20",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 21",
+    "type": "Type U",
+    "status": "Active",
+    "ruleName": "Rule 21",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 22",
+    "type": "Type V",
+    "status": "Inactive",
+    "ruleName": "Rule 22",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 23",
+    "type": "Type W",
+    "status": "Active",
+    "ruleName": "Rule 23",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 24",
+    "type": "Type X",
+    "status": "Inactive",
+    "ruleName": "Rule 24",
+    "actionIcons": ["edit", "delete"]
+  },
+  {
+    "name": "Alarm 25",
+    "type": "Type Y",
+    "status": "Active",
+    "ruleName": "Rule 25",
+    "actionIcons": ["edit", "delete"]
+  }
+]
+

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Box, FormControl, Icon, IconButton, InputLabel, MenuItem, Select } from '@mui/material'
+import { FormControl, Icon, IconButton, InputLabel, MenuItem, Select } from '@mui/material'
 import LineChart from './LineChart'
-import _ from 'lodash'
 import MDBox from 'components/MDBox'
 
 const DropDown = ({ data }) => {
@@ -28,7 +27,7 @@ const DropDown = ({ data }) => {
   useEffect(() => {
     const options = data.datasets.map((option, index) => {
       const { label } = option
-      return <MenuItem key={ index } value={ label }>{ label }</MenuItem>
+      return <MenuItem key={index} value={label}>{label}</MenuItem>
     })
     setOptions(options)
   }, [data])
@@ -52,33 +51,33 @@ const DropDown = ({ data }) => {
 
   return (
     <MDBox>
-      <MDBox data-testid='my-select-component' mb={ 2 }>
-        <FormControl variant='outlined' sx={ { width: '60%' } }>
-          <InputLabel sx={ { textAlign: 'center', mt: -0.5 } }>Select an option</InputLabel>
+      <MDBox data-testid='my-select-component' mb={2}>
+        <FormControl variant='outlined' sx={{ width: '60%' }}>
+          <InputLabel sx={{ textAlign: 'center', mt: -0.5 }}>Select an option</InputLabel>
           <Select
             id='canvas'
             name='myOptions'
-            value={ selectedLabels }
+            value={selectedLabels}
             label='Select an option'
-            onChange={ handleSelectedLabels }
-            onOpen={ handleMenuOpen() }
-            onClose={ handleMenuClose() }
-            IconComponent={ () => (
+            onChange={handleSelectedLabels}
+            onOpen={handleMenuOpen()}
+            onClose={handleMenuClose()}
+            IconComponent={() => (
               <IconButton
                 size='large'
-                style={ { padding: 0, marginRight: '8px' } }
+                style={{ padding: 0, marginRight: '8px' }}
                 aria-label='open-menu'
               >
-                <Icon>{ filterMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }</Icon>
+                <Icon>{filterMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down'}</Icon>
               </IconButton>
-            ) }
+            )}
             multiple
           >
-            { options }
+            {options}
           </Select>
         </FormControl>
       </MDBox>
-      { filterData.datasets.length > 0 && <LineChart data={ filterData } /> }
+      {filterData.datasets.length > 0 && <LineChart data={filterData} />}
     </MDBox>
   )
 }

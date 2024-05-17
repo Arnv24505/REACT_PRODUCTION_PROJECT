@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  Box,
-  Grid,
-  Icon,
-  Typography,
-  TableBody, // Import TableBody from Material-UI
-} from '@mui/material'
+import { Box, Grid, Icon, TableBody, Typography } from '@mui/material'
 import MDBox from 'components/MDBox'
 
 const LIGHTGRAY = '#E0E0E0'
@@ -54,33 +48,33 @@ const frameStyle = { width: '100%', my: 5 }
 
 const Stepper = ({ steps, activeStep }) => {
   return (
-    <Grid container spacing={ 1 }>
-      <Grid item xs={ 12 } md={ 12 } xl={ 12 }>
-        <MDBox sx={ frameStyle } display='flex' size='large'>
-          <MDBox style={ containerStyle }>
-            <Box component='table' style={ tableStyle }>
+    <Grid container spacing={1}>
+      <Grid item xs={12} md={12} xl={12}>
+        <MDBox sx={frameStyle} display='flex' size='large'>
+          <MDBox style={containerStyle}>
+            <Box component='table' style={tableStyle}>
               <TableBody>
-                <Box component='tr' style={ trStyle }>
-                  { steps.map(({ id, label, icon }, index) => (
-                    <Box component='td' style={ tdStyle } key={ index }>
+                <Box component='tr' style={trStyle}>
+                  {steps.map(({ id, label, icon }, index) => (
+                    <Box component='td' style={tdStyle} key={index}>
                       <MDBox
-                        style={ {
+                        style={{
                           backgroundColor:
                             activeStep === index ? ORANGE : activeStep > index ? GREEN : DARKGRAY,
                           ...nodeStyle,
-                        } }
+                        }}
                       >
-                        { icon ? (
-                          <Icon fontSize={ 'inherit' } color='inherit'>
-                            { icon }
+                        {icon ? (
+                          <Icon fontSize={'inherit'} color='inherit'>
+                            {icon}
                           </Icon>
                         ) : (
-                          <Typography style={ stepperNoStyle }>{ `${index + 1}` }</Typography>
-                        ) }
+                          <Typography style={stepperNoStyle}>{`${index + 1}`}</Typography>
+                        )}
                       </MDBox>
-                      <Typography style={ stepperLabelStyle }>{ label }</Typography>
+                      <Typography style={stepperLabelStyle}>{label}</Typography>
                     </Box>
-                  )) }
+                  ))}
                 </Box>
               </TableBody>
             </Box>

@@ -1,62 +1,32 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-import { useState, useEffect, useMemo } from "react";
-
-// react-router components
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-
-// @mui material components
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import Icon from "@mui/material/Icon";
-
-// Material Dashboard 2 React components
-import MDBox from "components/MDBox";
-
-// Material Dashboard 2 React example components
-import Sidenav from "examples/Sidenav";
-import Configurator from "examples/Configurator";
-
-// Material Dashboard 2 React themes
-import theme from "assets/theme";
-import themeRTL from "assets/theme/theme-rtl";
-
-// Material Dashboard 2 React Dark Mode themes
-import themeDark from "assets/theme-dark";
-import themeDarkRTL from "assets/theme-dark/theme-rtl";
-
-// RTL plugins
-import rtlPlugin from "stylis-plugin-rtl";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
+import { useEffect, useMemo, useState } from 'react'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { ThemeProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import Sidenav from 'examples/Sidenav'
+import MiniDrawer from 'examples/Sidenav'
+import Configurator from 'examples/Configurator'
+import theme from 'assets/theme'
+import themeDark from 'assets/theme-dark'
+import Login from 'layouts/authentication/sign-in'
+import rtlPlugin from 'stylis-plugin-rtl'
+import createCache from '@emotion/cache'
 
 // Material Dashboard 2 React routes
-import routes from "routes";
+import routes from 'routes'
 
 // Material Dashboard 2 React contexts
-import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
+import { setLayout, setMiniSidenav, setOpenConfigurator, useMaterialUIController } from 'context'
 
 // Images
-import brandWhite from "assets/images/logo-ct.png";
-import brandDark from "assets/images/logo-ct-dark.png";
-import MiniDrawer from "examples/Sidenav";
-import { useMediaQuery } from "@mui/material";
+import brandWhite from 'assets/images/logo-ct.png'
+import brandDark from 'assets/images/logo-ct-dark.png'
+import { useMediaQuery } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { userSelector } from './store/user/slice/userSlice'
+import { getUser } from './store/user/saga/userSaga'
 
-export default function App() {
-  const [controller, dispatch] = useMaterialUIController();
+export default function App () {
+  const [controller, dispatch] = useMaterialUIController()
   const {
     miniSidenav,
     direction,
@@ -66,11 +36,28 @@ export default function App() {
     transparentSidenav,
     whiteSidenav,
     darkMode,
-  } = controller;
-  const [onMouseEnter, setOnMouseEnter] = useState(false);
-  const [rtlCache, setRtlCache] = useState(null);
-  const { pathname } = useLocation();
+  } = controller
+  const [onMouseEnter, setOnMouseEnter] = useState(false)
+  const [rtlCache, setRtlCache] = useState(null)
+  const { pathname } = useLocation()
+  console.log('pathname now in aPP is' , pathname)
+  useEffect(() => {
+    console.log('pathname now is' , pathname)
+    if(['/login' , '/logout' , '/signup'].includes(pathname)) {
+      setLayout(dispatch, 'login')
+    }else {
+      setLayout(dispatch, 'dashboard')
+    }
 
+  }, [pathname])
+  /*const { user } = useSelector(userSelector)
+  useEffect(() => {
+    console.log('user is' , user)
+    if(!user) {
+      dispatch(getUser())
+    }
+  }, [user])*/
+  console.log('layout now is ' , layout)
   const hider = useMediaQuery(theme.breakpoints.up('xl'))
   const hider2 = useMediaQuery(theme.breakpoints.up('lg'))
   const hider3 = useMediaQuery(theme.breakpoints.up('md'))
@@ -79,117 +66,95 @@ export default function App() {
   // Cache for the rtl
   useMemo(() => {
     const cacheRtl = createCache({
-      key: "rtl",
+      key: 'rtl',
       stylisPlugins: [rtlPlugin],
-    });
+    })
 
-    setRtlCache(cacheRtl);
-  }, []);
+    setRtlCache(cacheRtl)
+  }, [])
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
-    if (miniSidenav && !onMouseEnter) {
-      setMiniSidenav(dispatch, false);
-      setOnMouseEnter(true);
+    if(miniSidenav && !onMouseEnter) {
+      setMiniSidenav(dispatch, false)
+      setOnMouseEnter(true)
     }
-  };
+  }
 
   // Close sidenav when mouse leave mini sidenav
   const handleOnMouseLeave = () => {
-    if (onMouseEnter) {
-      setMiniSidenav(dispatch, true);
-      setOnMouseEnter(false);
+    if(onMouseEnter) {
+      setMiniSidenav(dispatch, true)
+      setOnMouseEnter(false)
     }
-  };
+  }
 
   // Change the openConfigurator state
-  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
+  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator)
 
   // Setting the dir attribute for the body element
   useEffect(() => {
-    document.body.setAttribute("dir", direction);
-  }, [direction]);
+    document.body.setAttribute('dir', direction)
+  }, [direction])
 
   // Setting page scroll to 0 when changing the route
   useEffect(() => {
-    document.documentElement.scrollTop = 0;
-    document.scrollingElement.scrollTop = 0;
-  }, [pathname]);
+    document.documentElement.scrollTop = 0
+    document.scrollingElement.scrollTop = 0
+  }, [pathname])
 
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
-      if (route.collapse) {
-        return getRoutes(route.collapse);
+      if(route.collapse) {
+        return getRoutes(route.collapse)
       }
 
-      if (route.route) {
-        return <Route exact path={route.route} element={route.component} key={route.key} />;
+      if(route.route) {
+        return <Route exact path={route.route} element={route.component} key={route.key} />
       }
 
-      return null;
+      return null
 
-    });
+    })
 
-    const [marginSetter,setmargineSetter] = useState(0);
+  const [marginSetter, setmargineSetter] = useState(0)
 
-  
-  return direction === "rtl" ? (
-    <CacheProvider value={rtlCache}>
-      <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
-        <CssBaseline />
-        {layout === "dashboard" && (
-          <>
-            <Sidenav
-              color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-              brandName="Material Dashboard 2"
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-      
-            <Configurator />
-          </>
-        )}
-        {layout === "vr" && <Configurator />}
-        <Routes>
-          {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
-        </Routes>
-      </ThemeProvider>
-    </CacheProvider>
-  ) : (
+  return (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
-      {layout === "dashboard" && (
+
+      {layout === 'dashboard' &&  (
         <>
           <Sidenav
             color={sidenavColor}
             brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="Material Dashboard 2"
+            brandName='Quarkifi QConsole'
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
             setMarginSetter={setmargineSetter}
           />
-                <MiniDrawer
-                routes = {routes}
-                brandName="material ui"
-                 onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-              setMarginSetter={setmargineSetter}/>
+          <MiniDrawer
+            routes={routes}
+            brandName='material ui'
+            onMouseEnter={handleOnMouseEnter}
+            onMouseLeave={handleOnMouseLeave}
+            setMarginSetter={setmargineSetter} />
           <Configurator />
         </>
       )}
-      <div className="container" style={{marginLeft:(!hider4||!hider5)?"0px":marginSetter}}>
-      {layout === "vr" && <Configurator />}
-      <Routes >
-        {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
-      </Routes>
+      <div className='container' style={{ marginLeft: (!hider4 || !hider5) ? '0px' : marginSetter }}>
+        {layout === 'vr' && <Configurator />}
+        <Routes>
+          {getRoutes(routes)}
+          <Route path='*' element={<Navigate to='/login' />} />
+          {/*{!user && (
+            <Route path='*' element={<Navigate to='/login' />} />
+          )}*/}
+        </Routes>
       </div>
     </ThemeProvider>
-  );
+  )
 }
 
 

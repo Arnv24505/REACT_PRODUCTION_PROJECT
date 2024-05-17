@@ -3,36 +3,51 @@
     "name": "Vasu",
     "type": "Unknown",
     "status": "Critical",
-    "description":" g < 40 AND c < 5 ",
-    "actionIcons": ["edit", "delete"]
+    "description": " g < 40 AND c < 5 ",
+    "actionIcons": [
+      "edit",
+      "delete"
+    ]
   },
   {
     "name": "Yogesh",
     "type": "Unknown",
     "status": "major",
-    "description":" s < 11 AND c < 5 OR d != 11",
-    "actionIcons": ["edit", "delete"]
+    "description": " s < 11 AND c < 5 OR d != 11",
+    "actionIcons": [
+      "edit",
+      "delete"
+    ]
   },
   {
     "name": "Rahul",
     "type": "Unknown",
     "status": "minor",
-    "description":" t < 11 AND c < 5 OR d != 11",
-    "actionIcons": ["edit", "delete"]
+    "description": " t < 11 AND c < 5 OR d != 11",
+    "actionIcons": [
+      "edit",
+      "delete"
+    ]
   },
   {
     "name": "Priya",
     "type": "Unknown",
     "status": "complete",
-    "description":" g < 11 OR d != 11",
-    "actionIcons": ["edit", "delete"]
+    "description": " g < 11 OR d != 11",
+    "actionIcons": [
+      "edit",
+      "delete"
+    ]
   },
   {
     "name": "Neha",
     "type": "Unknown",
     "status": "minor",
-    "description":" g < 11 AND c < 5 ",
-    "actionIcons": ["edit", "delete"]
+    "description": " g < 11 AND c < 5 ",
+    "actionIcons": [
+      "edit",
+      "delete"
+    ]
   }
 ]
 

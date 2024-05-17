@@ -23,7 +23,7 @@ const AlarmTable = ({ isSorted, entriesPerPage, showTotalEntries, rowData: initi
     const updatedRowData = rowData.map((item) =>
       item.name === data.name
         ? { ...item, status: item.status === 'Active' ? 'Inactive' : 'Active' }
-        : item
+        : item,
     )
     setRowData(updatedRowData)
   }
@@ -31,41 +31,41 @@ const AlarmTable = ({ isSorted, entriesPerPage, showTotalEntries, rowData: initi
   const rows = rowData.map((data, index) => ({
     alarmId: (
       <MDTypography component='a' href='#' variant='button' color='text' fontWeight='medium'>
-        { data.name }
+        {data.name}
       </MDTypography>
     ),
     type: (
       <MDTypography component='a' href='#' variant='button' color='text' fontWeight='medium'>
-        { data.type }
+        {data.type}
       </MDTypography>
     ),
     status: (
       <Switch
-        checked={ data.status === 'Active' }
+        checked={data.status === 'Active'}
         color='success'
-        onChange={ () => handleStatusToggle(data) }
-        inputProps={ { 'aria-label': 'controlled' } }
+        onChange={() => handleStatusToggle(data)}
+        inputProps={{ 'aria-label': 'controlled' }}
       />
     ),
     ruleName: (
       <MDTypography component='a' href='#' variant='caption' color='text' fontWeight='medium'>
-        { data.ruleName }
+        {data.ruleName}
       </MDTypography>
     ),
     action: (
-      <MDBox gap={ 3 }>
-        { data.actionIcons.map((icon, index) => (
+      <MDBox gap={3}>
+        {data.actionIcons.map((icon, index) => (
           <MDTypography
-            key={ index }
+            key={index}
             component='a'
             href='#'
             mx='0.5rem'
             color='text'
-            onClick={ () => handleAction(icon, data) }
+            onClick={() => handleAction(icon, data)}
           >
-            <Icon>{ icon }</Icon>
+            <Icon>{icon}</Icon>
           </MDTypography>
-        )) }
+        ))}
       </MDBox>
     ),
   }))
@@ -79,12 +79,12 @@ const AlarmTable = ({ isSorted, entriesPerPage, showTotalEntries, rowData: initi
   ]
 
   return (
-    <MDBox pt={ 6 } pb={ 3 }>
+    <MDBox pt={6} pb={3}>
       <DataTable
-        table={ { columns, rows } }
-        isSorted={ isSorted }
-        entriesPerPage={ entriesPerPage }
-        showTotalEntries={ showTotalEntries }
+        table={{ columns, rows }}
+        isSorted={isSorted}
+        entriesPerPage={entriesPerPage}
+        showTotalEntries={showTotalEntries}
         noEndBorder
       />
     </MDBox>

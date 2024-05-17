@@ -38,7 +38,7 @@ const Dashboard = () => {
         dynamicColumns.forEach((column) => {
           dynamicRow[column.accessor] = (
             <MDTypography component='a' href='#' variant='caption' color='text' fontWeight='medium'>
-              { rowData[column.accessor] }
+              {rowData[column.accessor]}
             </MDTypography>
           )
         })
@@ -50,28 +50,28 @@ const Dashboard = () => {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox py={ 3 }>
-        <Grid container spacing={ 3 }>
-          { performanceCard.map((card, index) => (
-            <Grid key={ index } item xs={ 12 } md={ 6 } lg={ 2.4 }>
-              <MDBox mb={ 1.5 }>
-                <ComplexStatisticsCard { ...card } />
+      <MDBox py={3}>
+        <Grid container spacing={3}>
+          {performanceCard.map((card, index) => (
+            <Grid key={index} item xs={12} md={6} lg={2.4}>
+              <MDBox mb={1.5}>
+                <ComplexStatisticsCard {...card} />
               </MDBox>
             </Grid>
-          )) }
+          ))}
         </Grid>
-        <MDBox mt={ 4 } mb={2}>
-          <Grid container spacing={ 3 }>
-            <Grid item xs={ 12 } md={ 6 } lg={ 8 }>
+        <MDBox mt={4} mb={2}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6} lg={8}>
               <CustomComponent />
             </Grid>
-            <Grid item xs={ 12 } md={ 6 } lg={ 4 }>
+            <Grid item xs={12} md={6} lg={4}>
               <Card>
                 <MDBox
-                  mx={ 2 }
-                  mt={ -3 }
-                  py={ 2 }
-                  px={ 2 }
+                  mx={2}
+                  mt={-3}
+                  py={2}
+                  px={2}
                   variant='gradient'
                   bgColor='info'
                   borderRadius='lg'
@@ -81,12 +81,12 @@ const Dashboard = () => {
                     Table One
                   </MDTypography>
                 </MDBox>
-                <MDBox pt={ 2 }>
+                <MDBox pt={2}>
                   <DataTable
-                    table={ tableData1(tableData) }
-                    isSorted={ false }
-                    entriesPerPage={ false }
-                    showTotalEntries={ false }
+                    table={tableData1(tableData)}
+                    isSorted={false}
+                    entriesPerPage={false}
+                    showTotalEntries={false}
                     noEndBorder
                   />
                 </MDBox>
@@ -94,15 +94,15 @@ const Dashboard = () => {
             </Grid>
           </Grid>
         </MDBox>
-        <MDBox mt={ 5 }>
-          <Grid container spacing={ 3 }>
-            <Grid item xs={ 12 } md={ 6 } lg={ 6 }>
+        <MDBox mt={5}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6} lg={6}>
               <Card>
                 <MDBox
-                  mx={ 2 }
-                  mt={ -3 }
-                  py={ 2 }
-                  px={ 2 }
+                  mx={2}
+                  mt={-3}
+                  py={2}
+                  px={2}
                   variant='gradient'
                   bgColor='info'
                   borderRadius='lg'
@@ -112,24 +112,24 @@ const Dashboard = () => {
                     Table Two
                   </MDTypography>
                 </MDBox>
-                <MDBox pt={ 2 }>
+                <MDBox pt={2}>
                   <DataTable
-                    table={ tableData1(tableData) }
-                    isSorted={ false }
-                    entriesPerPage={ false }
-                    showTotalEntries={ false }
+                    table={tableData1(tableData)}
+                    isSorted={false}
+                    entriesPerPage={false}
+                    showTotalEntries={false}
                     noEndBorder
                   />
                 </MDBox>
               </Card>
             </Grid>
-            <Grid item xs={ 12 } md={ 6 } lg={ 6 }>
+            <Grid item xs={12} md={6} lg={6}>
               <Card>
                 <MDBox
-                  mx={ 2 }
-                  mt={ -3 }
-                  py={ 2 }
-                  px={ 2 }
+                  mx={2}
+                  mt={-3}
+                  py={2}
+                  px={2}
                   variant='gradient'
                   bgColor='info'
                   borderRadius='lg'
@@ -139,12 +139,12 @@ const Dashboard = () => {
                     Table Three
                   </MDTypography>
                 </MDBox>
-                <MDBox pt={ 2 }>
+                <MDBox pt={2}>
                   <DataTable
-                    table={ tableData1(tableData) }
-                    isSorted={ false }
-                    entriesPerPage={ false }
-                    showTotalEntries={ false }
+                    table={tableData1(tableData)}
+                    isSorted={false}
+                    entriesPerPage={false}
+                    showTotalEntries={false}
                     noEndBorder
                   />
                 </MDBox>

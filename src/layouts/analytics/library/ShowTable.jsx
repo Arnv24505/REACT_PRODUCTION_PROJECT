@@ -18,7 +18,7 @@ const ShowTable = ({ data }) => {
     const { pageSize, rowsPerPageOptions, isPagination } = pagination
     setTitle(exportTitle.title)
 
-    if (isPagination) {
+    if(isPagination) {
       setPageSizeState(pageSize)
       setRowsPerPageState(rowsPerPageOptions)
     }

@@ -20,7 +20,7 @@ const CardGroupHolder = ({ cardData, children, handleLayout }) => {
 
   useEffect(() => {
     const layout = cardsData !== undefined ?
-      _.map(cardsData, function(item, i) {
+      _.map(cardsData, function (item, i) {
         return {
           x: cardsData[i].x,
           y: cardsData[i].y,
@@ -61,32 +61,31 @@ const CardGroupHolder = ({ cardData, children, handleLayout }) => {
     }
   }
 
-
   return (
     <>
-      { handleLayout &&
-        <Button data-testid='save-layout' variant='outlined' onClick={ () => handleLayout(latestCoord) }>Save
-          Layout</Button> }
+      {handleLayout &&
+      <Button data-testid='save-layout' variant='outlined' onClick={() => handleLayout(latestCoord)}>Save
+        Layout</Button>}
       <ResponsiveReactGridLayout
-        layouts={ layouts }
-        compactType={ compactType }
-        preventCollision={ !compactType }
-        breakpoints={ breakpoints }
-        cols={ cols }
-        onLayoutChange={ onLayoutChange }
+        layouts={layouts}
+        compactType={compactType}
+        preventCollision={!compactType}
+        breakpoints={breakpoints}
+        cols={cols}
+        onLayoutChange={onLayoutChange}
         isDroppable
       >
-        { !_.isEmpty(cardsData) &&
-          _.filter(children, childId => {
-            return _.find(cardsData, (cardId) => childId.props.id === cardId.id)
-          })?.map((child) => {
-            const { props } = child
-            return (
-              <Card data-testid='card-data' sx={ { m: 1 } } key={ props.id }>
-                { child }
-              </Card>
-            )
-          })
+        {!_.isEmpty(cardsData) &&
+        _.filter(children, childId => {
+          return _.find(cardsData, (cardId) => childId.props.id === cardId.id)
+        })?.map((child) => {
+          const { props } = child
+          return (
+            <Card data-testid='card-data' sx={{ m: 1 }} key={props.id}>
+              {child}
+            </Card>
+          )
+        })
         }
       </ResponsiveReactGridLayout>
     </>

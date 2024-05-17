@@ -1,0 +1,36 @@
+{
+  "basic": {
+    "templateName": "Template t1",
+    "deviceType": "GENERIC_SENSOR",
+    "connectionInfo": {
+      "type": "MQTT",
+      "mqtt": {
+        "hostName": "mqtt.qconsole.quarkifi.com",
+        "upStreamPath": "/SENSOR/deviceid/upstream",
+        "downStreamPath": "/SENSOR/deviceid/downstream",
+        "username": "mqttUser",
+        "password": "XXXXXXXXXXXXXX"
+      }
+    },
+    "connectionInfoHttp": {
+      "type": "HTTPS",
+      "https": {
+        "basicAuthUsername": "https user",
+        "basicAuthPassword": "XXXXXXXXXXXXXX",
+        "qHeaderDevId": "NNNNNNNNNNNN",
+        "hostName": "https.qconsole.quarkifi.com"
+      }
+    }
+  },
+  "fields": {
+    "field_1": {
+      "accessKey": "field_1",
+      "name": "Temperature",
+      "unit": "Deg C",
+      "max": 22,
+      "min": -10,
+      "tMax": 33,
+      "tMin": 10
+    }
+  }
+}

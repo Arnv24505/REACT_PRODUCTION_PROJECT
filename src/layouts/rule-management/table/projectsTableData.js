@@ -47,7 +47,7 @@ const ProjectsTableData = ({
 
   // Function to get the background color and label based on status
   const getStatusColor = (status) => {
-    switch(status) {
+    switch (status) {
       case 'Critical':
         return '#FF0000'
       case 'major':
@@ -59,24 +59,24 @@ const ProjectsTableData = ({
       default:
         return 'grey'
     }
-  };
+  }
 
   // Map over the rowData and generate rows dynamically
   const rows = rowData.map((data, index) => ({
     name: (
       <MDTypography component='a' href='#' variant='button' color='text' fontWeight='medium'>
-        { data.name }
+        {data.name}
       </MDTypography>
     ),
     type: (
       <MDTypography component='a' href='#' variant='button' color='text' fontWeight='medium'>
-        { data.type }
+        {data.type}
       </MDTypography>
     ),
     status: (
       <MDBox>
-        <Tooltip title={ data.status }>
-          <Avatar sx={ { bgcolor: getStatusColor(data.status), height: '10px', width: '10px' } } > </Avatar>
+        <Tooltip title={data.status}>
+          <Avatar sx={{ bgcolor: getStatusColor(data.status), height: '10px', width: '10px' }}> </Avatar>
         </Tooltip>
       </MDBox>
     ),
@@ -86,29 +86,29 @@ const ProjectsTableData = ({
           variant='caption'
           fontWeight='medium'
           underline='hover'
-          onClick={ () => {
+          onClick={() => {
             handlePreview(data)
-          } }
+          }}
         >
-          { data.description }
+          {data.description}
         </Link>
       </MDBox>
     ),
     action: (
-      <MDBox gap={ 3 }>
-        { Array.isArray(data.actionIcons) &&
-          data.actionIcons.map((icon, index) => (
-            <MDTypography
-              key={ index }
-              component='a'
-              href='#'
-              mx='0.5rem'
-              color='text'
-              onClick={ () => handleAction(icon, data) }
-            >
-              <Icon>{ icon }</Icon>
-            </MDTypography>
-          )) }
+      <MDBox gap={3}>
+        {Array.isArray(data.actionIcons) &&
+        data.actionIcons.map((icon, index) => (
+          <MDTypography
+            key={index}
+            component='a'
+            href='#'
+            mx='0.5rem'
+            color='text'
+            onClick={() => handleAction(icon, data)}
+          >
+            <Icon>{icon}</Icon>
+          </MDTypography>
+        ))}
       </MDBox>
     ),
   }))
@@ -140,10 +140,10 @@ const ProjectsTableData = ({
   return (
     <MDBox>
       <DataTable
-        table={ { columns, rows } }
-        isSorted={ isSorted }
-        entriesPerPage={ entriesPerPage }
-        showTotalEntries={ showTotalEntries }
+        table={{ columns, rows }}
+        isSorted={isSorted}
+        entriesPerPage={entriesPerPage}
+        showTotalEntries={showTotalEntries}
         noEndBorder
       />
     </MDBox>

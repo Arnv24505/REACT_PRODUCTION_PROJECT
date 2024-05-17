@@ -10,7 +10,7 @@ import TimelineItem from 'examples/Timeline/TimelineItem'
 const OrdersOverview = () => {
   return (
     <Card sx={{ height: '100%' }}>
-      <MDBox p={2} >
+      <MDBox p={2}>
         <MDBox
           justifyContent='center'
           alignItems='center'

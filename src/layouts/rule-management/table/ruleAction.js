@@ -7,7 +7,7 @@ import MDButton from 'components/MDButton'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
-import { IconButton, InputLabel } from '@mui/material'
+import { IconButton } from '@mui/material'
 
 const RuleAction = ({
   isSorted,
@@ -29,13 +29,13 @@ const RuleAction = ({
   })
 
   const handleMenuOpen = (menu) => () => {
-    if (menu === 'endpoint') setEndpointMenuOpen(true)
-    else if (menu === 'operation') setOperationMenuOpen(true)
+    if(menu === 'endpoint') setEndpointMenuOpen(true)
+    else if(menu === 'operation') setOperationMenuOpen(true)
   }
 
   const handleMenuClose = (menu) => () => {
-    if (menu === 'endpoint') setEndpointMenuOpen(false)
-    else if (menu === 'operation') setOperationMenuOpen(false)
+    if(menu === 'endpoint') setEndpointMenuOpen(false)
+    else if(menu === 'operation') setOperationMenuOpen(false)
   }
 
   const rows = rowData.map((data, rowIndex) => ({
@@ -145,11 +145,11 @@ const RuleAction = ({
 
   // Define click actions for different icons
   const handleAction = (icon, data, index) => {
-    if (icon === 'delete') {
+    if(icon === 'delete') {
       // Filter out the row with the specified endpoint to delete
       const updatedRowData = rowData.filter((item) => item.endpoint !== data.endpoint)
       setRowData(updatedRowData)
-    } else if (icon === 'edit') {
+    } else if(icon === 'edit') {
       setEditMode(index)
       setEditedData({
         endpoint: data.endpoint,
@@ -159,7 +159,7 @@ const RuleAction = ({
   }
 
   const handleRowClick = (index, data) => {
-    if (editMode !== index) {
+    if(editMode !== index) {
       setEditMode(index)
       setEditedData({
         endpoint: data.endpoint,
@@ -177,7 +177,7 @@ const RuleAction = ({
 
   const handleSave = (index) => {
     const updatedRowData = rowData.map((data, i) => {
-      if (i === index) {
+      if(i === index) {
         return {
           ...data,
           endpoint: editedData.endpoint,
@@ -196,7 +196,7 @@ const RuleAction = ({
     { Header: 'Operations', accessor: 'operations', align: 'center' },
   ]
 
-  if (isEditable) {
+  if(isEditable) {
     columns.push({ Header: 'Action', accessor: 'action', align: 'center' })
   }
 

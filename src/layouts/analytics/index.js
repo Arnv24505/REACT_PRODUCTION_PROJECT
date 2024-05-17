@@ -1,4 +1,3 @@
-
 // Material Dashboard 2 React components
 import MDBox from 'components/MDBox'
 
@@ -12,8 +11,8 @@ const analytics = () => {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox mb={ 2 }>
-        <DropDown data={ data } />
+      <MDBox mb={2}>
+        <DropDown data={data} />
       </MDBox>
     </DashboardLayout>
   )

@@ -109,63 +109,63 @@ const Realtime = () => {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox py={ 3 }>
-        <Grid container spacing={ 3 }>
-          <Grid item xs={ 12 }>
-            <FormControl variant='outlined' sx={ { minWidth: '30%' } }>
+      <MDBox py={3}>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <FormControl variant='outlined' sx={{ minWidth: '30%' }}>
               <Select
-                value={ showAllCharts ? 'all' : selectedGroupIndex }
-                onChange={ handleChangeGroup }
-                onOpen={ handleMenuOpen() }
-                onClose={ handleMenuClose() }
-                IconComponent={ () => (
+                value={showAllCharts ? 'all' : selectedGroupIndex}
+                onChange={handleChangeGroup}
+                onOpen={handleMenuOpen()}
+                onClose={handleMenuClose()}
+                IconComponent={() => (
                   <IconButton
                     size='large'
-                    style={ { padding: 0, marginRight: '8px' } }
+                    style={{ padding: 0, marginRight: '8px' }}
                     aria-label='open-menu'
                   >
                     <Icon>
-                      { filterMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }
+                      {filterMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down'}
                     </Icon>
                   </IconButton>
-                ) }
+                )}
               >
                 <MenuItem value='all'>Select All</MenuItem>
-                { dummyChartDataArray.map((group, index) => (
-                  <MenuItem key={ index } value={ index }>
-                    { group.groupName }
+                {dummyChartDataArray.map((group, index) => (
+                  <MenuItem key={index} value={index}>
+                    {group.groupName}
                   </MenuItem>
-                )) }
+                ))}
               </Select>
             </FormControl>
           </Grid>
-          { (showAllCharts
-            ? dummyChartDataArray.flatMap((group) => group.charts)
-            : dummyChartDataArray[selectedGroupIndex].charts
+          {(showAllCharts
+              ? dummyChartDataArray.flatMap((group) => group.charts)
+              : dummyChartDataArray[selectedGroupIndex].charts
           ).map((chartData, chartIndex) => (
-            <Grid key={ chartIndex } item xs={ 12 } sm={ 6 } md={ 4 } lg={ 4 } xl={ 3 }>
+            <Grid key={chartIndex} item xs={12} sm={6} md={4} lg={4} xl={3}>
               <Card>
                 <MDBox
-                  sx={ {
+                  sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
                     height: 300,
-                  } }
+                  }}
                 >
                   <RadialBarChart
-                    startValue={ chartData.startValue }
-                    endValue={ chartData.endValue }
-                    currentValue={ chartData.currentValue }
-                    label={ chartData.label }
-                    upperThreshold={ chartData.upperThreshold }
-                    lowerThreshold={ chartData.lowerThreshold }
+                    startValue={chartData.startValue}
+                    endValue={chartData.endValue}
+                    currentValue={chartData.currentValue}
+                    label={chartData.label}
+                    upperThreshold={chartData.upperThreshold}
+                    lowerThreshold={chartData.lowerThreshold}
                   />
                 </MDBox>
               </Card>
             </Grid>
-          )) }
+          ))}
         </Grid>
       </MDBox>
     </DashboardLayout>

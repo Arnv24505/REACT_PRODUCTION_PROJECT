@@ -1,17 +1,17 @@
 /**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
+ =========================================================
+ * Material Dashboard 2 React - v2.2.0
+ =========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+ * Product Page: https://www.creative-tim.com/product/material-dashboard-react
+ * Copyright 2023 Creative Tim (https://www.creative-tim.com)
 
-Coded by www.creative-tim.com
+ Coded by www.creative-tim.com
 
  =========================================================
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ */
 
 import { useState } from 'react'
 
@@ -23,7 +23,7 @@ import Switch from '@mui/material/Switch'
 import MDBox from 'components/MDBox'
 import MDTypography from 'components/MDTypography'
 
-function PlatformSettings() {
+function PlatformSettings () {
   const [followsMe, setFollowsMe] = useState(true)
   const [answersPost, setAnswersPost] = useState(false)
   const [mentionsMe, setMentionsMe] = useState(true)

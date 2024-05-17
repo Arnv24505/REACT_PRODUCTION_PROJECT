@@ -35,7 +35,7 @@ const Map = ({ markerData, markerOptions, apiKey }) => {
     strokeWeight: 2,
   }
 
-  if (!isLoaded) {
+  if(!isLoaded) {
     return (
       <Box className='progress-bar'>
         <CircularProgress className='progress-bar-inner' size={200} />

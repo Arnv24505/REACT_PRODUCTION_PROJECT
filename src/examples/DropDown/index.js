@@ -32,7 +32,7 @@ const names = [
   'Kelly Snyder',
 ]
 
-function getStyles(name, personName, theme) {
+function getStyles (name, personName, theme) {
   return {
     fontWeight:
       personName.indexOf(name) === -1
@@ -41,7 +41,7 @@ function getStyles(name, personName, theme) {
   }
 }
 
-export default function DropDownMultiSelect({names}) {
+export default function DropDownMultiSelect ({ names }) {
   const theme = useTheme()
   const [personName, setPersonName] = React.useState([])
 
@@ -57,15 +57,15 @@ export default function DropDownMultiSelect({names}) {
 
   return (
     <MDBox>
-      <FormControl variant="standard" sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+      <FormControl variant='standard' sx={{ m: 1, width: 300 }}>
+        <InputLabel id='demo-multiple-chip-label'>Chip</InputLabel>
         <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
+          labelId='demo-multiple-chip-label'
+          id='demo-multiple-chip'
           multiple
           value={personName}
           onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          input={<OutlinedInput id='select-multiple-chip' label='Chip' />}
           renderValue={(selected) => (
             <MDBox sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (

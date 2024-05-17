@@ -1,22 +1,22 @@
 /**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
+ =========================================================
+ * Material Dashboard 2 React - v2.2.0
+ =========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+ * Product Page: https://www.creative-tim.com/product/material-dashboard-react
+ * Copyright 2023 Creative Tim (https://www.creative-tim.com)
 
-Coded by www.creative-tim.com
+ Coded by www.creative-tim.com
 
  =========================================================
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ */
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 // react-router components
-import { useLocation, Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 // prop-types is a library for typechecking of props.
 import PropTypes from 'prop-types'
@@ -29,26 +29,14 @@ import Menu from '@mui/material/Menu'
 import Icon from '@mui/material/Icon'
 import MDBox from 'components/MDBox'
 import MDInput from 'components/MDInput'
-import MenuIcon from '@mui/icons-material/Menu';
 import Breadcrumbs from 'examples/Breadcrumbs'
 import NotificationItem from 'examples/Items/NotificationItem'
 
-import {
-  navbar,
-  navbarContainer,
-  navbarRow,
-  navbarIconButton,
-  navbarMobileMenu,
-} from 'examples/Navbars/DashboardNavbar/styles'
+import { navbar, navbarContainer, navbarIconButton, navbarRow } from 'examples/Navbars/DashboardNavbar/styles'
 
-import {
-  useMaterialUIController,
-  setTransparentNavbar,
-  setMiniSidenav,
-  setOpenConfigurator,
-} from 'context'
+import { setMiniSidenav, setOpenConfigurator, setTransparentNavbar, useMaterialUIController } from 'context'
 
-function DashboardNavbar({ absolute, light, isMini }) {
+function DashboardNavbar ({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState()
   const [controller, dispatch] = useMaterialUIController()
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller
@@ -63,16 +51,15 @@ function DashboardNavbar({ absolute, light, isMini }) {
       setNavbarType('static')
     }
 
-    function handleTransparentNavbar() {
+    function handleTransparentNavbar () {
       setTransparentNavbar(dispatch, (fixedNavbar && window.scrollY === 0) || !fixedNavbar)
     }
 
-  
-    window.addEventListener("scroll", handleTransparentNavbar)
+    window.addEventListener('scroll', handleTransparentNavbar)
 
     handleTransparentNavbar()
 
-    return () => window.removeEventListener("scroll", handleTransparentNavbar)
+    return () => window.removeEventListener('scroll', handleTransparentNavbar)
   }, [dispatch, fixedNavbar])
 
   const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav)
@@ -85,38 +72,38 @@ function DashboardNavbar({ absolute, light, isMini }) {
 
   const renderMenu = () => (
     <Menu
-      anchorEl={ openAnalyticsMenu }
-      anchorReference={ null }
-      anchorOrigin={ {
+      anchorEl={openAnalyticsMenu}
+      anchorReference={null}
+      anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'left',
-      } }
-      open={ Boolean(openAnalyticsMenu) }
-      onClose={ handleCloseAnalyticsMenu }
-      sx={ { mt: 2 } }
+      }}
+      open={Boolean(openAnalyticsMenu)}
+      onClose={handleCloseAnalyticsMenu}
+      sx={{ mt: 2 }}
     >
-      <NotificationItem icon={ <Icon>email</Icon> } title='Check new messages' />
-      <NotificationItem icon={ <Icon>podcasts</Icon> } title='Manage Podcast sessions' />
-      <NotificationItem icon={ <Icon>shopping_cart</Icon> } title='Payment successfully completed' />
+      <NotificationItem icon={<Icon>email</Icon>} title='Check new messages' />
+      <NotificationItem icon={<Icon>podcasts</Icon>} title='Manage Podcast sessions' />
+      <NotificationItem icon={<Icon>shopping_cart</Icon>} title='Payment successfully completed' />
     </Menu>
   )
 
   const renderAccountCircleMenu = () => (
     <Menu
-      anchorEl={ openAccountCircleMenu }
-      anchorReference={ null }
-      anchorOrigin={ {
+      anchorEl={openAccountCircleMenu}
+      anchorReference={null}
+      anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'left',
-      } }
-      open={ Boolean(openAccountCircleMenu) }
-      onClose={ handleCloseMenu }
-      sx={ { mt: 2 } }
+      }}
+      open={Boolean(openAccountCircleMenu)}
+      onClose={handleCloseMenu}
+      sx={{ mt: 2 }}
     >
-      <Link to='/user-management' style={ { textDecoration: 'none', color: 'inherit' } }>
-        <NotificationItem icon={ <Icon>account_circle</Icon> } title='User Profile' />
+      <Link to='/user-management' style={{ textDecoration: 'none', color: 'inherit' }}>
+        <NotificationItem icon={<Icon>account_circle</Icon>} title='User Profile' />
       </Link>
-      <NotificationItem icon={ <Icon>logout</Icon> } title='Sign Out' />
+      <NotificationItem icon={<Icon>logout</Icon>} title='Sign Out' />
     </Menu>
   )
 
@@ -132,73 +119,73 @@ function DashboardNavbar({ absolute, light, isMini }) {
     },
   })
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   return (
     <AppBar
-      position={ absolute ? 'absolute' : navbarType }
+      position={absolute ? 'absolute' : navbarType}
       color='inherit'
-      
-      sx={ (theme) => navbar(theme, { transparentNavbar, absolute, light, darkMode })  }
+
+      sx={(theme) => navbar(theme, { transparentNavbar, absolute, light, darkMode })}
     >
-      <Toolbar sx={ (theme) => navbarContainer(theme) }>
-     
-        <MDBox color='inherit' mb={ { xs: 1, md: 0 } } sx={ (theme) => navbarRow(theme, { isMini }) }>
-          <Breadcrumbs icon='home' title={ route[route.length - 1] } route={ route } light={ light } />
+      <Toolbar sx={(theme) => navbarContainer(theme)}>
+
+        <MDBox color='inherit' mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
+          <Breadcrumbs icon='home' title={route[route.length - 1]} route={route} light={light} />
         </MDBox>
-        { isMini ? null : (
-          <MDBox sx={ (theme) => navbarRow(theme, { isMini }) }>
-            <MDBox pr={ 1 }>
+        {isMini ? null : (
+          <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
+            <MDBox pr={1}>
               <MDInput label='Search here' />
             </MDBox>
-            <MDBox color={ light ? 'white' : 'inherit' }>
+            <MDBox color={light ? 'white' : 'inherit'}>
               <IconButton
                 size='small'
                 disableRipple
                 color='inherit'
-                sx={ navbarIconButton }
+                sx={navbarIconButton}
                 aria-controls='account-circle-menu'
                 aria-haspopup='true'
                 variant='contained'
-                onClick={ handleOpenMenu }
+                onClick={handleOpenMenu}
               >
-                <Icon sx={ iconsStyle }>account_circle</Icon>
+                <Icon sx={iconsStyle}>account_circle</Icon>
               </IconButton>
-              { renderAccountCircleMenu() }
+              {renderAccountCircleMenu()}
               <IconButton
                 size='small'
                 disableRipple
                 color='inherit'
-                sx={ navbarIconButton }
-                component={ Link } // Use Link component
-                to="/notifications" // Link to /notifications
+                sx={navbarIconButton}
+                component={Link} // Use Link component
+                to='/notifications' // Link to /notifications
               >
-                <Icon sx={ iconsStyle }>notifications</Icon>
+                <Icon sx={iconsStyle}>notifications</Icon>
               </IconButton>
               <IconButton
                 size='small'
                 disableRipple
                 color='inherit'
-                sx={ navbarIconButton }
+                sx={navbarIconButton}
                 aria-controls='notification-menu'
                 aria-haspopup='true'
                 variant='contained'
-                onClick={ handleOpenAnalyticsMenu }
+                onClick={handleOpenAnalyticsMenu}
               >
-                <Icon sx={ iconsStyle }>analytics</Icon>
+                <Icon sx={iconsStyle}>analytics</Icon>
               </IconButton>
-              { renderMenu() }
+              {renderMenu()}
             </MDBox>
           </MDBox>
-        ) }
+        )}
       </Toolbar>
     </AppBar>
   )

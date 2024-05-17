@@ -1,16 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Box,
-  Card,
-  Grid,
-  Icon,
-  IconButton,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from '@mui/material'
+import { Box, Card, FormControl, Grid, Icon, IconButton, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import MDButton from 'components/MDButton'
 import MDBox from 'components/MDBox'
 import RuleAction from '../table/ruleAction'
@@ -159,169 +148,169 @@ const RuleForm = ({
   }
 
   return (
-    <Box pt={ 6 } pb={ 3 } xs={ 12 }>
-      <form onSubmit={ handleSubmit }>
-        <Grid container spacing={ 6 }>
-          <Grid item xs={ 12 }>
+    <Box pt={6} pb={3} xs={12}>
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={6}>
+          <Grid item xs={12}>
             <Card>
-              <Box p={ 3 }>
-                <Box mb={ 2 }>
+              <Box p={3}>
+                <Box mb={2}>
                   <MDInput
                     type='text'
                     name='name'
                     label='Rule Name'
                     variant='standard'
-                    value={ tempData.name }
-                    setValueMenuOpen={ tempData.name }
-                    onChange={ handleInputChange }
-                    disabled={ !formEditable }
+                    value={tempData.name}
+                    setValueMenuOpen={tempData.name}
+                    onChange={handleInputChange}
+                    disabled={!formEditable}
                     fullWidth
                   />
                 </Box>
 
-                <Box mb={ 2 }>
-                  <FormControl variant='standard' sx={ { py: 1, minWidth: '100%' } }>
+                <Box mb={2}>
+                  <FormControl variant='standard' sx={{ py: 1, minWidth: '100%' }}>
                     <InputLabel id='ruleTypes-select-label'>Rule Type</InputLabel>
                     <Select
                       labelId='ruleTypes-select-label'
                       name='ruleType'
-                      value={ tempData.ruleType }
-                      onChange={ handleSelectChange }
+                      value={tempData.ruleType}
+                      onChange={handleSelectChange}
                       label='Rule Type'
-                      open={ ruleTypeMenuOpen }
-                      onOpen={ handleMenuOpen('ruleTypes') }
-                      onClose={ handleMenuClose('ruleTypes') }
-                      IconComponent={ () => (
+                      open={ruleTypeMenuOpen}
+                      onOpen={handleMenuOpen('ruleTypes')}
+                      onClose={handleMenuClose('ruleTypes')}
+                      IconComponent={() => (
                         <IconButton
                           size='large'
-                          style={ { padding: 0, marginRight: '8px' } }
+                          style={{ padding: 0, marginRight: '8px' }}
                           aria-label='open-menu'
                         >
-                          <Icon>{ ruleTypeMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }</Icon>
+                          <Icon>{ruleTypeMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down'}</Icon>
                         </IconButton>
-                      ) }
-                      disabled={ !formEditable }
+                      )}
+                      disabled={!formEditable}
                     >
-                      { ruleTypes.map((name) => (
-                        <MenuItem key={ name } value={ name }>
-                          { name }
+                      {ruleTypes.map((name) => (
+                        <MenuItem key={name} value={name}>
+                          {name}
                         </MenuItem>
-                      )) }
+                      ))}
                     </Select>
                   </FormControl>
                 </Box>
 
                 <MDBox>
-                  { formEditable && (
+                  {formEditable && (
                     <MDBox
                       justifyContent='space-between'
-                      sx={ { display: 'flex', flexWrap: 'wrap' } }
+                      sx={{ display: 'flex', flexWrap: 'wrap' }}
                     >
-                      <FormControl variant='standard' sx={ { py: 1, minWidth: '20%' } }>
+                      <FormControl variant='standard' sx={{ py: 1, minWidth: '20%' }}>
                         <InputLabel id='deviceType-select-label'>Device Type</InputLabel>
                         <Select
                           labelId='deviceType-select-label'
                           name='deviceType'
-                          value={ tempData.deviceType }
-                          onChange={ handleSelectChange }
+                          value={tempData.deviceType}
+                          onChange={handleSelectChange}
                           label='Device Type'
-                          open={ deviceTypeMenuOpen }
-                          onOpen={ handleMenuOpen('type') }
-                          onClose={ handleMenuClose('type') }
-                          IconComponent={ () => (
+                          open={deviceTypeMenuOpen}
+                          onOpen={handleMenuOpen('type')}
+                          onClose={handleMenuClose('type')}
+                          IconComponent={() => (
                             <IconButton
                               size='large'
-                              style={ { padding: 0, marginRight: '8px' } }
+                              style={{ padding: 0, marginRight: '8px' }}
                               aria-label='open-menu'
                             >
                               <Icon>
-                                { deviceTypeMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }
+                                {deviceTypeMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down'}
                               </Icon>
                             </IconButton>
-                          ) }
+                          )}
                         >
-                          { deviceType.map((name) => (
-                            <MenuItem key={ name } value={ name }>
-                              { name }
+                          {deviceType.map((name) => (
+                            <MenuItem key={name} value={name}>
+                              {name}
                             </MenuItem>
-                          )) }
+                          ))}
                         </Select>
                       </FormControl>
 
-                      <FormControl variant='standard' sx={ { py: 1, minWidth: '20%' } }>
+                      <FormControl variant='standard' sx={{ py: 1, minWidth: '20%' }}>
                         <InputLabel id='conditionOperator-select-label'>
                           Condition Operator
                         </InputLabel>
                         <Select
                           labelId='conditionOperator-select-label'
                           name='conditionOperator'
-                          value={ tempData.conditionOperator }
-                          onChange={ handleSelectChange }
+                          value={tempData.conditionOperator}
+                          onChange={handleSelectChange}
                           label='Condition Operator'
-                          open={ conditionMenuOpen }
-                          onOpen={ handleMenuOpen('conditionOperator') }
-                          onClose={ handleMenuClose('conditionOperator') }
-                          IconComponent={ () => (
+                          open={conditionMenuOpen}
+                          onOpen={handleMenuOpen('conditionOperator')}
+                          onClose={handleMenuClose('conditionOperator')}
+                          IconComponent={() => (
                             <IconButton
                               size='large'
-                              style={ { padding: 0, marginRight: '8px' } }
+                              style={{ padding: 0, marginRight: '8px' }}
                               aria-label='open-menu'
                             >
-                              <Icon>{ conditionMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }</Icon>
+                              <Icon>{conditionMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down'}</Icon>
                             </IconButton>
-                          ) }
+                          )}
                         >
-                          { conditionOperators.map((name) => (
-                            <MenuItem key={ name } value={ name }>
-                              { name }
+                          {conditionOperators.map((name) => (
+                            <MenuItem key={name} value={name}>
+                              {name}
                             </MenuItem>
-                          )) }
+                          ))}
                         </Select>
                       </FormControl>
 
-                      <FormControl variant='standard' sx={ { py: 1, minWidth: '20%' } }>
+                      <FormControl variant='standard' sx={{ py: 1, minWidth: '20%' }}>
                         <InputLabel id='value-select-label'>Value</InputLabel>
                         <Select
                           labelId='value-select-label'
                           name='value'
-                          value={ tempData.value }
-                          onChange={ handleSelectChange }
+                          value={tempData.value}
+                          onChange={handleSelectChange}
                           label='Value'
-                          open={ valueMenuOpen }
-                          onOpen={ handleMenuOpen('value') }
-                          onClose={ handleMenuClose('value') }
-                          IconComponent={ () => (
+                          open={valueMenuOpen}
+                          onOpen={handleMenuOpen('value')}
+                          onClose={handleMenuClose('value')}
+                          IconComponent={() => (
                             <IconButton
                               size='large'
-                              style={ { padding: 0, marginRight: '8px' } }
+                              style={{ padding: 0, marginRight: '8px' }}
                               aria-label='open-menu'
                             >
-                              <Icon>{ valueMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }</Icon>
+                              <Icon>{valueMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down'}</Icon>
                             </IconButton>
-                          ) }
+                          )}
                         >
-                          { values.map((name) => (
-                            <MenuItem key={ name } value={ name }>
-                              { name }
+                          {values.map((name) => (
+                            <MenuItem key={name} value={name}>
+                              {name}
                             </MenuItem>
-                          )) }
+                          ))}
                         </Select>
                       </FormControl>
 
                       <MDBox
-                        sx={ {
+                        sx={{
                           py: 1,
                           justifyContent: 'space-between',
                           display: 'flex',
                           flexWrap: 'wrap',
                           gap: '5px',
-                        } }
+                        }}
                       >
                         <MDButton
                           color='success'
                           type='button'
-                          sx={ { my: '10px' } }
-                          onClick={ handleAdd }
+                          sx={{ my: '10px' }}
+                          onClick={handleAdd}
                           disabled={
                             !tempData.deviceType || !tempData.conditionOperator || !tempData.value
                           }
@@ -332,8 +321,8 @@ const RuleForm = ({
                         <MDButton
                           color='info'
                           type='button'
-                          onClick={ () => handleAnd() }
-                          sx={ { my: '10px' } }
+                          onClick={() => handleAnd()}
+                          sx={{ my: '10px' }}
                           disabled={
                             !ruleConditions ||
                             ruleConditions.endsWith('AND') ||
@@ -346,8 +335,8 @@ const RuleForm = ({
                         <MDButton
                           color='info'
                           type='button'
-                          onClick={ () => handleOr() }
-                          sx={ { my: '10px' } }
+                          onClick={() => handleOr()}
+                          sx={{ my: '10px' }}
                           disabled={
                             !ruleConditions ||
                             ruleConditions.endsWith('AND') ||
@@ -358,109 +347,109 @@ const RuleForm = ({
                         </MDButton>
                       </MDBox>
                     </MDBox>
-                  ) }
+                  )}
 
-                  { ruleConditions && (
-                    <MDBox my={ 2 }>
+                  {ruleConditions && (
+                    <MDBox my={2}>
                       <TextField
                         label='Conditions'
                         multiline
-                        rows={ 3 }
+                        rows={3}
                         fullWidth
                         variant='outlined'
-                        value={ ruleConditions }
-                        InputProps={ {
+                        value={ruleConditions}
+                        InputProps={{
                           readOnly: true,
-                        } }
+                        }}
                       />
                     </MDBox>
-                  ) }
+                  )}
                 </MDBox>
 
                 <MDBox>
-                  { formEditable && (
+                  {formEditable && (
                     <MDBox
                       justifyContent='space-between'
-                      sx={ { display: 'flex', flexWrap: 'wrap' } }
+                      sx={{ display: 'flex', flexWrap: 'wrap' }}
                     >
-                      <FormControl variant='standard' sx={ { py: 1, minWidth: '30%' } }>
+                      <FormControl variant='standard' sx={{ py: 1, minWidth: '30%' }}>
                         <InputLabel id='endpoint-select-label'>Endpoint</InputLabel>
                         <Select
                           labelId='endpoint-select-label'
                           name='endpoint'
-                          value={ tempData.endpoint }
-                          onChange={ handleSelectChange }
+                          value={tempData.endpoint}
+                          onChange={handleSelectChange}
                           label='Endpoint'
-                          open={ endpointMenuOpen }
-                          onOpen={ handleMenuOpen('endpoint') }
-                          onClose={ handleMenuClose('endpoint') }
-                          IconComponent={ () => (
+                          open={endpointMenuOpen}
+                          onOpen={handleMenuOpen('endpoint')}
+                          onClose={handleMenuClose('endpoint')}
+                          IconComponent={() => (
                             <IconButton
                               size='large'
-                              style={ { padding: 0, marginRight: '8px' } }
+                              style={{ padding: 0, marginRight: '8px' }}
                               aria-label='open-menu'
                             >
-                              <Icon>{ endpointMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }</Icon>
+                              <Icon>{endpointMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down'}</Icon>
                             </IconButton>
-                          ) }
+                          )}
                         >
-                          { endpoints.map((name) => (
-                            <MenuItem key={ name } value={ name }>
-                              { name }
+                          {endpoints.map((name) => (
+                            <MenuItem key={name} value={name}>
+                              {name}
                             </MenuItem>
-                          )) }
+                          ))}
                         </Select>
                       </FormControl>
 
-                      <FormControl variant='standard' sx={ { py: 1, minWidth: '30%' } }>
+                      <FormControl variant='standard' sx={{ py: 1, minWidth: '30%' }}>
                         <InputLabel id='operation-select-label'>Operation</InputLabel>
                         <Select
                           labelId='operation-select-label'
                           name='operation'
-                          value={ tempData.operation }
-                          onChange={ handleSelectChange }
+                          value={tempData.operation}
+                          onChange={handleSelectChange}
                           label='Operation'
-                          open={ operationMenuOpen }
-                          onOpen={ handleMenuOpen('operation') }
-                          onClose={ handleMenuClose('operation') }
-                          IconComponent={ () => (
+                          open={operationMenuOpen}
+                          onOpen={handleMenuOpen('operation')}
+                          onClose={handleMenuClose('operation')}
+                          IconComponent={() => (
                             <IconButton
                               size='large'
-                              style={ { padding: 0, marginRight: '8px' } }
+                              style={{ padding: 0, marginRight: '8px' }}
                               aria-label='open-menu'
                             >
-                              <Icon>{ operationMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down' }</Icon>
+                              <Icon>{operationMenuOpen ? 'arrow_drop_up' : 'arrow_drop_down'}</Icon>
                             </IconButton>
-                          ) }
+                          )}
                         >
-                          { operations.map((name) => (
-                            <MenuItem key={ name } value={ name }>
-                              { name }
+                          {operations.map((name) => (
+                            <MenuItem key={name} value={name}>
+                              {name}
                             </MenuItem>
-                          )) }
+                          ))}
                         </Select>
                       </FormControl>
                       <MDButton
                         color='success'
                         type='button'
-                        sx={ { my: '10px' } }
-                        onClick={ handleActionAdd }
-                        disabled={ !tempData.endpoint || !tempData.operation }
+                        sx={{ my: '10px' }}
+                        onClick={handleActionAdd}
+                        disabled={!tempData.endpoint || !tempData.operation}
                       >
                         Add
                       </MDButton>
                     </MDBox>
-                  ) }
-                  <MDBox mt={ 2 }>
+                  )}
+                  <MDBox mt={2}>
                     <RuleAction
-                      isSorted={ false }
-                      entriesPerPage={ false }
-                      showTotalEntries={ false }
-                      rowData={ actionData }
-                      operations={ operations }
-                      endpoints={ endpoints }
-                      setRowData={ setActionData }
-                      isEditable={ formEditable }
+                      isSorted={false}
+                      entriesPerPage={false}
+                      showTotalEntries={false}
+                      rowData={actionData}
+                      operations={operations}
+                      endpoints={endpoints}
+                      setRowData={setActionData}
+                      isEditable={formEditable}
                     />
                   </MDBox>
                 </MDBox>

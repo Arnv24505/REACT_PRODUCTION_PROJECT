@@ -1,17 +1,17 @@
 /**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
+ =========================================================
+ * Material Dashboard 2 React - v2.2.0
+ =========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+ * Product Page: https://www.creative-tim.com/product/material-dashboard-react
+ * Copyright 2023 Creative Tim (https://www.creative-tim.com)
 
-Coded by www.creative-tim.com
+ Coded by www.creative-tim.com
 
  =========================================================
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ */
 
 // prop-types is a library for typechecking of props.
 import PropTypes from 'prop-types'
@@ -26,12 +26,7 @@ import Icon from '@mui/material/Icon'
 import MDBox from 'components/MDBox'
 
 // Custom styles for the SidenavCollapse
-import {
-  collapseItem,
-  collapseIconBox,
-  collapseIcon,
-  collapseText,
-} from 'examples/Sidenav/styles/sidenavCollapse'
+import { collapseIcon, collapseIconBox, collapseItem, collapseText } from 'examples/Sidenav/styles/sidenavCollapse'
 
 // Material Dashboard 2 React context
 import { useMaterialUIController } from 'context'
@@ -39,7 +34,7 @@ import { IconButton, List, ListItemButton } from '@mui/material'
 import { useState } from 'react'
 import { KeyboardArrowDown } from '@mui/icons-material'
 
-function SidenavCollapse({ icon, name, active, submenu, ...rest }) {
+function SidenavCollapse ({ icon, name, active, submenu, ...rest }) {
   const [controller] = useMaterialUIController()
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = controller
   const [open, setOpen] = useState(false)
@@ -51,8 +46,8 @@ function SidenavCollapse({ icon, name, active, submenu, ...rest }) {
   return (
     <ListItem component='li'>
       <MDBox
-        { ...rest }
-        sx={ (theme) =>
+        {...rest}
+        sx={(theme) =>
           collapseItem(theme, {
             active,
             transparentSidenav,
@@ -62,21 +57,21 @@ function SidenavCollapse({ icon, name, active, submenu, ...rest }) {
           })
         }
       >
-        <ListItemButton onClick={ handleClick }>
+        <ListItemButton onClick={handleClick}>
           <ListItemIcon
-            sx={ (theme) =>
+            sx={(theme) =>
               collapseIconBox(theme, { transparentSidenav, whiteSidenav, darkMode, active })
             }
           >
-            { typeof icon === 'string' ? (
-              <Icon sx={ (theme) => collapseIcon(theme, { active }) }>{ icon }</Icon>
+            {typeof icon === 'string' ? (
+              <Icon sx={(theme) => collapseIcon(theme, { active })}>{icon}</Icon>
             ) : (
               icon
-            ) }
+            )}
           </ListItemIcon>
           <ListItemText
-            primary={ name }
-            sx={ (theme) =>
+            primary={name}
+            sx={(theme) =>
               collapseText(theme, {
                 miniSidenav,
                 transparentSidenav,
@@ -85,25 +80,25 @@ function SidenavCollapse({ icon, name, active, submenu, ...rest }) {
               })
             }
           />
-          { submenu && (
-            <IconButton variant='plain' size='sm' color='neutral' onClick={ handleClick }>
-              <KeyboardArrowDown sx={ { transform: open ? 'initial' : 'rotate(-90deg)' } } />
+          {submenu && (
+            <IconButton variant='plain' size='sm' color='neutral' onClick={handleClick}>
+              <KeyboardArrowDown sx={{ transform: open ? 'initial' : 'rotate(-90deg)' }} />
             </IconButton>
-          ) }
+          )}
         </ListItemButton>
       </MDBox>
 
-      { open && submenu && (
+      {open && submenu && (
         <MDBox>
-          <List sx={ { paddingLeft: 2 } }>
-            { submenu.map((subitem, index, { name, icon, active }) => (
-              <ListItem key={ index }>
-                <ListItemButton>{ subitem }</ListItemButton>
+          <List sx={{ paddingLeft: 2 }}>
+            {submenu.map((subitem, index, { name, icon, active }) => (
+              <ListItem key={index}>
+                <ListItemButton>{subitem}</ListItemButton>
               </ListItem>
-            )) }
+            ))}
           </List>
         </MDBox>
-      ) }
+      )}
     </ListItem>
   )
 }

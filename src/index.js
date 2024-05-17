@@ -1,37 +1,29 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import App from 'App'
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+import { MaterialUIControllerProvider } from 'context'
+import { Provider } from 'react-redux'
+import { sagaMiddleware } from './store/sagaMiddleware'
+import { store } from './store/store'
+import userSaga from './store/user/saga/userSaga'
+import userDeviceSaga from './store/device/saga/deviceSaga'
+import deviceTemplatesSaga from './store/device/saga/deviceTemplatesSaga'
 
-Coded by www.creative-tim.com
+const container = document.getElementById('app')
 
-=========================================================
+sagaMiddleware.run(userSaga)
+sagaMiddleware.run(userDeviceSaga)
+sagaMiddleware.run(deviceTemplatesSaga)
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-import React from "react"
-import { createRoot } from "react-dom/client"
-import { BrowserRouter } from "react-router-dom"
-import App from "App"
-
-// Material Dashboard 2 React Context Provider
-import { MaterialUIControllerProvider } from "context"
-import { Provider } from "react-redux"
-import { deviceStore } from "layouts/device-management/DeviceRedux/DeviceStore/DeviceStore"
-
-const container = document.getElementById("app")
 const root = createRoot(container)
-
 root.render(
   <BrowserRouter>
-    <MaterialUIControllerProvider>
-    <Provider store={deviceStore}>
-      <App />
-    </Provider>
-    </MaterialUIControllerProvider>
-  </BrowserRouter>
+      <Provider store={store}>
+          <MaterialUIControllerProvider>
+            <App />
+          </MaterialUIControllerProvider>
+      </Provider>
+  </BrowserRouter>,
 )

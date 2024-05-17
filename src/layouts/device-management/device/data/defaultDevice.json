@@ -1,0 +1,42 @@
+{
+  "deviceId": "",
+  "name": "device name 1",
+  "macId": "1.1.1.1.1.1",
+  "deviceType": "SWITCH",
+  "version": "1.0",
+  "status": "Active",
+  "make": "CLOUD",
+  "deviceLocation": "Location 1",
+  "deviceChangeCounter": 0,
+  "connectionState": true,
+  "propertyId": "string",
+  "ownerId": "string",
+  "deviceState": {
+    "field_1": 0
+  },
+  "deviceInfo": {
+    "extra": {
+      "field_1": {
+        "accessKey": "field_1",
+        "name": "Temperature",
+        "unit": "Deg C",
+        "max": 22,
+        "min": -10,
+        "tMax": 33,
+        "tMin": 10
+      }
+    },
+    "templateInfo": {
+    },
+    "connectionInfo": {
+      "type": "MQTT",
+      "mqtt": {
+        "hostName": "mqtt.qconsole.quarkifi.com",
+        "upStreamPath": "/SWITCH/deviceId/upstream",
+        "downStreamPath": "/SWITCH/deviceId/downstream",
+        "username": "testuseruut",
+        "password": "jashjhdfdh##$"
+      }
+    }
+  }
+}

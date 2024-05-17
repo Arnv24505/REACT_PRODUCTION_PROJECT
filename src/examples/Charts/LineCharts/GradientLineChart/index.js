@@ -1,53 +1,53 @@
 /**
-=========================================================
-* Material Dashboard 2  React - v2.2.0
-=========================================================
+ =========================================================
+ * Material Dashboard 2  React - v2.2.0
+ =========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+ * Product Page: https://www.creative-tim.com/product/material-dashboard-react
+ * Copyright 2023 Creative Tim (https://www.creative-tim.com)
 
-Coded by www.creative-tim.com
+ Coded by www.creative-tim.com
 
  =========================================================
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ */
 
-import { useRef, useEffect, useState, useMemo } from "react"
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 // porp-types is a library for typechecking of props
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types'
 
 // react-chartjs-2 components
-import { Line } from "react-chartjs-2"
+import { Line } from 'react-chartjs-2'
 import {
-  Chart as ChartJS,
   CategoryScale,
+  Chart as ChartJS,
+  Filler,
+  Legend,
   LinearScale,
-  PointElement,
   LineElement,
+  PointElement,
   Title,
   Tooltip,
-  Legend,
-  Filler,
-} from "chart.js"
+} from 'chart.js'
 
 // @mui material components
-import Card from "@mui/material/Card"
-import Icon from "@mui/material/Icon"
+import Card from '@mui/material/Card'
+import Icon from '@mui/material/Icon'
 
 // Material Dashboard 2 React components
-import MDBox from "components/MDBox"
-import MDTypography from "components/MDTypography"
+import MDBox from 'components/MDBox'
+import MDTypography from 'components/MDTypography'
 
 // Material Dashboard 2 React helper functions
-import gradientChartLine from "assets/theme/functions/gradientChartLine"
+import gradientChartLine from 'assets/theme/functions/gradientChartLine'
 
 // GradientLineChart configurations
-import configs from "examples/Charts/LineCharts/GradientLineChart/configs"
+import configs from 'examples/Charts/LineCharts/GradientLineChart/configs'
 
 // Material Dashboard 2 React base styles
-import colors from "assets/theme/base/colors"
+import colors from 'assets/theme/base/colors'
 
 ChartJS.register(
   CategoryScale,
@@ -57,34 +57,34 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  Filler
+  Filler,
 )
 
-function GradientLineChart({ icon, title, description, height, chart }) {
+function GradientLineChart ({ icon, title, description, height, chart }) {
   const chartRef = useRef(null)
   const [chartData, setChartData] = useState({})
 
   useEffect(() => {
     const chartElement = chartRef.current
 
-    if (!chartElement) return
+    if(!chartElement) return
 
     const chartDatasets = chart.datasets
       ? chart.datasets.map((dataset) => ({
-          ...dataset,
-          tension: 0,
-          pointRadius: 0,
-          borderWidth: 4,
-          borderColor: colors[dataset.color]
-            ? colors[dataset.color || "dark"].main
-            : colors.dark.main,
-          fill: true,
-          maxBarThickness: 6,
-          backgroundColor: gradientChartLine(
-            chartElement.ctx,
-            colors[dataset.color] ? colors[dataset.color || "dark"].main : colors.dark.main
-          ),
-        }))
+        ...dataset,
+        tension: 0,
+        pointRadius: 0,
+        borderWidth: 4,
+        borderColor: colors[dataset.color]
+          ? colors[dataset.color || 'dark'].main
+          : colors.dark.main,
+        fill: true,
+        maxBarThickness: 6,
+        backgroundColor: gradientChartLine(
+          chartElement.ctx,
+          colors[dataset.color] ? colors[dataset.color || 'dark'].main : colors.dark.main,
+        ),
+      }))
       : []
 
     setChartData(configs(chart.labels || [], chartDatasets))
@@ -95,29 +95,29 @@ function GradientLineChart({ icon, title, description, height, chart }) {
   const renderChart = (
     <MDBox py={2} pr={2} pl={icon.component ? 1 : 2}>
       {title || description ? (
-        <MDBox display="flex" px={description ? 1 : 0} pt={description ? 1 : 0}>
+        <MDBox display='flex' px={description ? 1 : 0} pt={description ? 1 : 0}>
           {icon.component && (
             <MDBox
-              width="4rem"
-              height="4rem"
-              bgColor={icon.color || "dark"}
-              variant="gradient"
-              coloredShadow={icon.color || "dark"}
-              borderRadius="xl"
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              color="white"
+              width='4rem'
+              height='4rem'
+              bgColor={icon.color || 'dark'}
+              variant='gradient'
+              coloredShadow={icon.color || 'dark'}
+              borderRadius='xl'
+              display='flex'
+              justifyContent='center'
+              alignItems='center'
+              color='white'
               mt={-5}
               mr={2}
             >
-              <Icon fontSize="medium">{icon.component}</Icon>
+              <Icon fontSize='medium'>{icon.component}</Icon>
             </MDBox>
           )}
           <MDBox mt={icon.component ? -2 : 0}>
-            {title && <MDTypography variant="h6">{title}</MDTypography>}
+            {title && <MDTypography variant='h6'>{title}</MDTypography>}
             <MDBox mb={2}>
-              <MDTypography component="div" variant="button" color="text">
+              <MDTypography component='div' variant='button' color='text'>
                 {description}
               </MDTypography>
             </MDBox>
@@ -143,24 +143,24 @@ function GradientLineChart({ icon, title, description, height, chart }) {
 
 // Setting default values for the props of GradientLineChart
 GradientLineChart.defaultProps = {
-  icon: { color: "info", component: "" },
-  title: "",
-  description: "",
-  height: "19.125rem",
+  icon: { color: 'info', component: '' },
+  title: '',
+  description: '',
+  height: '19.125rem',
 }
 
 // Typechecking props for the GradientLineChart
 GradientLineChart.propTypes = {
   icon: PropTypes.shape({
     color: PropTypes.oneOf([
-      "primary",
-      "secondary",
-      "info",
-      "success",
-      "warning",
-      "error",
-      "light",
-      "dark",
+      'primary',
+      'secondary',
+      'info',
+      'success',
+      'warning',
+      'error',
+      'light',
+      'dark',
     ]),
     component: PropTypes.node,
   }),

@@ -1,19 +1,19 @@
 /**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
+ =========================================================
+ * Material Dashboard 2 React - v2.2.0
+ =========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+ * Product Page: https://www.creative-tim.com/product/material-dashboard-react
+ * Copyright 2023 Creative Tim (https://www.creative-tim.com)
 
-Coded by www.creative-tim.com
+ Coded by www.creative-tim.com
 
  =========================================================
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ */
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 // prop-types is a library for typechecking of props.
 import PropTypes from 'prop-types'
@@ -38,21 +38,21 @@ import breakpoints from 'assets/theme/base/breakpoints'
 import burceMars from 'assets/images/bruce-mars.jpg'
 import backgroundImage from 'assets/images/bg-profile.jpeg'
 
-function Header({ children }) {
+function Header ({ children }) {
   const [tabsOrientation, setTabsOrientation] = useState('horizontal')
   const [tabValue, setTabValue] = useState(0)
 
   useEffect(() => {
     // A function that sets the orientation state of the tabs.
-    function handleTabsOrientation() {
+    function handleTabsOrientation () {
       return window.innerWidth < breakpoints.values.sm
         ? setTabsOrientation('vertical')
         : setTabsOrientation('horizontal')
     }
 
-    /** 
+    /**
      The event listener that's calling the handleTabsOrientation function when resizing the window.
-    */
+     */
     window.addEventListener('resize', handleTabsOrientation)
 
     // Call the handleTabsOrientation function to set the state with the initial value.
@@ -76,7 +76,7 @@ function Header({ children }) {
           backgroundImage: ({ functions: { rgba, linearGradient }, palette: { gradients } }) =>
             `${linearGradient(
               rgba(gradients.info.main, 0.6),
-              rgba(gradients.info.state, 0.6)
+              rgba(gradients.info.state, 0.6),
             )}, url(${backgroundImage})`,
           backgroundSize: 'cover',
           backgroundPosition: '50%',

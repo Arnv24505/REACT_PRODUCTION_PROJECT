@@ -1,28 +1,24 @@
-import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import { Link, NavLink } from 'react-router-dom';
-import { ExpandLess, ExpandMore, Height } from '@mui/icons-material';
-import { Collapse, createTheme, useMediaQuery } from '@mui/material';
-import MDTypography from 'components/MDTypography';
-import MDBox from 'components/MDBox';
+import * as React from 'react'
+import { styled, useTheme } from '@mui/material/styles'
+import Box from '@mui/material/Box'
+import MuiDrawer from '@mui/material/Drawer'
+import MuiAppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import List from '@mui/material/List'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import MenuIcon from '@mui/icons-material/Menu'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import { Link, NavLink } from 'react-router-dom'
+import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import { Collapse, createTheme, useMediaQuery } from '@mui/material'
+import MDTypography from 'components/MDTypography'
 
-const drawerWidth = 340;
+const drawerWidth = 340
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -31,7 +27,7 @@ const openedMixin = (theme) => ({
     duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: 'hidden',
-});
+})
 
 const closedMixin = (theme) => ({
   transition: theme.transitions.create('width', {
@@ -43,7 +39,7 @@ const closedMixin = (theme) => ({
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
-});
+})
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -51,7 +47,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
-}));
+}))
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -63,13 +59,13 @@ const AppBar = styled(MuiAppBar, {
   }),
   ...(open && {
     marginLeft: drawerWidth,
-    width: "100%",
+    width: '100%',
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
-}));
+}))
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -86,7 +82,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       '& .MuiDrawer-paper': closedMixin(theme),
     }),
   }),
-);
+)
 
 const theme = createTheme({
   breakpoints: {
@@ -98,38 +94,37 @@ const theme = createTheme({
       xl: 1536,
     },
   },
-});
+})
 
-
-export default function MiniDrawer({ brandName, routes, setMarginSetter }) {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const [submenuOpen, setSubmenuOpen] = React.useState({});
-  const [collapsedWidth, setCollapsedWidth] = React.useState(64); // Define a collapsed width
-  const [drawerShower, setdrawerShower] = React.useState(false);
+export default function MiniDrawer ({ brandName, routes, setMarginSetter }) {
+  const theme = useTheme()
+  const [open, setOpen] = React.useState(false)
+  const [submenuOpen, setSubmenuOpen] = React.useState({})
+  const [collapsedWidth, setCollapsedWidth] = React.useState(64) // Define a collapsed width
+  const [drawerShower, setdrawerShower] = React.useState(false)
   const [iconActive, setIconActive] = React.useState(false)
   const handleDrawerOpen = () => {
-    setOpen(true);
-    setMarginSetter("14vw")
-  };
+    setOpen(true)
+    setMarginSetter('14vw')
+  }
 
   const handleDrawerClose = () => {
-    setOpen(false);
-    setMarginSetter("0vw")
+    setOpen(false)
+    setMarginSetter('0vw')
 
-  };
+  }
 
   const menuiconHandle = () => {
     setIconActive(!iconActive)
-    console.log("MY ICON ACTIVE >>>>>>>>>>>>>:::::::::::", iconActive)
+    console.log('MY ICON ACTIVE >>>>>>>>>>>>>:::::::::::', iconActive)
   }
 
   const handleSubmenuToggle = (parentName) => {
-    setSubmenuOpen((prev) => ({ ...prev, [parentName]: !prev[parentName] }));
-  };
+    setSubmenuOpen((prev) => ({ ...prev, [parentName]: !prev[parentName] }))
+  }
 
   const renderSubMenu = (submenu, parentName) => (
-    <Collapse in={submenuOpen[parentName]} timeout="auto" unmountOnExit>
+    <Collapse in={submenuOpen[parentName]} timeout='auto' unmountOnExit>
       <List>
         {submenu.map(({ name: subName, key, icon: subIcon, route: subRoute }) => (
           <ListItem key={subName} disablePadding>
@@ -137,7 +132,7 @@ export default function MiniDrawer({ brandName, routes, setMarginSetter }) {
               <ListItemButton component={Link} to={subRoute}>
                 <ListItemIcon>{subIcon}</ListItemIcon>
                 <ListItemText>
-                  <MDTypography variant="body2">{subName}</MDTypography>
+                  <MDTypography variant='body2'>{subName}</MDTypography>
                 </ListItemText>
               </ListItemButton>
             </NavLink>
@@ -145,32 +140,30 @@ export default function MiniDrawer({ brandName, routes, setMarginSetter }) {
         ))}
       </List>
     </Collapse>
-  );
+  )
   const hider = useMediaQuery(theme.breakpoints.up('xl'))
   const hider2 = useMediaQuery(theme.breakpoints.up('lg'))
   const hider3 = useMediaQuery(theme.breakpoints.up('md'))
   const hider4 = useMediaQuery(theme.breakpoints.up('sm'))
   const hider5 = useMediaQuery(theme.breakpoints.up('xs'))
 
-
-
   return (
-    <div className="container" style={{ height: "0vh" }}>
+    <div className='container' style={{ height: '0vh' }}>
 
-      <AppBar position="fixed" open={open} style={{ display: (!hider3 || !hider3) ? "block" : "none" }}>
+      <AppBar position='fixed' open={open} style={{ display: (!hider3 || !hider3) ? 'block' : 'none' }}>
         <Toolbar>
           {
             (!hider || !hider2) ?
 
               <IconButton
-                color="inherit"
-                aria-label="open drawer"
+                color='inherit'
+                aria-label='open drawer'
                 onClick={() => {
-                  handleDrawerOpen();
-                  menuiconHandle();
+                  handleDrawerOpen()
+                  menuiconHandle()
                 }}
                 sx={{
-                  ...(open && { display: (hider || hider2) ? "none" : "none" }),
+                  ...(open && { display: (hider || hider2) ? 'none' : 'none' }),
                 }}
               >
                 <MenuIcon />
@@ -179,25 +172,29 @@ export default function MiniDrawer({ brandName, routes, setMarginSetter }) {
 
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open} sx={{ width: open ? '240px' : `${collapsedWidth}px`, transition: 'width 0.3s', display: (hider3 || hider4) ? "block" : iconActive ? "block" : "none" }}
+      <Drawer variant='permanent' open={open} sx={{
+        width: open ? '240px' : `${collapsedWidth}px`,
+        transition: 'width 0.3s',
+        display: (hider3 || hider4) ? 'block' : iconActive ? 'block' : 'none',
+      }}
 
       >
-      { 
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={() => {
-            handleDrawerOpen();
-            menuiconHandle();
-          }}
-          sx={{
-            ...(open && { display: (hider || hider2) ? "none" : "block" }),
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
-      }
-        
+        {
+          <IconButton
+            color='inherit'
+            aria-label='open drawer'
+            onClick={() => {
+              handleDrawerOpen()
+              menuiconHandle()
+            }}
+            sx={{
+              ...(open && { display: (hider || hider2) ? 'none' : 'block' }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+        }
+
         {open && (
           <DrawerHeader>
             <IconButton onClick={handleDrawerClose}>
@@ -216,7 +213,7 @@ export default function MiniDrawer({ brandName, routes, setMarginSetter }) {
                       <ListItemButton onClick={() => handleSubmenuToggle(name)}>
                         <ListItemIcon>{icon}</ListItemIcon>
                         <ListItemText>
-                          <MDTypography variant="body2">{name}</MDTypography>
+                          <MDTypography variant='body2'>{name}</MDTypography>
                         </ListItemText>
                         {submenuOpen[name] ? <ExpandLess /> : <ExpandMore />}
                       </ListItemButton>
@@ -228,7 +225,7 @@ export default function MiniDrawer({ brandName, routes, setMarginSetter }) {
                     <ListItemButton component={Link} to={route}>
                       <ListItemIcon>{icon}</ListItemIcon>
                       <ListItemText>
-                        <MDTypography variant="body2">{name}</MDTypography>
+                        <MDTypography variant='body2'>{name}</MDTypography>
                       </ListItemText>
                     </ListItemButton>
                   </ListItem>
@@ -240,11 +237,11 @@ export default function MiniDrawer({ brandName, routes, setMarginSetter }) {
         <Divider />
       </Drawer>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
       </Box>
     </div>
 
-  );
+  )
 }
 

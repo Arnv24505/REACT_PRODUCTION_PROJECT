@@ -100,53 +100,50 @@
 
 // export default TimelineItem
 
-
-
 /**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
+ =========================================================
+ * Material Dashboard 2 React - v2.2.0
+ =========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+ * Product Page: https://www.creative-tim.com/product/material-dashboard-react
+ * Copyright 2023 Creative Tim (https://www.creative-tim.com)
 
-Coded by www.creative-tim.com
+ Coded by www.creative-tim.com
 
  =========================================================
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ */
 
 // prop-types is a library for typechecking of props
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types'
 
 // @mui material components
-import Icon from "@mui/material/Icon"
+import Icon from '@mui/material/Icon'
 
 // Material Dashboard 2 React components
-import MDBox from "components/MDBox"
-import MDTypography from "components/MDTypography"
+import MDBox from 'components/MDBox'
+import MDTypography from 'components/MDTypography'
 
 // Timeline context
-import { useTimeline } from "examples/Timeline/context"
+import { useTimeline } from 'examples/Timeline/context'
 
 // Custom styles for the TimelineItem
-import timelineItem from "examples/Timeline/TimelineItem/styles"
+import timelineItem from 'examples/Timeline/TimelineItem/styles'
 
-
-function TimelineItem({ color, icon, title, description, lastItem, orientation }) {
+function TimelineItem ({ color, icon, title, description, lastItem, orientation }) {
   const isDark = useTimeline()
   const isVertical = orientation === 'vertical'
   const iconBox = (
     <MDBox
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
+      display='flex'
+      justifyContent='center'
+      alignItems='center'
       bgColor={color}
-      color="white"
-      width="2rem"
-      height="2rem"
-      borderRadius="50%"
+      color='white'
+      width='2rem'
+      height='2rem'
+      borderRadius='50%'
       position={isVertical ? 'absolute' : 'static'}
       top={isVertical ? '8%' : 'auto'}
       left={isVertical ? '2px' : 'auto'}
@@ -156,12 +153,12 @@ function TimelineItem({ color, icon, title, description, lastItem, orientation }
         ...(isVertical && { zIndex: 2 }), // Ensure proper z-index for vertical orientation
       }}
     >
-      <Icon fontSize="inherit">{icon}</Icon>
+      <Icon fontSize='inherit'>{icon}</Icon>
     </MDBox>
   )
 
   return (
-    <MDBox position="relative" mb={0} sx={(theme) => timelineItem(theme, { lastItem, isDark, orientation })}>
+    <MDBox position='relative' mb={0} sx={(theme) => timelineItem(theme, { lastItem, isDark, orientation })}>
       {isVertical ? (
         <>
           {iconBox}
@@ -170,11 +167,11 @@ function TimelineItem({ color, icon, title, description, lastItem, orientation }
             ml={5.75}
             pt={description ? 0.7 : 0.5}
             lineHeight={0}
-            width="20rem">
+            width='20rem'>
             <MDTypography
-              variant="button"
-              fontWeight="medium"
-              color={isDark ? "white" : "dark"}>
+              variant='button'
+              fontWeight='medium'
+              color={isDark ? 'white' : 'dark'}>
               {title || '\u00A0'} {/* Add non-breaking space if title is undefined or empty */}
             </MDTypography>
             <MDBox
@@ -182,8 +179,8 @@ function TimelineItem({ color, icon, title, description, lastItem, orientation }
               mb={1.5}>
               {description && (
                 <MDTypography
-                  variant="button"
-                  color={isDark ? "white" : "dark"}>
+                  variant='button'
+                  color={isDark ? 'white' : 'dark'}>
                   {description}
                 </MDTypography>
               )}
@@ -192,27 +189,27 @@ function TimelineItem({ color, icon, title, description, lastItem, orientation }
         </>
       ) : (
         <MDBox
-          position="relative"
-          display="flex"
-          flexDirection="column"
-          ml="2rem"
+          position='relative'
+          display='flex'
+          flexDirection='column'
+          ml='2rem'
           zIndex={1}
-          width={"12rem"}
-          alignItems="center"
+          width={'12rem'}
+          alignItems='center'
         >
           {iconBox}
           {/* Description */}
           <MDTypography
             mt={1}
-            variant="button"
-            fontWeight="medium"
-            color={isDark ? "white" : "dark"}>
+            variant='button'
+            fontWeight='medium'
+            color={isDark ? 'white' : 'dark'}>
             {title || '\u00A0'} {/* Add non-breaking space if title is undefined or empty */}
           </MDTypography>
           {description && (
             <MDTypography
-              variant="button"
-              color={isDark ? "white" : "dark"}>
+              variant='button'
+              color={isDark ? 'white' : 'dark'}>
               {description}
             </MDTypography>
           )}
@@ -222,30 +219,29 @@ function TimelineItem({ color, icon, title, description, lastItem, orientation }
   )
 }
 
-
 // Setting default values for the props of TimelineItem
 TimelineItem.defaultProps = {
-  color: "info",
+  color: 'info',
   lastItem: false,
-  description: "",
-  orientation: "vertical"
+  description: '',
+  orientation: 'vertical',
 }
 
 // Typechecking props for the TimelineItem
 TimelineItem.propTypes = {
   color: PropTypes.oneOf([
-    "primary",
-    "secondary",
-    "info",
-    "success",
-    "warning",
-    "error",
-    "dark",
-    "light",
+    'primary',
+    'secondary',
+    'info',
+    'success',
+    'warning',
+    'error',
+    'dark',
+    'light',
   ]),
   orientation: PropTypes.oneOf([
-    "vertical",
-    "horizontal"
+    'vertical',
+    'horizontal',
   ]),
   icon: PropTypes.node.isRequired,
   title: PropTypes.string,

@@ -1,7 +1,7 @@
 import { LinearProgress, MenuItem, Select, TextField } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import * as React from 'react'
-import _ from 'lodash'
+import _, { values } from 'lodash'
 import Grid from '@mui/material/Grid'
 import InputLabel from '@mui/material/InputLabel'
 import Autocomplete from '@mui/material/Autocomplete'
@@ -12,6 +12,7 @@ import MDButton from '../../../../components/MDButton'
 import DataTable from '../../../../examples/Tables/DataTable'
 import { useDispatch } from 'react-redux'
 import { addDevice, updateDevice } from '../../../../store/device/saga/deviceSaga'
+
 
 const defaultHTTPConnectionInfo = {
   'type': 'HTTPS',
@@ -48,15 +49,23 @@ const DeviceForm = ({
   fields,
   setSelectedDevice,
   deviceTemplates,
+  setIsAdded,
+  setIsError,
+  setIsUpdated,
+  isUpdated,
+  isAdded
 }) => {
+ 
+
+ 
   const dispatch = useDispatch()
   const getSelect = ({ options, field, props, initial, onChange, values, setValues }) => {
     let lOptions = options
-    if(field.name === 'deviceInfo.templateInfo.templateId') {
+    if (field.name === 'deviceInfo.templateInfo.templateId') {
       lOptions = _.map(deviceTemplates, ({ templateId, basic: { templateName } }) => ({
-          value: templateId,
-          label: templateName,
-        }),
+        value: templateId,
+        label: templateName,
+      }),
       )
     }
     return (
@@ -71,14 +80,14 @@ const DeviceForm = ({
           value={field.name === 'deviceInfo.connectionInfo' ? field.value.type : field.value}
           onChange={(evt) => {
             const current = field.value
-            if(field.name === 'deviceType') {
+            if (field.name === 'deviceType') {
               const deviceInfo = _.cloneDeep(values.deviceInfo)
               const deviceId = values.deviceId
               const deviceType = evt.target.value
-              if(values.deviceInfo.connectionInfo.type === 'MQTT') {
+              if (values.deviceInfo.connectionInfo.type === 'MQTT') {
                 deviceInfo.connectionInfo.mqtt.upStreamPath = `/${deviceType}/${deviceId}/upstream`
                 deviceInfo.connectionInfo.mqtt.downStreamPath = `/${deviceType}/${deviceId}/downstream`
-              } else if(values.deviceInfo.connectionInfo.type === 'HTTPS') {
+              } else if (values.deviceInfo.connectionInfo.type === 'HTTPS') {
                 deviceInfo.connectionInfo.https.qHeaderDevId = deviceId
               }
               setTimeout(() => {
@@ -88,18 +97,18 @@ const DeviceForm = ({
                   'deviceType': evt.target.value,
                 })
               }, 100)
-            } else if(field.name === 'deviceInfo.connectionInfo' && evt.target.value === 'MQTT') {
+            } else if (field.name === 'deviceInfo.connectionInfo' && evt.target.value === 'MQTT') {
               const deviceId = values.deviceId
               const deviceType = values.deviceType
               defaultMQTTConnectionInfo.mqtt.upStreamPath = `/${deviceType}/${deviceId}/upstream`
               defaultMQTTConnectionInfo.mqtt.downStreamPath = `/${deviceType}/${deviceId}/downstream`
               onChange(field.name, defaultMQTTConnectionInfo)
-            } else if(field.name === 'deviceInfo.connectionInfo' && evt.target.value === 'HTTPS') {
+            } else if (field.name === 'deviceInfo.connectionInfo' && evt.target.value === 'HTTPS') {
               const deviceId = values.deviceId
               defaultHTTPConnectionInfo.https.qHeaderDevId = deviceId
               onChange(field.name, defaultHTTPConnectionInfo)
-            } else if(field.name === 'deviceInfo.templateInfo.templateId') {
-              if(!evt.target.value) return
+            } else if (field.name === 'deviceInfo.templateInfo.templateId') {
+              if (!evt.target.value) return
               const templateId = evt.target.value
               const template = _.find(deviceTemplates, { templateId })
               const deviceInfo = {
@@ -114,10 +123,10 @@ const DeviceForm = ({
                 deviceInfo.extra[key] = template.fields[key]
                 deviceState[key] = 0
               })
-              if(deviceInfo.connectionInfo.type === 'MQTT') {
+              if (deviceInfo.connectionInfo.type === 'MQTT') {
                 deviceInfo.connectionInfo.mqtt.upStreamPath = `/${deviceType}/${deviceId}/upstream`
                 deviceInfo.connectionInfo.mqtt.downStreamPath = `/${deviceType}/${deviceId}/downstream`
-              } else if(deviceInfo.connectionInfo.type === 'HTTPS') {
+              } else if (deviceInfo.connectionInfo.type === 'HTTPS') {
                 deviceInfo.connectionInfo.https.qHeaderDevId = deviceId
               }
               setTimeout(() => {
@@ -138,72 +147,74 @@ const DeviceForm = ({
           ))}
         </Select>
         {field.name === 'deviceInfo.connectionInfo' && field.value.type === 'MQTT' && (<>
-            <TextField label={'MQTT Host'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.mqtt.hostName} />
-            <TextField label={'MQTT Upstream Path'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.mqtt.upStreamPath.replaceAll('__', '/')} />
-            <TextField label={'MQTT Downstream Path'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.mqtt.downStreamPath.replaceAll('__', '/')} />
-            <TextField label={'MQTT Username'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.mqtt.username}
-                       onChange={(evt) => {
-                         const current = field.value
-                         current.mqtt.username = evt.target.value
-                         onChange(field.name, current)
-                       }}
-            />
-            <TextField label={'MQTT Password'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.mqtt.password}
-                       onChange={(evt) => {
-                         const current = field.value
-                         current.mqtt.password = evt.target.value
-                         onChange(field.name, current)
-                       }}
-            />
-          </>
+          <TextField label={'MQTT Host'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.mqtt.hostName} />
+          <TextField label={'MQTT Upstream Path'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.mqtt.upStreamPath.replaceAll('__', '/')} />
+          <TextField label={'MQTT Downstream Path'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.mqtt.downStreamPath.replaceAll('__', '/')} />
+          <TextField label={'MQTT Username'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.mqtt.username}
+            onChange={(evt) => {
+              const current = field.value
+              current.mqtt.username = evt.target.value
+              onChange(field.name, current)
+            }}
+          />
+          <TextField label={'MQTT Password'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.mqtt.password}
+            onChange={(evt) => {
+              const current = field.value
+              current.mqtt.password = evt.target.value
+              onChange(field.name, current)
+            }}
+          />
+        </>
         )
         }
         {field.name === 'deviceInfo.connectionInfo' && field.value.type === 'HTTPS' && (<>
-            <TextField label={'HTTPS Host'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.https.hostName} />
-            <TextField label={'HTTPS Request Header Field (q-dev-id)'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }}
-                       fullWidth
-                       value={field.value.https.qHeaderDevId} />
-            <TextField label={'BasicAuthUsername'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.https.basicAuthUsername}
-                       onChange={(evt) => {
-                         const current = field.value
-                         current.https.basicAuthUsername = evt.target.value
-                         onChange(field.name, current)
-                       }}
-            />
-            <TextField label={'BasicAuthPassword'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.https.basicAuthPassword}
-                       onChange={(evt) => {
-                         const current = field.value
-                         current.https.basicAuthPassword = evt.target.value
-                         onChange(field.name, current)
-                       }}
-            />
-          </>
+          <TextField label={'HTTPS Host'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.https.hostName} />
+          <TextField label={'HTTPS Request Header Field (q-dev-id)'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }}
+            fullWidth
+            value={field.value.https.qHeaderDevId} />
+          <TextField label={'BasicAuthUsername'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.https.basicAuthUsername}
+            onChange={(evt) => {
+              const current = field.value
+              current.https.basicAuthUsername = evt.target.value
+              onChange(field.name, current)
+            }}
+          />
+          <TextField label={'BasicAuthPassword'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.https.basicAuthPassword}
+            onChange={(evt) => {
+              const current = field.value
+              current.https.basicAuthPassword = evt.target.value
+              onChange(field.name, current)
+            }}
+          />
+        </>
         )
         }
       </>
     )
   }
+ 
+
 
   const DeviceField = ({ field, form, ...props }) => {
     const { type, InputProps } = props
     const { values, template, setall } = InputProps
     switch (type) {
-      case 'text' :
+      case 'text':
         return <TextField value={field.value} fullWidth
-                          sx={{ minHeight: '50px', mt: 2 }} {...field} {...props}
-                          onChange={(evt) => {
-                            InputProps.change(field.name, evt.target.value)
-                          }}
+          sx={{ minHeight: '50px', mt: 2 }} {...field} {...props}
+          onChange={(evt) => {
+            InputProps.change(field.name, evt.target.value)
+          }}
         />
-      case 'select' :
+      case 'select':
         return getSelect({
           options: InputProps.options,
           initial: InputProps.initial,
@@ -213,7 +224,7 @@ const DeviceForm = ({
           values,
           setValues: setall,
         })
-      case 'autocomplete' :
+      case 'autocomplete':
         return (<Autocomplete
           field
           props
@@ -226,16 +237,16 @@ const DeviceForm = ({
           options={InputProps.options.map((option) => option.label)}
           renderInput={(params) => <TextField
             {...params} sx={{ mt: 2 }} label={props.label} onChange={(evt) => {
-            InputProps.change(field.name, evt.target.value)
-          }
-          } />}
+              InputProps.change(field.name, evt.target.value)
+            }
+            } />}
         />)
-      case 'table' :
+      case 'table':
         const rows = _.map(_.keys(field.value.extra), (key) => {
           const row = {}
           _.map(InputProps.columns, ({ accessor }) => {
             const lKey = key
-            if(accessor === 'unit') {
+            if (accessor === 'unit') {
               row[accessor] = (
                 <Autocomplete
                   freeSolo
@@ -244,7 +255,7 @@ const DeviceForm = ({
                   getOptionLabel={(option) => option}
                   options={['Deg C', 'Fahrenheit']}
                   onChange={(evt, newValue) => {
-                    if(newValue) {
+                    if (newValue) {
                       const current = field.value
                       current.extra[lKey].unit = newValue
                       InputProps.change(field.name, current)
@@ -254,7 +265,7 @@ const DeviceForm = ({
                     {...params} />}
                 />
               )
-            } else if(accessor === 'action') {
+            } else if (accessor === 'action') {
               row[accessor] = (
                 <MDBox gap={3}>
                   <MDTypography
@@ -326,81 +337,90 @@ const DeviceForm = ({
     }
 
   }
+
+
   return (
-    <Formik
-      initialValues={selectedDevice}
-      validate={(values) => {
+    <>
+      <Formik
+        initialValues={selectedDevice}
 
-      }}
-      onSubmit={(values, { setSubmitting }) => {
+        validate={(values) => {
 
-        if(_.isEmpty(values.deviceId)) {
-          dispatch(addDevice({
-            deviceObject: values, onSuccess: (status) => {
-              setSubmitting(false)
-              if(!status) {
-                alert('Error in Device')
-              } else {
-                setSelectedDevice()
-              }
-            },
-          }))
-        } else {
-          dispatch(updateDevice({
-            deviceObject: values, onSuccess: (status) => {
-              setSubmitting(false)
-              if(!status) {
-                alert('Error in Device')
-              } else {
-                setSelectedDevice()
-              }
-            },
-          }))
-        }
-      }}
-    >
-      {({ submitForm, isSubmitting, setFieldValue, values, setValues }) => (
-        <Grid container sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
-          <Grid item lg={9} xs={10} mg={9}>
-            <Form>
-              {_.map(_.filter(fields, entry => {
-                return !!((entry.fromTemplate && values.deviceInfo && values.deviceInfo.templateInfo
-                  && values.deviceInfo.templateInfo.templateId) || !entry.fromTemplate)
-              }), (field, index) => {
-                const { name, type, component, label, options, initValue, columns, fromTemplate } = field
-                return (<Field
-                  component={DeviceField}
-                  name={name}
-                  type={type}
-                  label={label}
-                  InputProps={{
-                    options,
-                    initial: initValue,
-                    columns,
-                    change: setFieldValue,
-                    values,
-                    template: fromTemplate,
-                    setall: setValues,
-                  }}
-                />)
-              })}
-              {isSubmitting && <LinearProgress />}
-              <br />
-              <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
-                <MDButton
-                  color='info'
-                  variant='contained'
-                  disabled={isSubmitting}
-                  onClick={submitForm}
-                >
-                  Submit
-                </MDButton>
-              </MDBox>
-            </Form>
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+
+          if (_.isEmpty(values.deviceId)) {
+            dispatch(addDevice({
+              deviceObject: values, onSuccess: (status) => {
+                setSubmitting(false)
+                if (!status) {
+                  setIsError(true)
+                } else {
+                  setIsAdded(true)
+                  setSelectedDevice()
+                }
+              },
+            }))
+          } else {
+            dispatch(updateDevice({
+              deviceObject: values, onSuccess: (status) => {
+                setSubmitting(false)
+                if (!status) {
+                  setIsError(true)
+                } else {
+                  setIsUpdated(true)
+                  setSelectedDevice()
+                }
+              },
+            }))
+          }
+        }}
+      >
+        {({ submitForm, isSubmitting, setFieldValue, values, setValues }) => (
+          <Grid container sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
+            <Grid item lg={9} xs={10} mg={9}>
+              <Form>
+                {_.map(_.filter(fields, entry => {
+                  return !!((entry.fromTemplate && values.deviceInfo && values.deviceInfo.templateInfo
+                    && values.deviceInfo.templateInfo.templateId) || !entry.fromTemplate)
+                }), (field, index) => {
+                  const { name, type, component, label, options, initValue, columns, fromTemplate } = field
+                  return (<Field
+                    component={DeviceField}
+                    name={name}
+                    type={type}
+                    label={label}
+                    InputProps={{
+                      options,
+                      initial: initValue,
+                      columns,
+                      change: setFieldValue,
+                      values,
+                      template: fromTemplate,
+                      setall: setValues,
+                    }}
+                  />)
+                })}
+                {isSubmitting && <LinearProgress />}
+                <br />
+                <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
+                  <MDButton
+                    color='info'
+                    variant='contained'
+                    disabled={isSubmitting}
+                    onClick={submitForm}
+                  >
+                    Submit
+                  </MDButton>
+                </MDBox>
+              </Form>
+            </Grid>
           </Grid>
-        </Grid>
-      )}
-    </Formik>
+        )}
+      </Formik>
+
+
+    </>
   )
 }
 

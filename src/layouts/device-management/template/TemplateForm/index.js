@@ -13,6 +13,7 @@ import DataTable from '../../../../examples/Tables/DataTable'
 import { useDispatch } from 'react-redux'
 import { addDeviceTemplate, updateDeviceTemplate } from '../../../../store/device/saga/deviceTemplatesSaga'
 
+
 const defaultHTTPConnectionInfo = {
   'type': 'HTTPS',
   'https': {
@@ -42,13 +43,18 @@ const defaultMQTTConnectionInfo = {
     'password': 'XXXXXXXXXXXXXX',
   },
 }
+
 const TemplateForm = ({
   selectedData,
   fields,
   setSelectedTemplate,
+  setIsAdded,
+  setIsUpdated,
   fromTemplate = false,
 }) => {
+
   const dispatch = useDispatch()
+
   const getSelect = ({ options, field, props, initial, onChange }) => {
     return (
       <>
@@ -62,9 +68,9 @@ const TemplateForm = ({
           value={field.name === 'basic.connectionInfo' && field.value ? field.value.type : field.value}
           onChange={(evt) => {
             const current = field.value
-            if(field.name === 'basic.connectionInfo' && evt.target.value === 'MQTT') {
+            if (field.name === 'basic.connectionInfo' && evt.target.value === 'MQTT') {
               onChange(field.name, defaultMQTTConnectionInfo)
-            } else if(field.name === 'basic.connectionInfo' && evt.target.value === 'HTTPS') {
+            } else if (field.name === 'basic.connectionInfo' && evt.target.value === 'HTTPS') {
               onChange(field.name, defaultHTTPConnectionInfo)
             } else {
               onChange(field.name, evt.target.value)
@@ -76,54 +82,54 @@ const TemplateForm = ({
           ))}
         </Select>
         {field.name === 'basic.connectionInfo' && field.value && field.value.type === 'MQTT' && (<>
-            <TextField label={'MQTT Host'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.mqtt.hostName} />
-            <TextField label={'MQTT Upstream Path'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.mqtt.upStreamPath} />
-            <TextField label={'MQTT Downstream Path'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.mqtt.downStreamPath} />
-            <TextField label={'MQTT Username'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.mqtt.username}
-                       onChange={(evt) => {
-                         const current = field.value
-                         current.mqtt.username = evt.target.value
-                         onChange(field.name, current)
-                       }}
-            />
-            <TextField label={'MQTT Password'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.mqtt.password}
-                       onChange={(evt) => {
-                         const current = field.value
-                         current.mqtt.password = evt.target.value
-                         onChange(field.name, current)
-                       }}
-            />
-          </>
+          <TextField label={'MQTT Host'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.mqtt.hostName} />
+          <TextField label={'MQTT Upstream Path'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.mqtt.upStreamPath} />
+          <TextField label={'MQTT Downstream Path'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.mqtt.downStreamPath} />
+          <TextField label={'MQTT Username'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.mqtt.username}
+            onChange={(evt) => {
+              const current = field.value
+              current.mqtt.username = evt.target.value
+              onChange(field.name, current)
+            }}
+          />
+          <TextField label={'MQTT Password'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.mqtt.password}
+            onChange={(evt) => {
+              const current = field.value
+              current.mqtt.password = evt.target.value
+              onChange(field.name, current)
+            }}
+          />
+        </>
         )
         }
         {field.name === 'basic.connectionInfo' && field.value && field.value.type === 'HTTPS' && (<>
-            <TextField label={'HTTPS Host'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.https.hostName} />
-            <TextField label={'HTTPS Request Header Field (q-dev-id)'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }}
-                       fullWidth
-                       value={field.value.https.qHeaderDevId} />
-            <TextField label={'BasicAuthUsername'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.https.basicAuthUsername}
-                       onChange={(evt) => {
-                         const current = field.value
-                         current.https.basicAuthUsername = evt.target.value
-                         onChange(field.name, current)
-                       }}
-            />
-            <TextField label={'BasicAuthPassword'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
-                       value={field.value.https.basicAuthPassword}
-                       onChange={(evt) => {
-                         const current = field.value
-                         current.https.basicAuthPassword = evt.target.value
-                         onChange(field.name, current)
-                       }}
-            />
-          </>
+          <TextField label={'HTTPS Host'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.https.hostName} />
+          <TextField label={'HTTPS Request Header Field (q-dev-id)'} disabled sx={{ minHeight: '50px', mb: 2, mt: 2 }}
+            fullWidth
+            value={field.value.https.qHeaderDevId} />
+          <TextField label={'BasicAuthUsername'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.https.basicAuthUsername}
+            onChange={(evt) => {
+              const current = field.value
+              current.https.basicAuthUsername = evt.target.value
+              onChange(field.name, current)
+            }}
+          />
+          <TextField label={'BasicAuthPassword'} sx={{ minHeight: '50px', mb: 2, mt: 2 }} fullWidth
+            value={field.value.https.basicAuthPassword}
+            onChange={(evt) => {
+              const current = field.value
+              current.https.basicAuthPassword = evt.target.value
+              onChange(field.name, current)
+            }}
+          />
+        </>
         )
         }
       </>
@@ -133,11 +139,11 @@ const TemplateForm = ({
   const DeviceField = ({ field, form, ...props }) => {
     const { type, InputProps } = props
     switch (type) {
-      case 'text' :
+      case 'text':
         return <TextField disabled={field.name === 'basic.templateName' && InputProps.values.templateId}
-                          value={field.value} fullWidth
-                          sx={{ minHeight: '50px', mt: 2 }} {...field} {...props} />
-      case 'select' :
+          value={field.value} fullWidth
+          sx={{ minHeight: '50px', mt: 2 }} {...field} {...props} />
+      case 'select':
         return getSelect({
           options: InputProps.options,
           initial: InputProps.initial,
@@ -145,7 +151,7 @@ const TemplateForm = ({
           props,
           onChange: InputProps.change,
         })
-      case 'autocomplete' :
+      case 'autocomplete':
         return (<Autocomplete
           field
           props
@@ -158,16 +164,16 @@ const TemplateForm = ({
           options={InputProps.options.map((option) => option.label)}
           renderInput={(params) => <TextField
             {...params} sx={{ mt: 2 }} label={props.label} onChange={(evt) => {
-            InputProps.change(field.name, evt.target.value)
-          }
-          } />}
+              InputProps.change(field.name, evt.target.value)
+            }
+            } />}
         />)
-      case 'table' :
+      case 'table':
         const rows = field.value ? _.map(_.keys(field.value), (key) => {
           const row = {}
           _.map(InputProps.columns, ({ accessor }) => {
             const lKey = key
-            if(accessor === 'unit') {
+            if (accessor === 'unit') {
               row[accessor] = (
                 <Autocomplete
                   freeSolo
@@ -175,7 +181,7 @@ const TemplateForm = ({
                   value={field.value[key].unit}
                   getOptionLabel={(option) => option}
                   onChange={(evt, newValue) => {
-                    if(newValue) {
+                    if (newValue) {
                       const current = field.value
                       current[lKey].unit = newValue
                       InputProps.change(field.name, current)
@@ -185,7 +191,7 @@ const TemplateForm = ({
                   renderInput={(params) => <TextField
                     {...params}
                     onChange={(evt) => {
-                      if(evt.target.value) {
+                      if (evt.target.value) {
                         const current = field.value
                         current[lKey].unit = evt.target.value
                         InputProps.change(field.name, current)
@@ -194,7 +200,7 @@ const TemplateForm = ({
                   />}
                 />
               )
-            } else if(accessor === 'action') {
+            } else if (accessor === 'action') {
               row[accessor] = (
                 <MDBox gap={3}>
                   <MDTypography
@@ -255,76 +261,85 @@ const TemplateForm = ({
         </MDBox>)
     }
   }
-  return (
-    <Formik
-      initialValues={selectedData}
-      validate={(values) => {
 
-      }}
-      onSubmit={(values, { setSubmitting }) => {
-        if(!values.templateId) {
-          values.templateId = `${values.basic.templateName.replaceAll(' ', '')}tmplId`
-          dispatch(addDeviceTemplate({
-            templateObject: values, onSuccess: (status) => {
-              setSubmitting(false)
-              if(!status) {
-                alert('Error in Template')
-              } else {
-                setSelectedTemplate()
+
+  return (
+    <>
+      <Formik
+        initialValues={selectedData}
+        validate={(values) => {
+
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          if (!values.templateId) {
+            values.templateId = `${values.basic.templateName.replaceAll(' ', '')}tmplId`
+            dispatch(addDeviceTemplate({
+              templateObject: values, onSuccess: (status) => {
+                setSubmitting(false)
+                if (!status) {
+                  setIsError(true)
+                } else {
+                  setIsAdded(true)
+                  setSelectedTemplate()
+                }
+              },
+            }))
+          } else {
+            dispatch(updateDeviceTemplate({
+              templateObject: values,
+              onSuccess: (status) => {
+                if (!status) {
+                  setIsError(true);
+                } else {
+                  setIsUpdated(true);
+                  setSelectedTemplate(null);
+                }
+                setSubmitting(false);
               }
-            },
-          }))
-        } else {
-          dispatch(updateDeviceTemplate({
-            templateObject: values, onSuccess: (status) => {
-              setSubmitting(false)
-              if(!status) {
-                alert('Error in Template')
-              } else {
-                setSelectedTemplate()
-              }
-            },
-          }))
+            }));
+          }
         }
-      }}
-    >
-      {({ submitForm, isSubmitting, setFieldValue, values }) => (
-        <Grid container sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
-          <Grid item lg={9} xs={10} mg={9}>
-            <Form>
-              {_.map(fields, (field, index) => {
-                const { name, type, component, label, options, initValue, columns } = field
-                return (<Field
-                  component={DeviceField}
-                  name={name}
-                  type={type}
-                  label={label}
-                  InputProps={{
-                    options,
-                    initial: initValue,
-                    columns,
-                    change: setFieldValue,
-                    values,
-                  }}
-                />)
-              })}
-              {isSubmitting && <LinearProgress />}
-              <br />
-              <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
-                <MDButton
-                  color='info'
-                  variant='contained'
-                  disabled={isSubmitting}
-                  onClick={submitForm}
-                >
-                  Submit
-                </MDButton>
-              </MDBox>
-            </Form>
+        }
+      >
+        {({ submitForm, isSubmitting, setFieldValue, values }) => (
+          <Grid container sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
+            <Grid item lg={9} xs={10} mg={9}>
+              <Form>
+                {_.map(fields, (field, index) => {
+                  const { name, type, component, label, options, initValue, columns } = field
+                  return (<Field
+                    key={index}
+                    component={DeviceField}
+                    name={name}
+                    type={type}
+                    label={label}
+                    InputProps={{
+                      options,
+                      initial: initValue,
+                      columns,
+                      change: setFieldValue,
+                      values,
+                    }}
+                  />)
+                })}
+                {isSubmitting && <LinearProgress />}
+                <br />
+                <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
+                  <MDButton
+                    color='info'
+                    variant='contained'
+                    disabled={isSubmitting}
+                    onClick={submitForm}
+                  >
+                    Submit
+                  </MDButton>
+                </MDBox>
+              </Form>
+            </Grid>
           </Grid>
-        </Grid>
-      )}
-    </Formik>
+        )}
+      </Formik >
+    </>
   )
 }
 

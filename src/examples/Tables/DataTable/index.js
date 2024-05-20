@@ -49,7 +49,6 @@ function DataTable ({
   isSorted,
   noEndBorder,
 }) {
-  console.log('entries per page passed is' , { entriesPerPage , hideEntries})
   const defaultValue = entriesPerPage.defaultValue ? entriesPerPage.defaultValue : 10
   const entries = entriesPerPage.entries
     ? entriesPerPage.entries.map((el) => el.toString())

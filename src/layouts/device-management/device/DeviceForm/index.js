@@ -251,7 +251,15 @@ const DeviceForm = ({
                     }
                   }}
                   renderInput={(params) => <TextField
-                    {...params} />}
+                    {...params}
+                    onChange={(evt) => {
+                      if(evt.target.value) {
+                        const current = field.value
+                        current.extra[lKey].unit = evt.target.value
+                        InputProps.change(field.name, current)
+                      }
+                    }}
+                  />}
                 />
               )
             } else if(accessor === 'action') {

@@ -41,10 +41,7 @@ const CardGroupHolder = ({ cardData, children, handleLayout }) => {
 
     const { lg } = layouts
 
-    if(_.isEmpty(lg)) {
-      console.log('Layouts is Empty')
-      return
-    }
+
 
     if(lg.length === cardsData?.length) {
       latestCoord = cardsData?.map((card, index) => {

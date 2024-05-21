@@ -40,9 +40,7 @@ export default function App () {
   const [onMouseEnter, setOnMouseEnter] = useState(false)
   const [rtlCache, setRtlCache] = useState(null)
   const { pathname } = useLocation()
-  console.log('pathname now in aPP is' , pathname)
   useEffect(() => {
-    console.log('pathname now is' , pathname)
     if(['/login' , '/logout' , '/signup'].includes(pathname)) {
       setLayout(dispatch, 'login')
     }else {
@@ -57,7 +55,6 @@ export default function App () {
       dispatch(getUser())
     }
   }, [user])*/
-  console.log('layout now is ' , layout)
   const hider = useMediaQuery(theme.breakpoints.up('xl'))
   const hider2 = useMediaQuery(theme.breakpoints.up('lg'))
   const hider3 = useMediaQuery(theme.breakpoints.up('md'))

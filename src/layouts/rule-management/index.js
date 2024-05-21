@@ -1,18 +1,3 @@
-/**
- =========================================================
- * Material Dashboard 2 React - v2.2.0
- =========================================================
-
- * Product Page: https://www.creative-tim.com/product/material-dashboard-react
- * Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
- Coded by www.creative-tim.com
-
- =========================================================
-
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- */
-
 // @mui material components
 import { useEffect, useState } from 'react'
 import Grid from '@mui/material/Grid'
@@ -27,71 +12,45 @@ import DashboardLayout from 'examples/LayoutContainers/DashboardLayout'
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar'
 
 // Data
-import tableDataLocal from 'layouts/rule-management/data/tableData'
-import ProjectsTableData from './table/projectsTableData'
+import RuleData from './table/RuleData'
 import MDButton from 'components/MDButton'
 import { Icon } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import defaultRule from './data/defaultRule.json'
+import ruleFormDetails from './RuleForm/fields'
+import { userRulesSelector } from '../../store/rules/slice/ruleSlice'
+import _ from 'lodash'
+import { getRules } from '../../store/rules/saga/ruleSaga'
 import RuleForm from './RuleForm'
-import { conditionOperators, deviceType, ruleTypes, values } from './data/ruleCondition'
-import { endpoints, operations } from './data/ruleAction'
+import { userDevicesSelector } from '../../store/device/slice/deviceSlice'
+import { userSelector } from '../../store/user/slice/userSlice'
+import { getDevices } from '../../store/device/saga/deviceSaga'
+import { getUser } from '../../store/user/saga/userSaga'
 
-const RuleManagement = () => {
+const RuleMain = () => {
 
-  const [isFormVisible, setIsFormVisible] = useState(false)
-  const [submitData, setSubmitData] = useState({})
-  const [tableData, setTableData] = useState(tableDataLocal)
-  const [isRuleTableEditable, setIsRuleTableEditable] = useState(false)
-  const [selectedRow, setSelectedRow] = useState({})
-  const [previewEnable, setPreviewEnable] = useState(false)
-
+  const dispatch = useDispatch()
+  const [selectedRule, setSelectedRule] = useState()
+  const { devices } = useSelector(userDevicesSelector)
+  const { rules } = useSelector(userRulesSelector)
+  const { user } = useSelector(userSelector)
+  const navigate = useNavigate()
   useEffect(() => {
-    setIsFormVisible(isRuleTableEditable)
-    if(!isRuleTableEditable) {
-      setSubmitData({})
+    if(user) {
+      if(_.isEmpty(devices)) dispatch(getDevices())
+      if(_.isEmpty(rules)) dispatch(getRules())
+    } else {
+      dispatch(getUser({ navigate }))
     }
-  }, [isRuleTableEditable])
-
-  useEffect(() => {
-    setIsFormVisible(previewEnable)
-  }, [previewEnable])
-
-  useEffect(() => {
-
-    if(Object.keys(submitData).length > 0 && !isRuleTableEditable) {
-      setIsFormVisible(false)
-      setTableData(prevTableData => [
-        ...prevTableData,
-        {
-          name: submitData.name,
-          type: submitData.ruleType,
-          description: submitData.conditions,
-          actions: submitData.actions,
-          actionIcons: ['edit', 'delete'],
-        },
-      ])
-      setSubmitData({})
-    }
-
-    if(previewEnable) {
-      setIsFormVisible(false)
-    }
-  }, [submitData])
+  }, [user])
 
   const handleAdd = () => {
-    setSelectedRow({})
-    setIsFormVisible(true)
+    setSelectedRule(defaultRule)
   }
-
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
-        <MDButton color='success' onClick={handleAdd}>
-          <Icon sx={{ color: 'inherit', marginRight: '0.5rem' }}>add</Icon>
-          Add
-        </MDButton>
-      </MDBox>
-
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
@@ -107,36 +66,26 @@ const RuleManagement = () => {
                 coloredShadow='info'
               >
                 <MDTypography variant='h6' color='white'>
-                  Rule's Table
+                  Rules Table
                 </MDTypography>
               </MDBox>
-              <MDBox pt={3}>
-                <ProjectsTableData
-                  isSorted={false}
-                  entriesPerPage={false}
-                  showTotalEntries={false}
-                  rowData={tableData}
-                  setRowData={setTableData}
-                  selectedRowData={setSelectedRow}
-                  editData={isRuleTableEditable && submitData}
-                  isEditable={setIsRuleTableEditable}
-                  setPreviewEnable={setPreviewEnable}
-                />
+              <MDBox sx={{ mt: 2 }} display='flex' justifyContent='flex-end' paddingRight='1rem'>
+                <MDButton color='success' onClick={handleAdd}>
+                  <Icon sx={{ color: 'inherit', marginRight: '0.5rem' }}>add</Icon>
+                  Add
+                </MDButton>
               </MDBox>
-
+              <MDBox pt={3}>
+                <RuleData rules={rules} devices={devices} setSelectedRule={setSelectedRule} />
+              </MDBox>
+              {selectedRule && <RuleForm
+                fields={ruleFormDetails}
+                selectedRule={selectedRule}
+                devices={devices}
+                rules={rules}
+                setSelectedRule={setSelectedRule}
+              />}
             </Card>
-            {isFormVisible && <RuleForm
-              deviceType={deviceType}
-              conditionOperators={conditionOperators}
-              values={values}
-              endpoints={endpoints}
-              operations={operations}
-              ruleTypes={ruleTypes}
-              setSubmitData={setSubmitData}
-              defaultData={selectedRow}
-              previewEnable={previewEnable}
-              setPreviewEnable={setPreviewEnable}
-            />}
           </Grid>
         </Grid>
       </MDBox>
@@ -144,4 +93,4 @@ const RuleManagement = () => {
   )
 }
 
-export default RuleManagement
+export default RuleMain

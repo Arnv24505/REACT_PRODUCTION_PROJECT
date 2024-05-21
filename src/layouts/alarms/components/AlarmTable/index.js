@@ -8,7 +8,6 @@ import DataTable from 'examples/Tables/DataTable'
 const AlarmTable = ({ isSorted, entriesPerPage, showTotalEntries, rowData: initialRowData }) => {
   const [rowData, setRowData] = useState(initialRowData)
 
-  console.log('rowData : ', rowData)
 
   const handleAction = (icon, data) => {
     // Implement your logic here based on the icon clicked

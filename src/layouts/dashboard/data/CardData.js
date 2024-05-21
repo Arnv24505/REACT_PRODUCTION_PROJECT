@@ -9,5 +9,4 @@ export const cardData =
   }
 
 export const handleLayout = (saveLayout) => {
-  console.log('saveLayout', saveLayout)
 }

@@ -1,6 +1,6 @@
 {
   "basic": {
-    "templateName": "Template t1",
+    "templateName": "",
     "deviceType": "GENERIC_SENSOR",
     "connectionInfo": {
       "type": "MQTT",

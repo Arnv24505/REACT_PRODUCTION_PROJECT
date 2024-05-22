@@ -1,5 +1,5 @@
 import { LinearProgress, MenuItem, Select, TextField } from '@mui/material'
-import { Field, Form, Formik } from 'formik'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
 import * as React from 'react'
 import _ from 'lodash'
 import Grid from '@mui/material/Grid'
@@ -12,6 +12,53 @@ import MDButton from '../../../../components/MDButton'
 import DataTable from '../../../../examples/Tables/DataTable'
 import { useDispatch } from 'react-redux'
 import { addDeviceTemplate, updateDeviceTemplate } from '../../../../store/device/saga/deviceTemplatesSaga'
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object().shape({
+  basic: Yup.object().shape({
+    templateName: Yup.string()
+      .required('Template name is required')
+      .min(3, 'Template name must be at least 3 characters long')
+      .max(50, 'Template name must be at most 50 characters long')
+  }),
+  deviceType: Yup.string().required("Device type is required"),
+  deviceLocation: Yup.string().required('Location is required'),
+  extra: Yup.object().shape({
+    field_1: Yup.object().shape({
+      accessKey: Yup.string().required('Access key is required'),
+      name: Yup.string().required('Name is required'),
+      unit: Yup.string().required('Unit is required'),
+      max: Yup.number().required('Max value is required'),
+      min: Yup.number().required('Min value is required'),
+      tMax: Yup.number().required('tMax value is required'),
+      tMin: Yup.number().required('tMin value is required'),
+    }).required('Field 1 is required'),
+  }),
+  field: Yup.object().shape({
+    connectionInfo: Yup.object().shape({
+      type: Yup.string().required('Connection type is required'),
+      mqtt: Yup.object().when('type', {
+        is: 'MQTT',
+        then: Yup.object().shape({
+          hostName: Yup.string().required('MQTT Hostname is required'),
+          upStreamPath: Yup.string().required('MQTT Upstream Path is required'),
+          downStreamPath: Yup.string().required('MQTT Downstream Path is required'),
+          username: Yup.string().required('MQTT Username is required'),
+          password: Yup.string().required('MQTT Password is required'),
+        }).required(),
+      }),
+      https: Yup.object().when('type', {
+        is: 'HTTPS',
+        then: Yup.object().shape({
+          basicAuthUsername: Yup.string().required('HTTPS Basic Auth Username is required'),
+          basicAuthPassword: Yup.string().required('HTTPS Basic Auth Password is required'),
+          hostName: Yup.string().required('HTTPS Hostname is required'),
+          qHeaderDevId: Yup.string().notRequired(),
+        }).required(),
+      }),
+    }),
+  }),
+});
 
 
 const defaultHTTPConnectionInfo = {
@@ -52,10 +99,12 @@ const TemplateForm = ({
   setIsUpdated,
   fromTemplate = false,
 }) => {
-
   const dispatch = useDispatch()
 
+
+
   const getSelect = ({ options, field, props, initial, onChange }) => {
+
     return (
       <>
         <InputLabel sx={{ mt: 2 }} id={`${props.name}-label`}>{props.label}</InputLabel>
@@ -63,8 +112,8 @@ const TemplateForm = ({
           fullWidth
           labelId={`${props.name}-label`}
           sx={{ minHeight: '50px' }}
-          name={props.name}
-          label={props.label}
+          name={field.name}
+          label={field.label}
           value={field.name === 'basic.connectionInfo' && field.value ? field.value.type : field.value}
           onChange={(evt) => {
             const current = field.value
@@ -140,9 +189,16 @@ const TemplateForm = ({
     const { type, InputProps } = props
     switch (type) {
       case 'text':
-        return <TextField disabled={field.name === 'basic.templateName' && InputProps.values.templateId}
-          value={field.value} fullWidth
-          sx={{ minHeight: '50px', mt: 2 }} {...field} {...props} />
+        return <TextField
+          disabled={field.name === 'basic.templateName' && InputProps.values.templateId}
+          value={field.value}
+          fullWidth
+          sx={{ minHeight: '50px', mt: 2 }}
+          {...field}
+          {...props}
+          error={form.touched.basic?.templateName && !!form.errors.basic?.templateName}
+          helperText={form.touched.basic?.templateName && form.errors.basic?.templateName}
+        />;
       case 'select':
         return getSelect({
           options: InputProps.options,
@@ -182,6 +238,7 @@ const TemplateForm = ({
                   getOptionLabel={(option) => option}
                   onChange={(evt, newValue) => {
                     if (newValue) {
+
                       const current = field.value
                       current[lKey].unit = newValue
                       InputProps.change(field.name, current)
@@ -236,18 +293,28 @@ const TemplateForm = ({
           <InputLabel id={`${props.name}-label`}>{props.label}</InputLabel>
           <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
             <MDButton color='success' onClick={() => {
-              const current = field.value
-              const lastKeyNo = (_.last(_.last(_.keys(field.value)).split('_'))) * 1
-              const newObj = {
-                'accessKey': `field_${lastKeyNo + 1}`,
-                ...defaultFieldValues,
+              const current = field.value;
+              if (current) {
+                const keys = Object.keys(current);
+                if (keys.length > 0) {
+                  const lastKeyNo = (_.last(_.last(keys).split('_'))) * 1;
+                  const newObj = {
+                    'accessKey': `field_${lastKeyNo + 1}`,
+                    ...defaultFieldValues,
+                  };
+                  current[`field_${lastKeyNo + 1}`] = newObj;
+                  InputProps.change(field.name, current);
+                } else {
+                  console.error('field.value is empty');
+                }
+              } else {
+                console.error('field.value is undefined or null');
               }
-              current[`field_${lastKeyNo + 1}`] = newObj
-              InputProps.change(field.name, current)
             }}>
               <Icon sx={{ color: 'inherit', marginRight: '0.5rem' }}>add</Icon>
               Add Field
             </MDButton>
+
           </MDBox>
           <DataTable
             field
@@ -267,9 +334,7 @@ const TemplateForm = ({
     <>
       <Formik
         initialValues={selectedData}
-        validate={(values) => {
-
-        }}
+        validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
           if (!values.templateId) {
             values.templateId = `${values.basic.templateName.replaceAll(' ', '')}tmplId`
@@ -301,43 +366,48 @@ const TemplateForm = ({
         }
         }
       >
-        {({ submitForm, isSubmitting, setFieldValue, values }) => (
-          <Grid container sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
-            <Grid item lg={9} xs={10} mg={9}>
-              <Form>
-                {_.map(fields, (field, index) => {
-                  const { name, type, component, label, options, initValue, columns } = field
-                  return (<Field
-                    key={index}
-                    component={DeviceField}
-                    name={name}
-                    type={type}
-                    label={label}
-                    InputProps={{
-                      options,
-                      initial: initValue,
-                      columns,
-                      change: setFieldValue,
-                      values,
-                    }}
-                  />)
-                })}
-                {isSubmitting && <LinearProgress />}
-                <br />
-                <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
-                  <MDButton
-                    color='info'
-                    variant='contained'
-                    disabled={isSubmitting}
-                    onClick={submitForm}
-                  >
-                    Submit
-                  </MDButton>
-                </MDBox>
-              </Form>
+        {({ submitForm, isSubmitting, setFieldValue, values, isValid, errors }) => {
+          return (
+            <Grid container sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
+              <Grid item lg={9} xs={10} mg={9}>
+                <Form>
+                  {_.map(fields, (field, index) => {
+                    const { name, type, component, label, options, initValue, columns } = field
+                    return (<Field
+                      key={index}
+                      component={DeviceField}
+                      name={name}
+                      type={type}
+                      label={label}
+                      InputProps={{
+                        options,
+                        initial: initValue,
+                        columns,
+                        change: setFieldValue,
+                        values,
+                      }}
+                    />)
+                  })}
+                  {isSubmitting && <LinearProgress />}
+                  <br />
+                  <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
+                    <MDButton
+                      color='info'
+                      variant='contained'
+                      disabled={(errors || !isValid)}
+                      onClick={submitForm}
+                    >
+                      Submit
+                    </MDButton>
+                    <ErrorMessage name='fields' component="div" className='error' />
+                  </MDBox>
+                </Form>
+              </Grid>
             </Grid>
-          </Grid>
-        )}
+          )
+        }}
+
+
       </Formik >
     </>
   )

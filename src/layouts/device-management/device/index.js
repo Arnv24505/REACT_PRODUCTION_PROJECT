@@ -34,7 +34,7 @@ const DeviceMain = () => {
   const [isAdded, setIsAdded] = React.useState(false);
   const [isError, setIsError] = React.useState(false)
   const [isUpdated, setIsUpdated] = React.useState(false)
-  const [selectedDevice, setSelectedDevice] = useState()
+  const [selectedDevice, setSelectedDevice] = useState(defaultDevice)
 
   const { devices } = useSelector(userDevicesSelector)
   const { deviceTemplates } = useSelector(deviceTemplatesSelector)

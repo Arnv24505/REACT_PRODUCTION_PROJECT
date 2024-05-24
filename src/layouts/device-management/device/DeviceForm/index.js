@@ -37,15 +37,14 @@ const getValidationSchema = () => {
       //     tMax: Yup.number().required('tMax value is required'),
       //     tMin: Yup.number().required('tMin value is required'),
       //   }).required('Field 1 is required'),
-      }),
-    }),
-    connectionInfo: Yup.object().shape({
-      type: Yup.string()
-        .required('Please select a device type')
-        .oneOf(
-          ['HTTPS', 'MQTT'],
-          'Invalid  type'
-        ).required('please select type'),
+      connectionInfo: Yup.object().shape({
+          type: Yup.string()
+            .required('Please select a device type')
+            .oneOf(
+              ['HTTPS', 'MQTT'],
+              'Invalid  type'
+            ).required('please select type'),
+          }),
       // mqtt: Yup.object().when(['type'], {
       //   is: (val) => val === 'MQTT',
       //   then: Yup.object().shape({
@@ -59,9 +58,9 @@ const getValidationSchema = () => {
       //     basicAuthUsername: Yup.string().required('HTTPS Basic Auth Username is required'),
       //     basicAuthPassword: Yup.string().required('HTTPS Basic Auth Password is required'),
       //   }).required(),
-      }),
-    }),
-  });
+   // 
+  })
+})
 };
 
 

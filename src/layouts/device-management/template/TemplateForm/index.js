@@ -13,7 +13,7 @@ import MDButton from '../../../../components/MDButton'
 import DataTable from '../../../../examples/Tables/DataTable'
 import { useDispatch } from 'react-redux'
 import { addDeviceTemplate, updateDeviceTemplate } from '../../../../store/device/saga/deviceTemplatesSaga'
-import * as Yup from 'yup';
+import * as Yup from 'yup'
 
 const validationSchema = Yup.object().shape({
   basic: Yup.object().shape({
@@ -23,14 +23,13 @@ const validationSchema = Yup.object().shape({
       .max(50, 'Template name must be at most 50 characters long'),
     deviceType: Yup.string()
       .required('Device type is required'),
-
     connectionInfo: Yup.object().shape({
       type: Yup.string().required('type is required'),
       // mqtt: Yup.object().shape({
       //   username: Yup.string().required("username is required"),
       //   password: Yup.string().required("password is required")
       // }),
-    }),
+    })
     // connectionInfohttps: Yup.object().shape({
     //   type: Yup.string().required('https type is required'),
     //   https: Yup.object().shape({
@@ -50,7 +49,7 @@ const validationSchema = Yup.object().shape({
   //     tMin: Yup.number().required('Minimum threshold value is required'),
   //   })
   // })
-});
+})
 
 
 const defaultHTTPConnectionInfo = {

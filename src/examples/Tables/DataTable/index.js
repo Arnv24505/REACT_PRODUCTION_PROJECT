@@ -39,7 +39,7 @@ import MDPagination from 'components/MDPagination'
 import DataTableHeadCell from 'examples/Tables/DataTable/DataTableHeadCell'
 import DataTableBodyCell from 'examples/Tables/DataTable/DataTableBodyCell'
 
-function DataTable ({
+function DataTable({
   hideEntries = false,
   entriesPerPage,
   canSearch,
@@ -89,12 +89,7 @@ function DataTable ({
 
   // Render the paginations
   const renderPagination = pageOptions.map((option) => (
-    <MDPagination
-      item
-      key={option}
-      onClick={() => gotoPage(Number(option))}
-      active={pageIndex === option}
-    >
+    <MDPagination item key={option} onClick={() => gotoPage(Number(option))} active={pageIndex === option}>
       {option + 1}
     </MDPagination>
   ))
@@ -121,9 +116,9 @@ function DataTable ({
   const setSortedValue = (column) => {
     let sortedValue
 
-    if(isSorted && column.isSorted) {
+    if (isSorted && column.isSorted) {
       sortedValue = column.isSortedDesc ? 'desc' : 'asce'
-    } else if(isSorted) {
+    } else if (isSorted) {
       sortedValue = 'none'
     } else {
       sortedValue = false
@@ -138,9 +133,9 @@ function DataTable ({
   // Setting the entries ending point
   let entriesEnd
 
-  if(pageIndex === 0) {
+  if (pageIndex === 0) {
     entriesEnd = pageSize
-  } else if(pageIndex === pageOptions.length - 1) {
+  } else if (pageIndex === pageOptions.length - 1) {
     entriesEnd = rows.length
   } else {
     entriesEnd = pageSize * (pageIndex + 1)
@@ -149,9 +144,9 @@ function DataTable ({
   return (
     <TableContainer sx={{ boxShadow: 'none' }}>
       {!hideEntries && (entriesPerPage || canSearch) ? (
-        <MDBox display='flex' justifyContent='space-between' alignItems='center' p={3}>
+        <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
           {entriesPerPage && (
-            <MDBox display='flex' alignItems='center'>
+            <MDBox display="flex" alignItems="center">
               <Autocomplete
                 disableClearable
                 value={pageSize.toString()}
@@ -159,21 +154,21 @@ function DataTable ({
                 onChange={(event, newValue) => {
                   setEntriesPerPage(parseInt(newValue, 10))
                 }}
-                size='small'
+                size="small"
                 sx={{ width: '5rem' }}
                 renderInput={(params) => <MDInput {...params} />}
               />
-              <MDTypography variant='caption' color='secondary'>
+              <MDTypography variant="caption" color="secondary">
                 Entries Per Page
               </MDTypography>
             </MDBox>
           )}
           {canSearch && (
-            <MDBox width='12rem' ml='auto'>
+            <MDBox width="12rem" ml="auto">
               <MDInput
-                placeholder='Search...'
+                placeholder="Search..."
                 value={search}
-                size='small'
+                size="small"
                 fullWidth
                 onChange={({ currentTarget }) => {
                   setSearch(search)
@@ -185,7 +180,7 @@ function DataTable ({
         </MDBox>
       ) : null}
       <Table {...getTableProps()}>
-        <MDBox component='thead'>
+        <MDBox component="thead">
           {headerGroups.map((headerGroup, key) => (
             <TableRow key={key} {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column, idx) => (
@@ -224,15 +219,15 @@ function DataTable ({
       </Table>
 
       <MDBox
-        display='flex'
+        display="flex"
         flexDirection={{ xs: 'column', sm: 'row' }}
-        justifyContent='space-between'
+        justifyContent="space-between"
         alignItems={{ xs: 'flex-start', sm: 'center' }}
         p={!showTotalEntries && pageOptions.length === 1 ? 0 : 3}
       >
         {showTotalEntries && (
           <MDBox mb={{ xs: 3, sm: 0 }}>
-            <MDTypography variant='button' color='secondary' fontWeight='regular'>
+            <MDTypography variant="button" color="secondary" fontWeight="regular">
               Showing {entriesStart} to {entriesEnd} of {rows.length} entries
             </MDTypography>
           </MDBox>
@@ -248,7 +243,7 @@ function DataTable ({
               </MDPagination>
             )}
             {renderPagination.length > 6 ? (
-              <MDBox width='5rem' mx={1}>
+              <MDBox width="5rem" mx={1}>
                 <MDInput
                   inputProps={{ type: 'number', min: 1, max: customizedPageOptions.length }}
                   value={customizedPageOptions[pageIndex]}
@@ -294,16 +289,7 @@ DataTable.propTypes = {
   table: PropTypes.objectOf(PropTypes.array).isRequired,
   pagination: PropTypes.shape({
     variant: PropTypes.oneOf(['contained', 'gradient']),
-    color: PropTypes.oneOf([
-      'primary',
-      'secondary',
-      'info',
-      'success',
-      'warning',
-      'error',
-      'dark',
-      'light',
-    ]),
+    color: PropTypes.oneOf(['primary', 'secondary', 'info', 'success', 'warning', 'error', 'dark', 'light']),
   }),
   isSorted: PropTypes.bool,
   noEndBorder: PropTypes.bool,

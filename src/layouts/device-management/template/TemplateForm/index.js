@@ -1,6 +1,7 @@
 import { LinearProgress, MenuItem, Select, TextField } from '@mui/material'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import * as React from 'react'
+
+import React, { useEffect } from 'react';
 import _ from 'lodash'
 import Grid from '@mui/material/Grid'
 import InputLabel from '@mui/material/InputLabel'
@@ -19,45 +20,36 @@ const validationSchema = Yup.object().shape({
     templateName: Yup.string()
       .required('Template name is required')
       .min(3, 'Template name must be at least 3 characters long')
-      .max(50, 'Template name must be at most 50 characters long')
-  }),
-  deviceType: Yup.string().required("Device type is required"),
-  deviceLocation: Yup.string().required('Location is required'),
-  extra: Yup.object().shape({
-    field_1: Yup.object().shape({
-      accessKey: Yup.string().required('Access key is required'),
-      name: Yup.string().required('Name is required'),
-      unit: Yup.string().required('Unit is required'),
-      max: Yup.number().required('Max value is required'),
-      min: Yup.number().required('Min value is required'),
-      tMax: Yup.number().required('tMax value is required'),
-      tMin: Yup.number().required('tMin value is required'),
-    }).required('Field 1 is required'),
-  }),
-  field: Yup.object().shape({
+      .max(50, 'Template name must be at most 50 characters long'),
+    deviceType: Yup.string()
+      .required('Device type is required'),
+
     connectionInfo: Yup.object().shape({
-      type: Yup.string().required('Connection type is required'),
-      mqtt: Yup.object().when('type', {
-        is: 'MQTT',
-        then: Yup.object().shape({
-          hostName: Yup.string().required('MQTT Hostname is required'),
-          upStreamPath: Yup.string().required('MQTT Upstream Path is required'),
-          downStreamPath: Yup.string().required('MQTT Downstream Path is required'),
-          username: Yup.string().required('MQTT Username is required'),
-          password: Yup.string().required('MQTT Password is required'),
-        }).required(),
-      }),
-      https: Yup.object().when('type', {
-        is: 'HTTPS',
-        then: Yup.object().shape({
-          basicAuthUsername: Yup.string().required('HTTPS Basic Auth Username is required'),
-          basicAuthPassword: Yup.string().required('HTTPS Basic Auth Password is required'),
-          hostName: Yup.string().required('HTTPS Hostname is required'),
-          qHeaderDevId: Yup.string().notRequired(),
-        }).required(),
-      }),
+      type: Yup.string().required('type is required'),
+      // mqtt: Yup.object().shape({
+      //   username: Yup.string().required("username is required"),
+      //   password: Yup.string().required("password is required")
+      // }),
     }),
+    // connectionInfohttps: Yup.object().shape({
+    //   type: Yup.string().required('https type is required'),
+    //   https: Yup.object().shape({
+    //     basicAuthUsername: Yup.string().required("basicAuthUsername is required"),
+    //     basicAuthPassword: Yup.string().required("basicAuthPassword is required")
+    //   }),
+    // })
   }),
+  // fields: Yup.object().shape({
+  //   field_1: Yup.object().shape({
+  //     accessKey: Yup.string().required('Access key is required'),
+  //     name: Yup.string().required('Name is required'),
+  //     unit: Yup.string().required('Unit is required'),
+  //     max: Yup.number().required('Maximum value is required'),
+  //     min: Yup.number().required('Minimum value is required'),
+  //     tMax: Yup.number().required('Maximum threshold value is required'),
+  //     tMin: Yup.number().required('Minimum threshold value is required'),
+  //   })
+  // })
 });
 
 
@@ -104,7 +96,6 @@ const TemplateForm = ({
 
 
   const getSelect = ({ options, field, props, initial, onChange }) => {
-
     return (
       <>
         <InputLabel sx={{ mt: 2 }} id={`${props.name}-label`}>{props.label}</InputLabel>
@@ -186,6 +177,7 @@ const TemplateForm = ({
   }
 
   const DeviceField = ({ field, form, ...props }) => {
+    console.log("the device field:::", field, props, form)
     const { type, InputProps } = props
     switch (type) {
       case 'text':
@@ -238,7 +230,6 @@ const TemplateForm = ({
                   getOptionLabel={(option) => option}
                   onChange={(evt, newValue) => {
                     if (newValue) {
-
                       const current = field.value
                       current[lKey].unit = newValue
                       InputProps.change(field.name, current)
@@ -328,7 +319,9 @@ const TemplateForm = ({
         </MDBox>)
     }
   }
-
+  useEffect(() => {
+    console.log("the selected field properties:::", selectedData)
+  }, [])
 
   return (
     <>
@@ -367,6 +360,8 @@ const TemplateForm = ({
         }
       >
         {({ submitForm, isSubmitting, setFieldValue, values, isValid, errors }) => {
+          console.log("The error and isValid:", errors, isValid);
+
           return (
             <Grid container sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
               <Grid item lg={9} xs={10} mg={9}>
@@ -394,8 +389,8 @@ const TemplateForm = ({
                     <MDButton
                       color='info'
                       variant='contained'
-                      disabled={(errors || !isValid)}
                       onClick={submitForm}
+                      disabled={errors.length > 0 || !isValid}
                     >
                       Submit
                     </MDButton>

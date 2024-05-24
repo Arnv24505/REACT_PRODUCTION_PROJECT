@@ -16,7 +16,7 @@ import * as Yup from 'yup';
 
 
 
-const getValidationSchema = (values) => {
+const getValidationSchema = () => {
   return Yup.object().shape({
     name: Yup.string()
       .required('Name is required')
@@ -27,25 +27,18 @@ const getValidationSchema = (values) => {
       templateInfo: Yup.object().shape({
         templateId: Yup.string().required("Template ID is required")
       }),
-      extra: Yup.object().shape({
-        field_1: Yup.object().shape({
-          accessKey: Yup.string().required('Access key is required'),
-          name: Yup.string().required('Name is required'),
-          unit: Yup.string().required('Unit is required'),
-          max: Yup.number().required('Max value is required'),
-          min: Yup.number().required('Min value is required'),
-          tMax: Yup.number().required('tMax value is required'),
-          tMin: Yup.number().required('tMin value is required'),
-        }).required('Field 1 is required'),
+      // extra: Yup.object().shape({
+      //   field_1: Yup.object().shape({
+      //     accessKey: Yup.string().required('Access key is required'),
+      //     name: Yup.string().required('Name is required'),
+      //     unit: Yup.string().required('Unit is required'),
+      //     max: Yup.number().required('Max value is required'),
+      //     min: Yup.number().required('Min value is required'),
+      //     tMax: Yup.number().required('tMax value is required'),
+      //     tMin: Yup.number().required('tMin value is required'),
+      //   }).required('Field 1 is required'),
       }),
     }),
-    deviceType: Yup.string()
-      .required('Please select a device type')
-      .oneOf(
-        ['SWITCH', 'GENERIC_SENSOR', 'WEATHER_SENSOR', 'AQI_SENSOR'],
-        'Invalid device type'
-      ).required('please select type'),
-
     connectionInfo: Yup.object().shape({
       type: Yup.string()
         .required('Please select a device type')
@@ -53,19 +46,19 @@ const getValidationSchema = (values) => {
           ['HTTPS', 'MQTT'],
           'Invalid  type'
         ).required('please select type'),
-      mqtt: Yup.object().when(['type'], {
-        is: (val) => val === 'MQTT',
-        then: Yup.object().shape({
-          username: Yup.string().required('MQTT Username is required'),
-          password: Yup.string().required('MQTT Password is required'),
-        }).required(),
-      }),
-      https: Yup.object().when(['type'], {
-        is: (val) => val === 'HTTPS',
-        then: Yup.object().shape({
-          basicAuthUsername: Yup.string().required('HTTPS Basic Auth Username is required'),
-          basicAuthPassword: Yup.string().required('HTTPS Basic Auth Password is required'),
-        }).required(),
+      // mqtt: Yup.object().when(['type'], {
+      //   is: (val) => val === 'MQTT',
+      //   then: Yup.object().shape({
+      //     username: Yup.string().required('MQTT Username is required'),
+      //     password: Yup.string().required('MQTT Password is required'),
+      //   }).required(),
+      // }),
+      // https: Yup.object().when(['type'], {
+      //   is: (val) => val === 'HTTPS',
+      //   then: Yup.object().shape({
+      //     basicAuthUsername: Yup.string().required('HTTPS Basic Auth Username is required'),
+      //     basicAuthPassword: Yup.string().required('HTTPS Basic Auth Password is required'),
+      //   }).required(),
       }),
     }),
   });
@@ -484,7 +477,7 @@ const DeviceForm = ({
     <>
       <Formik
         initialValues={selectedDevice}
-        validationSchema={getValidationSchema(selectedDevice)}
+        validationSchema={getValidationSchema}
         enableReinitialize
         onSubmit={(values, { setSubmitting }) => {
           if (_.isEmpty(values.deviceId)) {

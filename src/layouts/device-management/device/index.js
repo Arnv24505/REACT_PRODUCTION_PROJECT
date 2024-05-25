@@ -1,8 +1,8 @@
 // @mui material components
+import * as React from 'react'
 import { useEffect, useState } from 'react'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
-import * as React from 'react'
 // Material Dashboard 2 React components
 import MDBox from 'components/MDBox'
 import MDTypography from 'components/MDTypography'
@@ -26,7 +26,6 @@ import { getDeviceTemplates } from '../../../store/device/saga/deviceTemplatesSa
 import { getDevices } from '../../../store/device/saga/deviceSaga'
 import { userDevicesSelector } from '../../../store/device/slice/deviceSlice'
 import deviceFormDetails from './DeviceForm/fields'
-import Button from '@mui/material/Button'
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
 
@@ -44,7 +43,7 @@ const DeviceMain = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (user) {
+    if(user) {
       dispatch(getDevices())
       dispatch(getDeviceTemplates())
     } else {
@@ -56,12 +55,12 @@ const DeviceMain = () => {
     setSelectedDevice(defaultDevice)
   }
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if(reason === 'clickaway') {
       return
     }
-    if (isAdded) {
+    if(isAdded) {
       setIsAdded(false)
-    } else if (isUpdated) {
+    } else if(isUpdated) {
       setIsUpdated(false)
     } else {
       setIsError(false)
@@ -72,9 +71,9 @@ const DeviceMain = () => {
     <>
       <DashboardLayout>
         <DashboardNavbar />
-        <MDBox display="flex" justifyContent="flex-end" paddingRight="1rem">
+        <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
           <MDButton
-            color="success"
+            color='success'
             onClick={() => {
               navigate('/device-template-management')
             }}
@@ -92,17 +91,17 @@ const DeviceMain = () => {
                   mt={-3}
                   py={3}
                   px={2}
-                  variant="gradient"
-                  bgColor="info"
-                  borderRadius="lg"
-                  coloredShadow="info"
+                  variant='gradient'
+                  bgColor='info'
+                  borderRadius='lg'
+                  coloredShadow='info'
                 >
-                  <MDTypography variant="h6" color="white">
+                  <MDTypography variant='h6' color='white'>
                     Device Table
                   </MDTypography>
                 </MDBox>
-                <MDBox sx={{ mt: 2 }} display="flex" justifyContent="flex-end" paddingRight="1rem">
-                  <MDButton color="success" onClick={handleAdd}>
+                <MDBox sx={{ mt: 2 }} display='flex' justifyContent='flex-end' paddingRight='1rem'>
+                  <MDButton color='success' onClick={handleAdd}>
                     <Icon sx={{ color: 'inherit', marginRight: '0.5rem' }}>add</Icon>
                     Add
                   </MDButton>
@@ -141,7 +140,7 @@ const DeviceMain = () => {
           <Alert
             onClose={handleClose}
             severity={isAdded ? 'success' : isError ? 'error' : 'success'}
-            variant="filled"
+            variant='filled'
             sx={{ width: '100%', color: '#fff' }}
           >
             {isAdded ? 'Successfully Added' : isError ? 'Error in Template' : 'Updated Successfully'}

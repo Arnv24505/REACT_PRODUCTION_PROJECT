@@ -7,40 +7,40 @@ import MDButton from '../../../../components/MDButton'
 
 function Cover () {
   return (
-    <Grid container sx={{display : 'flex' , justifyContent  : 'center'}}>
+    <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
       <Grid item lg={4} xs={8} mg={4}>
-      <Card>
-        <MDBox
-          variant='gradient'
-          bgColor='info'
-          borderRadius='lg'
-          coloredShadow='success'
-          mx={2}
-          mt={-3}
-          py={2}
-          mb={1}
-          textAlign='center'
-        >
-          <MDTypography variant='h3' fontWeight='medium' color='white' mt={1}>
-            Reset Password
-          </MDTypography>
-          <MDTypography display='block' variant='button' color='white' my={1}>
-            You will receive an e-mail in maximum 60 seconds
-          </MDTypography>
-        </MDBox>
-        <MDBox pt={4} pb={3} px={3}>
-          <MDBox component='form' role='form'>
-            <MDBox mb={4}>
-              <MDInput type='email' label='Email' variant='standard' fullWidth />
-            </MDBox>
-            <MDBox mt={6} mb={1}>
-              <MDButton variant='gradient' color='info' fullWidth>
-                reset
-              </MDButton>
+        <Card>
+          <MDBox
+            variant='gradient'
+            bgColor='info'
+            borderRadius='lg'
+            coloredShadow='success'
+            mx={2}
+            mt={-3}
+            py={2}
+            mb={1}
+            textAlign='center'
+          >
+            <MDTypography variant='h3' fontWeight='medium' color='white' mt={1}>
+              Reset Password
+            </MDTypography>
+            <MDTypography display='block' variant='button' color='white' my={1}>
+              You will receive an e-mail in maximum 60 seconds
+            </MDTypography>
+          </MDBox>
+          <MDBox pt={4} pb={3} px={3}>
+            <MDBox component='form' role='form'>
+              <MDBox mb={4}>
+                <MDInput type='email' label='Email' variant='standard' fullWidth />
+              </MDBox>
+              <MDBox mt={6} mb={1}>
+                <MDButton variant='gradient' color='info' fullWidth>
+                  reset
+                </MDButton>
+              </MDBox>
             </MDBox>
           </MDBox>
-        </MDBox>
-      </Card>
+        </Card>
       </Grid>
     </Grid>
   )

@@ -1,6 +1,6 @@
 // @mui material components
-import { useEffect, useState } from 'react'
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 
@@ -25,21 +25,20 @@ import templateFormDetails from './TemplateForm/fields'
 import defaultTemplate from './data/defaultTemplate.json'
 import { deviceTemplatesSelector } from '../../../store/device/slice/deviceTemplatesSlice'
 import { getDeviceTemplates } from '../../../store/device/saga/deviceTemplatesSaga'
-import Button from '@mui/material/Button'
 import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
-import { handleLayout } from 'layouts/dashboard/data/CardData'
+
 const TemplateMain = () => {
   const [isAdded, setIsAdded] = React.useState(false)
   const [isUpdated, setIsUpdated] = React.useState(false)
   const [isError, setIsError] = React.useState(false)
   const [isDeleted, setIsDeleted] = React.useState(false)
   const handleClose = () => {
-    if (isAdded) {
+    if(isAdded) {
       setIsAdded(false)
-    } else if (isError) {
+    } else if(isError) {
       setIsError(false)
-    } else if (isDeleted) {
+    } else if(isDeleted) {
       setIsDeleted(false)
     } else {
       setIsUpdated(false)
@@ -52,7 +51,7 @@ const TemplateMain = () => {
   const { user } = useSelector(userSelector)
   const navigate = useNavigate()
   useEffect(() => {
-    if (user) {
+    if(user) {
       dispatch(getDeviceTemplates())
     } else {
       dispatch(getUser({ navigate }))
@@ -66,9 +65,9 @@ const TemplateMain = () => {
     <>
       <DashboardLayout>
         <DashboardNavbar />
-        <MDBox display="flex" justifyContent="flex-end" paddingRight="1rem">
+        <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
           <MDButton
-            color="success"
+            color='success'
             onClick={() => {
               navigate('/device-management')
             }}
@@ -86,17 +85,17 @@ const TemplateMain = () => {
                   mt={-3}
                   py={3}
                   px={2}
-                  variant="gradient"
-                  bgColor="info"
-                  borderRadius="lg"
-                  coloredShadow="info"
+                  variant='gradient'
+                  bgColor='info'
+                  borderRadius='lg'
+                  coloredShadow='info'
                 >
-                  <MDTypography variant="h6" color="white">
+                  <MDTypography variant='h6' color='white'>
                     Device Templates Table
                   </MDTypography>
                 </MDBox>
-                <MDBox sx={{ mt: 2 }} display="flex" justifyContent="flex-end" paddingRight="1rem">
-                  <MDButton color="success" onClick={handleAdd}>
+                <MDBox sx={{ mt: 2 }} display='flex' justifyContent='flex-end' paddingRight='1rem'>
+                  <MDButton color='success' onClick={handleAdd}>
                     <Icon sx={{ color: 'inherit', marginRight: '0.5rem' }}>add</Icon>
                     Add
                   </MDButton>
@@ -137,7 +136,7 @@ const TemplateMain = () => {
           <Alert
             onClose={handleClose}
             severity={isAdded ? 'success' : isError ? 'error' : 'success'}
-            variant="filled"
+            variant='filled'
             sx={{ width: '100%', color: '#fff' }}
           >
             {isAdded

@@ -105,9 +105,9 @@ const TemplateForm = ({
           value={field.name === 'basic.connectionInfo' && field.value ? field.value.type : field.value}
           onChange={(evt) => {
             const current = field.value
-            if (field.name === 'basic.connectionInfo' && evt.target.value === 'MQTT') {
+            if(field.name === 'basic.connectionInfo' && evt.target.value === 'MQTT') {
               onChange(field.name, defaultMQTTConnectionInfo)
-            } else if (field.name === 'basic.connectionInfo' && evt.target.value === 'HTTPS') {
+            } else if(field.name === 'basic.connectionInfo' && evt.target.value === 'HTTPS') {
               onChange(field.name, defaultHTTPConnectionInfo)
             } else {
               onChange(field.name, evt.target.value)
@@ -263,85 +263,85 @@ const TemplateForm = ({
       case 'table':
         const rows = field.value
           ? _.map(_.keys(field.value), (key) => {
-              const row = {}
-              _.map(InputProps.columns, ({ accessor }) => {
-                const lKey = key
-                if (accessor === 'unit') {
-                  row[accessor] = (
-                    <Autocomplete
-                      freeSolo
-                      sx={{ width: '120px' }}
-                      value={field.value[key].unit}
-                      getOptionLabel={(option) => option}
-                      onChange={(evt, newValue) => {
-                        if (newValue) {
-                          const current = field.value
-                          current[lKey].unit = newValue
-                          InputProps.change(field.name, current)
-                        }
-                      }}
-                      options={['Deg C', 'Fahrenheit']}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          onChange={(evt) => {
-                            if (evt.target.value) {
-                              const current = field.value
-                              current[lKey].unit = evt.target.value
-                              InputProps.change(field.name, current)
-                            }
-                          }}
-                        />
-                      )}
-                    />
-                  )
-                } else if (accessor === 'action') {
-                  row[accessor] = (
-                    <MDBox gap={3}>
-                      <MDTypography
-                        key={'icon_2'}
-                        component="a"
-                        href="#"
-                        mx="1.5rem"
-                        color="text"
-                        onClick={() => {
-                          const current = field.value
-                          delete current[lKey]
-                          InputProps.change(field.name, current)
-                        }}
-                      >
-                        <Icon>{'delete'}</Icon>
-                      </MDTypography>
-                    </MDBox>
-                  )
-                } else {
-                  row[accessor] = (
-                    <TextField
-                      value={field.value[key][accessor]}
-                      onChange={(evt) => {
+            const row = {}
+            _.map(InputProps.columns, ({ accessor }) => {
+              const lKey = key
+              if(accessor === 'unit') {
+                row[accessor] = (
+                  <Autocomplete
+                    freeSolo
+                    sx={{ width: '120px' }}
+                    value={field.value[key].unit}
+                    getOptionLabel={(option) => option}
+                    onChange={(evt, newValue) => {
+                      if(newValue) {
                         const current = field.value
-                        current[lKey][accessor] = evt.target.value
+                        current[lKey].unit = newValue
+                        InputProps.change(field.name, current)
+                      }
+                    }}
+                    options={['Deg C', 'Fahrenheit']}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        onChange={(evt) => {
+                          if(evt.target.value) {
+                            const current = field.value
+                            current[lKey].unit = evt.target.value
+                            InputProps.change(field.name, current)
+                          }
+                        }}
+                      />
+                    )}
+                  />
+                )
+              } else if(accessor === 'action') {
+                row[accessor] = (
+                  <MDBox gap={3}>
+                    <MDTypography
+                      key={'icon_2'}
+                      component='a'
+                      href='#'
+                      mx='1.5rem'
+                      color='text'
+                      onClick={() => {
+                        const current = field.value
+                        delete current[lKey]
                         InputProps.change(field.name, current)
                       }}
-                      sx={{ maxWidth: accessor === 'name' || accessor === 'accessKey' ? '120px' : '60px' }}
-                    />
-                  )
-                }
-              })
-              return row
+                    >
+                      <Icon>{'delete'}</Icon>
+                    </MDTypography>
+                  </MDBox>
+                )
+              } else {
+                row[accessor] = (
+                  <TextField
+                    value={field.value[key][accessor]}
+                    onChange={(evt) => {
+                      const current = field.value
+                      current[lKey][accessor] = evt.target.value
+                      InputProps.change(field.name, current)
+                    }}
+                    sx={{ maxWidth: accessor === 'name' || accessor === 'accessKey' ? '120px' : '60px' }}
+                  />
+                )
+              }
             })
+            return row
+          })
           : []
         return (
           <MDBox sx={{ mt: 2 }}>
             <InputLabel id={`${props.name}-label`}>{props.label}</InputLabel>
-            <MDBox display="flex" justifyContent="flex-end" paddingRight="1rem">
+            <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
               <MDButton
-                color="success"
+                color='success'
                 onClick={() => {
                   const current = field.value
-                  if (current) {
+                  if(current) {
                     const keys = Object.keys(current)
-                    if (keys.length > 0) {
+                    if(keys.length > 0) {
                       const lastKeyNo = _.last(_.last(keys).split('_')) * 1
                       const newObj = {
                         accessKey: `field_${lastKeyNo + 1}`,
@@ -384,14 +384,14 @@ const TemplateForm = ({
         initialValues={selectedData}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          if (!values.templateId) {
+          if(!values.templateId) {
             values.templateId = `${values.basic.templateName.replaceAll(' ', '')}tmplId`
             dispatch(
               addDeviceTemplate({
                 templateObject: values,
                 onSuccess: (status) => {
                   setSubmitting(false)
-                  if (!status) {
+                  if(!status) {
                     setIsError(true)
                   } else {
                     setIsAdded(true)
@@ -405,7 +405,7 @@ const TemplateForm = ({
               updateDeviceTemplate({
                 templateObject: values,
                 onSuccess: (status) => {
-                  if (!status) {
+                  if(!status) {
                     setIsError(true)
                   } else {
                     setIsUpdated(true)
@@ -446,16 +446,16 @@ const TemplateForm = ({
                   })}
                   {isSubmitting && <LinearProgress />}
                   <br />
-                  <MDBox display="flex" justifyContent="flex-end" paddingRight="1rem">
+                  <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
                     <MDButton
-                      color="info"
-                      variant="contained"
+                      color='info'
+                      variant='contained'
                       onClick={submitForm}
                       disabled={errors.length > 0 || !isValid}
                     >
                       Submit
                     </MDButton>
-                    <ErrorMessage name="fields" component="div" className="error" />
+                    <ErrorMessage name='fields' component='div' className='error' />
                   </MDBox>
                 </Form>
               </Grid>

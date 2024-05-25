@@ -4,52 +4,52 @@ import MDBox from 'components/MDBox'
 import MDTypography from 'components/MDTypography'
 import DataTable from 'examples/Tables/DataTable'
 import { useDispatch } from 'react-redux'
-import _, { isDate } from 'lodash'
+import _ from 'lodash'
 import { deleteDeviceTemplate } from '../../../../store/device/saga/deviceTemplatesSaga'
 import { deviceTypes } from '../../constants'
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Paper, { PaperProps } from '@mui/material/Paper';
-import Draggable from 'react-draggable';
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import Paper, { PaperProps } from '@mui/material/Paper'
+import Draggable from 'react-draggable'
 
-
-function PaperComponent(props: PaperProps) {
+function PaperComponent (props: PaperProps) {
   return (
     <Draggable
-      handle="#draggable-dialog-title"
+      handle='#draggable-dialog-title'
       cancel={'[class*="MuiDialogContent-root"]'}
     >
       <Paper {...props} />
     </Draggable>
-  );
+  )
 }
+
 const TemplateData = ({
   setSelectedTemplate,
   deviceTemplates,
-  setIsDeleted
+  setIsDeleted,
 }) => {
-  
+
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [deletedTemplatedId, setdeletedTemplatedId] = React.useState()
-  
+
   const dispatch = useDispatch()
- 
+
   const handleDialog = (id) => {
     setIsDialogOpen(true)
     setdeletedTemplatedId(id)
   }
   const handleDelete = (templateId) => {
     setIsDialogOpen(false)
-    
+
     dispatch(deleteDeviceTemplate({
       templateObject: { templateId }, onSuccess: (status) => {
         if(!status) {
           setIsError(true)
-        }else{
+        } else {
           setIsDeleted(true)
         }
       },
@@ -104,27 +104,27 @@ const TemplateData = ({
   return (
     <>
 
-    <MDBox>
-      <DataTable
-        table={{ columns, rows }}
-        hideEntries={true}
-        isSorted={false}
-        entriesPerPage={20}
-        showTotalEntries={true}
-        noEndBorder
-      />
-    
-    </MDBox>
-  
-   
+      <MDBox>
+        <DataTable
+          table={{ columns, rows }}
+          hideEntries={true}
+          isSorted={false}
+          entriesPerPage={20}
+          showTotalEntries={true}
+          noEndBorder
+        />
+
+      </MDBox>
+
+
       {isDialogOpen && (
         <Dialog
           open={isDialogOpen}
-          onClose={() => {setIsDialogOpen(false)}} 
+          onClose={() => {setIsDialogOpen(false)}}
           PaperComponent={PaperComponent}
-          aria-labelledby="draggable-dialog-title"
+          aria-labelledby='draggable-dialog-title'
         >
-          <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
+          <DialogTitle style={{ cursor: 'move' }} id='draggable-dialog-title'>
             Delete
           </DialogTitle>
           <DialogContent>
@@ -133,7 +133,7 @@ const TemplateData = ({
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button autoFocus onClick={() => setIsDialogOpen(false)}> 
+            <Button autoFocus onClick={() => setIsDialogOpen(false)}>
               Cancel
             </Button>
             <Button onClick={() => handleDelete(deletedTemplatedId)}>Delete</Button>

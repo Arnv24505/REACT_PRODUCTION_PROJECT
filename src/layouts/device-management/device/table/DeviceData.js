@@ -4,30 +4,30 @@ import MDBox from 'components/MDBox'
 import MDTypography from 'components/MDTypography'
 import DataTable from 'examples/Tables/DataTable'
 import { useDispatch } from 'react-redux'
-import _, { set } from 'lodash'
+import _ from 'lodash'
 import { deleteDevice } from '../../../../store/device/saga/deviceSaga'
 import { deviceTypes } from '../../constants'
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button'
+import Snackbar from '@mui/material/Snackbar'
+import Alert from '@mui/material/Alert'
 import * as React from 'react'
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Paper, { PaperProps } from '@mui/material/Paper';
-import Draggable from 'react-draggable';
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import Paper, { PaperProps } from '@mui/material/Paper'
+import Draggable from 'react-draggable'
 
-function PaperComponent(props: PaperProps) {
+function PaperComponent (props: PaperProps) {
   return (
     <Draggable
-      handle="#draggable-dialog-title"
+      handle='#draggable-dialog-title'
       cancel={'[class*="MuiDialogContent-root"]'}
     >
       <Paper {...props} />
     </Draggable>
-  );
+  )
 }
 
 const DeviceData = ({
@@ -37,8 +37,8 @@ const DeviceData = ({
   // Function to get the background color and label based on status
   const getStatusColor = (status) => {
     let lStatus = status
-    if (status === 'true') lStatus = true
-    if (status === 'false') lStatus = false
+    if(status === 'true') lStatus = true
+    if(status === 'false') lStatus = false
     switch (lStatus) {
       case false:
         return '#FF0000'
@@ -48,8 +48,8 @@ const DeviceData = ({
         return 'grey'
     }
   }
-  const [isDeleted, setIsDeleted] = React.useState(false);
-  const [isError, setIsError] = React.useState(false);
+  const [isDeleted, setIsDeleted] = React.useState(false)
+  const [isError, setIsError] = React.useState(false)
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
   const [deletedTemplatedId, setdeletedTemplatedId] = React.useState()
   const dispatch = useDispatch()
@@ -67,7 +67,7 @@ const DeviceData = ({
     setIsDeleted(true)
     dispatch(deleteDevice({
       deviceObject: { deviceId }, onSuccess: (status) => {
-        if (!status) setIsError(true)
+        if(!status) setIsError(true)
       },
     }))
   }
@@ -147,10 +147,10 @@ const DeviceData = ({
           <Alert
             onClose={handleClose}
             severity={isDeleted ? 'success' : 'error'}
-            variant="filled"
-            sx={{ width: '100%', color: "#fff", }}
+            variant='filled'
+            sx={{ width: '100%', color: '#fff' }}
           >
-            {isDeleted ? "Successfully Deleted" : "Error in Template"}
+            {isDeleted ? 'Successfully Deleted' : 'Error in Template'}
           </Alert>
         </Snackbar>)}
       {isDialogOpen && (
@@ -158,9 +158,9 @@ const DeviceData = ({
           open={isDialogOpen}
           onClose={() => { setIsDialogOpen(false) }}
           PaperComponent={PaperComponent}
-          aria-labelledby="draggable-dialog-title"
+          aria-labelledby='draggable-dialog-title'
         >
-          <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
+          <DialogTitle style={{ cursor: 'move' }} id='draggable-dialog-title'>
             Delete
           </DialogTitle>
           <DialogContent>

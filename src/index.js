@@ -20,10 +20,10 @@ sagaMiddleware.run(deviceTemplatesSaga)
 const root = createRoot(container)
 root.render(
   <BrowserRouter>
-      <Provider store={store}>
-          <MaterialUIControllerProvider>
-            <App />
-          </MaterialUIControllerProvider>
-      </Provider>
+    <Provider store={store}>
+      <MaterialUIControllerProvider>
+        <App />
+      </MaterialUIControllerProvider>
+    </Provider>
   </BrowserRouter>,
 )

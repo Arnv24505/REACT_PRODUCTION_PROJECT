@@ -1,5 +1,5 @@
 import { LinearProgress, MenuItem, Select, TextField } from '@mui/material'
-import { Field, Form, Formik, ErrorMessage } from 'formik'
+import { ErrorMessage, Field, Form, Formik } from 'formik'
 import * as React from 'react'
 import _ from 'lodash'
 import Grid from '@mui/material/Grid'
@@ -106,7 +106,7 @@ const DeviceForm = ({
   }, [])
   const getSelect = ({ options, field, props, initial, onChange, values, setValues }) => {
     let lOptions = options
-    if (field.name === 'deviceInfo.templateInfo.templateId') {
+    if(field.name === 'deviceInfo.templateInfo.templateId') {
       lOptions = _.map(deviceTemplates, ({ templateId, basic: { templateName } }) => ({
         value: templateId,
         label: templateName,
@@ -126,14 +126,14 @@ const DeviceForm = ({
           label={props.label}
           value={field.name === 'deviceInfo.connectionInfo' ? field.value.type : field.value}
           onChange={(evt) => {
-            if (field.name === 'deviceType') {
+            if(field.name === 'deviceType') {
               const deviceInfo = _.cloneDeep(values.deviceInfo)
               const deviceId = values.deviceId
               const deviceType = evt.target.value
-              if (values.deviceInfo.connectionInfo.type === 'MQTT') {
+              if(values.deviceInfo.connectionInfo.type === 'MQTT') {
                 deviceInfo.connectionInfo.mqtt.upStreamPath = `/${deviceType}/${deviceId}/upstream`
                 deviceInfo.connectionInfo.mqtt.downStreamPath = `/${deviceType}/${deviceId}/downstream`
-              } else if (values.deviceInfo.connectionInfo.type === 'HTTPS') {
+              } else if(values.deviceInfo.connectionInfo.type === 'HTTPS') {
                 deviceInfo.connectionInfo.https.qHeaderDevId = deviceId
               }
               setTimeout(() => {
@@ -143,18 +143,18 @@ const DeviceForm = ({
                   deviceType: evt.target.value,
                 })
               }, 100)
-            } else if (field.name === 'deviceInfo.connectionInfo' && evt.target.value === 'MQTT') {
+            } else if(field.name === 'deviceInfo.connectionInfo' && evt.target.value === 'MQTT') {
               const deviceId = values.deviceId
               const deviceType = values.deviceType
               defaultMQTTConnectionInfo.mqtt.upStreamPath = `/${deviceType}/${deviceId}/upstream`
               defaultMQTTConnectionInfo.mqtt.downStreamPath = `/${deviceType}/${deviceId}/downstream`
               onChange(field.name, defaultMQTTConnectionInfo)
-            } else if (field.name === 'deviceInfo.connectionInfo' && evt.target.value === 'HTTPS') {
+            } else if(field.name === 'deviceInfo.connectionInfo' && evt.target.value === 'HTTPS') {
               const deviceId = values.deviceId
               defaultHTTPConnectionInfo.https.qHeaderDevId = deviceId
               onChange(field.name, defaultHTTPConnectionInfo)
-            } else if (field.name === 'deviceInfo.templateInfo.templateId') {
-              if (!evt.target.value) return
+            } else if(field.name === 'deviceInfo.templateInfo.templateId') {
+              if(!evt.target.value) return
               const templateId = evt.target.value
               const template = _.find(deviceTemplates, { templateId })
               const deviceInfo = {
@@ -169,10 +169,10 @@ const DeviceForm = ({
                 deviceInfo.extra[key] = template.fields[key]
                 deviceState[key] = 0
               })
-              if (deviceInfo.connectionInfo.type === 'MQTT') {
+              if(deviceInfo.connectionInfo.type === 'MQTT') {
                 deviceInfo.connectionInfo.mqtt.upStreamPath = `/${deviceType}/${deviceId}/upstream`
                 deviceInfo.connectionInfo.mqtt.downStreamPath = `/${deviceType}/${deviceId}/downstream`
-              } else if (deviceInfo.connectionInfo.type === 'HTTPS') {
+              } else if(deviceInfo.connectionInfo.type === 'HTTPS') {
                 deviceInfo.connectionInfo.https.qHeaderDevId = deviceId
               }
               setTimeout(() => {
@@ -195,7 +195,7 @@ const DeviceForm = ({
               </MenuItem>
             )
           })}
-          <ErrorMessage name="deviceInfo.templateInfo.templateId" component="div" className="error" />
+          <ErrorMessage name='deviceInfo.templateInfo.templateId' component='div' className='error' />
         </Select>
         {field.name === 'deviceInfo.connectionInfo' && field.value.type === 'MQTT' && (
           <>
@@ -344,7 +344,7 @@ const DeviceForm = ({
                     InputProps.change(field.name, evt.target.value)
                   }}
                 />
-                <ErrorMessage name="deviceLoacation" component="div" className="error" />
+                <ErrorMessage name='deviceLoacation' component='div' className='error' />
               </>
             )}
           />
@@ -355,7 +355,7 @@ const DeviceForm = ({
           const row = {}
           _.map(InputProps.columns, ({ accessor }) => {
             const lKey = key
-            if (accessor === 'unit') {
+            if(accessor === 'unit') {
               row[accessor] = (
                 <Autocomplete
                   freeSolo
@@ -365,7 +365,7 @@ const DeviceForm = ({
                   getOptionLabel={(option) => option}
                   options={['Deg C', 'Fahrenheit']}
                   onChange={(evt, newValue) => {
-                    if (newValue) {
+                    if(newValue) {
                       const current = field.value
                       current.extra[lKey].unit = newValue
                       InputProps.change(field.name, current)
@@ -374,15 +374,15 @@ const DeviceForm = ({
                   renderInput={(params) => <TextField {...params} />}
                 />
               )
-            } else if (accessor === 'action') {
+            } else if(accessor === 'action') {
               row[accessor] = (
                 <MDBox gap={3}>
                   <MDTypography
                     key={'icon_2'}
-                    component="a"
-                    href="#"
-                    mx="1.5rem"
-                    color="text"
+                    component='a'
+                    href='#'
+                    mx='1.5rem'
+                    color='text'
                     onClick={() => {
                       const current = field.value
                       const deviceState = _.cloneDeep(values.deviceState)
@@ -423,9 +423,9 @@ const DeviceForm = ({
         return (
           <MDBox sx={{ mt: 2 }}>
             <InputLabel id={`${props.name}-label`}>{props.label}</InputLabel>
-            <MDBox display="flex" justifyContent="flex-end" paddingRight="1rem">
+            <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
               <MDButton
-                color="success"
+                color='success'
                 onClick={() => {
                   const current = field.value
                   const lastKeyNo = _.last(_.last(_.keys(field.value.extra)).split('_')) * 1
@@ -466,13 +466,13 @@ const DeviceForm = ({
         validationSchema={getValidationSchema}
         enableReinitialize
         onSubmit={(values, { setSubmitting }) => {
-          if (_.isEmpty(values.deviceId)) {
+          if(_.isEmpty(values.deviceId)) {
             dispatch(
               addDevice({
                 deviceObject: values,
                 onSuccess: (status) => {
                   setSubmitting(false)
-                  if (!status) {
+                  if(!status) {
                     setIsError(true)
                   } else {
                     setIsAdded(true)
@@ -487,7 +487,7 @@ const DeviceForm = ({
                 deviceObject: values,
                 onSuccess: (status) => {
                   setSubmitting(false)
-                  if (!status) {
+                  if(!status) {
                     setIsError(true)
                   } else {
                     setIsUpdated(true)
@@ -539,10 +539,10 @@ const DeviceForm = ({
                   )}
                   {isSubmitting && <LinearProgress />}
                   <br />
-                  <MDBox display="flex" justifyContent="flex-end" paddingRight="1rem">
+                  <MDBox display='flex' justifyContent='flex-end' paddingRight='1rem'>
                     <MDButton
-                      color="info"
-                      variant="contained"
+                      color='info'
+                      variant='contained'
                       onClick={submitForm}
                       // disabled={!_.isEmpty(errors) || !isValid}
                       disabled={isSubmitting || !isValid}

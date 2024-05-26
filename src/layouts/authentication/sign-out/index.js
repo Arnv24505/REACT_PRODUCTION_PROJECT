@@ -1,9 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-  useDispatch,
-  useSelector,
-} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { userSelector } from '../../../store/user/slice/userSlice'
 import { logoutUser } from '../../../store/user/saga/userSaga'
 

@@ -89,12 +89,7 @@ function DataTable ({
 
   // Render the paginations
   const renderPagination = pageOptions.map((option) => (
-    <MDPagination
-      item
-      key={option}
-      onClick={() => gotoPage(Number(option))}
-      active={pageIndex === option}
-    >
+    <MDPagination item key={option} onClick={() => gotoPage(Number(option))} active={pageIndex === option}>
       {option + 1}
     </MDPagination>
   ))
@@ -294,16 +289,7 @@ DataTable.propTypes = {
   table: PropTypes.objectOf(PropTypes.array).isRequired,
   pagination: PropTypes.shape({
     variant: PropTypes.oneOf(['contained', 'gradient']),
-    color: PropTypes.oneOf([
-      'primary',
-      'secondary',
-      'info',
-      'success',
-      'warning',
-      'error',
-      'dark',
-      'light',
-    ]),
+    color: PropTypes.oneOf(['primary', 'secondary', 'info', 'success', 'warning', 'error', 'dark', 'light']),
   }),
   isSorted: PropTypes.bool,
   noEndBorder: PropTypes.bool,

@@ -22,10 +22,10 @@ sagaMiddleware.run(userRulesSaga)
 const root = createRoot(container)
 root.render(
   <BrowserRouter>
-      <Provider store={store}>
-          <MaterialUIControllerProvider>
-            <App />
-          </MaterialUIControllerProvider>
-      </Provider>
+    <Provider store={store}>
+      <MaterialUIControllerProvider>
+        <App />
+      </MaterialUIControllerProvider>
+    </Provider>
   </BrowserRouter>,
 )

@@ -48,7 +48,6 @@ function timelineItem (theme, ownerState) {
     borderBottomWidth: `1px`, // Adjust for horizontal border
   }
 
-  console.log('orientation : ', orientation)
 
   const styles = {
     '&:after': {

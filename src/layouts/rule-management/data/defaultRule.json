@@ -1,0 +1,8 @@
+{
+  "ruleName": "Rule 1",
+  "active": true,
+  "endpoint": "",
+  "trigger": "",
+  "actionType": "ALARM",
+  "actionDescription": "Alarm to be generated"
+}

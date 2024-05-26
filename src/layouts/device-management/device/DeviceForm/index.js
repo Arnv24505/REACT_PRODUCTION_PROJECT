@@ -101,9 +101,6 @@ const DeviceForm = ({
   isAdded,
 }) => {
   const dispatch = useDispatch()
-  React.useEffect(() => {
-    console.log('the fieldss:::', fields)
-  }, [])
   const getSelect = ({ options, field, props, initial, onChange, values, setValues }) => {
     let lOptions = options
     if(field.name === 'deviceInfo.templateInfo.templateId') {
@@ -112,7 +109,6 @@ const DeviceForm = ({
         label: templateName,
       }))
     }
-    console.log('the new field and preops of select :::::>>', props, field)
     return (
       <>
         <InputLabel sx={{ mt: 2 }} id={`${props.name}-label`}>
@@ -344,7 +340,7 @@ const DeviceForm = ({
                     InputProps.change(field.name, evt.target.value)
                   }}
                 />
-                <ErrorMessage name='deviceLoacation' component='div' className='error' />
+                <ErrorMessage name='deviceLocation' component='div' className='error' />
               </>
             )}
           />
@@ -454,11 +450,6 @@ const DeviceForm = ({
         )
     }
   }
-
-  React.useEffect(() => {
-    console.log('the selected devices :::>>>>><<<<<', selectedDevice)
-  }, [selectedDevice])
-
   return (
     <>
       <Formik
@@ -500,7 +491,6 @@ const DeviceForm = ({
         }}
       >
         {({ submitForm, isSubmitting, setFieldValue, values, setValues, isValid, errors }) => {
-          console.log('details of device formik ', errors, isValid)
           return (
             <Grid container sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
               <Grid item lg={9} xs={10} mg={9}>
@@ -544,7 +534,6 @@ const DeviceForm = ({
                       color='info'
                       variant='contained'
                       onClick={submitForm}
-                      // disabled={!_.isEmpty(errors) || !isValid}
                       disabled={isSubmitting || !isValid}
                     >
                       Submit

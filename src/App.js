@@ -7,6 +7,7 @@ import MiniDrawer from 'examples/Sidenav'
 import Configurator from 'examples/Configurator'
 import theme from 'assets/theme'
 import themeDark from 'assets/theme-dark'
+import Login from 'layouts/authentication/sign-in'
 import rtlPlugin from 'stylis-plugin-rtl'
 import createCache from '@emotion/cache'
 
@@ -20,6 +21,9 @@ import { setLayout, setMiniSidenav, setOpenConfigurator, useMaterialUIController
 import brandWhite from 'assets/images/logo-ct.png'
 import brandDark from 'assets/images/logo-ct-dark.png'
 import { useMediaQuery } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { userSelector } from './store/user/slice/userSlice'
+import { getUser } from './store/user/saga/userSaga'
 
 export default function App () {
   const [controller, dispatch] = useMaterialUIController()
@@ -36,12 +40,10 @@ export default function App () {
   const [onMouseEnter, setOnMouseEnter] = useState(false)
   const [rtlCache, setRtlCache] = useState(null)
   const { pathname } = useLocation()
-  console.log('pathname now in aPP is', pathname)
   useEffect(() => {
-    console.log('pathname now is', pathname)
-    if(['/login', '/logout', '/signup'].includes(pathname)) {
+    if(['/login' , '/logout' , '/signup'].includes(pathname)) {
       setLayout(dispatch, 'login')
-    } else {
+    }else {
       setLayout(dispatch, 'dashboard')
     }
 
@@ -53,7 +55,6 @@ export default function App () {
       dispatch(getUser())
     }
   }, [user])*/
-  console.log('layout now is ', layout)
   const hider = useMediaQuery(theme.breakpoints.up('xl'))
   const hider2 = useMediaQuery(theme.breakpoints.up('lg'))
   const hider3 = useMediaQuery(theme.breakpoints.up('md'))
@@ -119,7 +120,7 @@ export default function App () {
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
 
-      {layout === 'dashboard' && (
+      {layout === 'dashboard' &&  (
         <>
           <Sidenav
             color={sidenavColor}

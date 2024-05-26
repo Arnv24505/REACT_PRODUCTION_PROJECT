@@ -10,12 +10,14 @@ import { store } from './store/store'
 import userSaga from './store/user/saga/userSaga'
 import userDeviceSaga from './store/device/saga/deviceSaga'
 import deviceTemplatesSaga from './store/device/saga/deviceTemplatesSaga'
+import userRulesSaga from './store/rules/saga/ruleSaga'
 
 const container = document.getElementById('app')
 
 sagaMiddleware.run(userSaga)
 sagaMiddleware.run(userDeviceSaga)
 sagaMiddleware.run(deviceTemplatesSaga)
+sagaMiddleware.run(userRulesSaga)
 
 const root = createRoot(container)
 root.render(

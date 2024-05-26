@@ -204,7 +204,7 @@ export default function MiniDrawer ({ brandName, routes, setMarginSetter }) {
         )}
         <Divider />
         <List>
-          {routes.map(({ type, name, icon, route, submenu }) => (
+          {routes.filter((route)=> route.showMenu).map(({ type, name, icon, route, submenu }) => (
             type === 'collapse' && (
               <React.Fragment key={name}>
                 {submenu ? (

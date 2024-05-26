@@ -103,7 +103,9 @@ function DashboardNavbar ({ absolute, light, isMini }) {
       <Link to='/user-management' style={{ textDecoration: 'none', color: 'inherit' }}>
         <NotificationItem icon={<Icon>account_circle</Icon>} title='User Profile' />
       </Link>
-      <NotificationItem icon={<Icon>logout</Icon>} title='Sign Out' />
+      <Link to='/logout' style={{ textDecoration: 'none', color: 'inherit' }}>
+        <NotificationItem icon={<Icon>logout</Icon>} title='Sign Out' />
+      </Link>
     </Menu>
   )
 

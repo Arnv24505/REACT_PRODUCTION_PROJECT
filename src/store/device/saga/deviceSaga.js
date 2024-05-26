@@ -14,7 +14,6 @@ function * getDevicesSaga ({ payload }) {
       })
     const devices = result.data
     yield put(addUserDevices(devices))
-    console.log('get devices is', data)
   } catch (error) {
     console.error('network failure', error)
   }
@@ -24,7 +23,6 @@ export const addDevice = createAction(`addDeviceSaga`)
 
 function * addDeviceSaga ({ payload: { deviceObject, onSuccess } }) {
   try {
-    console.log('recvd obj', deviceObject)
     const result = yield call(axios.post, '/wapi/device/addData', deviceObject, {
       withCredentials: true,
     })
@@ -44,7 +42,6 @@ export const deleteDevice = createAction(`deleteDeviceSaga`)
 
 function * deleteDeviceSaga ({ payload: { deviceObject, onSuccess } }) {
   try {
-    console.log('recvd obj', deviceObject)
     const response = yield call(axios.post, '/wapi/device/delData', deviceObject, {
       withCredentials: true,
     })
@@ -64,7 +61,6 @@ export const updateDevice = createAction(`updatedDeviceSaga`)
 
 function * updatedDeviceSaga ({ payload: { deviceObject, onSuccess } }) {
   try {
-    console.log('recvd obj', deviceObject)
     const result = yield call(axios.post, '/wapi/device/editData', deviceObject, {
       withCredentials: true,
     })

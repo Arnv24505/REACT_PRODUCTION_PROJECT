@@ -23,12 +23,14 @@ const routes = [
     type: 'collapse',
     name: 'Dashboard',
     key: 'dashboard',
+    showMenu : true,
     icon: <Icon fontSize='large'>dashboard</Icon>,
     route: '/dashboard',
     component: <Dashboard />,
   },
   {
     type: 'collapse',
+    showMenu : false,
     name: 'SignIn',
     key: 'signin',
     icon: <Icon fontSize='large'>login</Icon>,
@@ -38,6 +40,7 @@ const routes = [
   {
     type: 'collapse',
     name: 'SignOut',
+    showMenu : false,
     key: 'signout',
     icon: <Icon fontSize='large'>logout</Icon>,
     route: '/logout',
@@ -46,6 +49,7 @@ const routes = [
   {
     type: 'collapse',
     name: 'SignUp',
+    showMenu : false,
     key: 'signup',
     icon: <Icon fontSize='large'>logout</Icon>,
     route: '/signup',
@@ -54,6 +58,7 @@ const routes = [
   {
     type: 'collapse',
     name: 'Data Source',
+    showMenu : true,
     key: 'data-source',
     icon: <Icon fontSize='large'>assignment</Icon>,
     route: '/dataSource/data-source',
@@ -62,6 +67,7 @@ const routes = [
   {
     type: 'collapse',
     name: 'Device Management',
+    showMenu : true,
     key: 'device-management',
     icon: <Icon fontSize='large'>table_view</Icon>,
     route: '/device-management',
@@ -70,6 +76,7 @@ const routes = [
   {
     type: 'collapse',
     name: 'Device Template Management',
+    showMenu : false,
     key: 'device-template-management',
     icon: <Icon fontSize='large'>table_view</Icon>,
     route: '/device-template-management',
@@ -78,6 +85,7 @@ const routes = [
   {
     type: 'collapse',
     name: 'Alarms',
+    showMenu : true,
     key: 'alarms',
     icon: <Icon fontSize='large'>alarm</Icon>,
     route: '/alarms',
@@ -86,6 +94,7 @@ const routes = [
   {
     type: 'collapse',
     name: 'Rule Management',
+    showMenu : true,
     key: 'rule-management',
     icon: <Icon fontSize='large'>receipt_long</Icon>,
     route: '/rule-Management',
@@ -94,6 +103,7 @@ const routes = [
   {
     type: 'collapse',
     name: 'Realtime',
+    showMenu : true,
     key: 'realtime',
     icon: <Icon fontSize='large'>format_textdirection_r_to_l</Icon>,
     route: '/realtime',
@@ -102,6 +112,7 @@ const routes = [
   {
     type: 'collapse',
     name: 'Analytics',
+    showMenu : true,
     key: 'analytics',
     icon: <Icon fontSize='large'>analytics</Icon>,
     route: '/analytics',
@@ -110,6 +121,7 @@ const routes = [
   {
     type: 'collapse',
     name: 'Navigation',
+    showMenu : true,
     key: 'navigation',
     icon: <Icon fontSize='large'>navigation</Icon>,
     route: '/navigation',
@@ -118,12 +130,14 @@ const routes = [
   {
     type: 'collapse',
     name: 'Admin',
+    showMenu : true,
     key: 'admin',
     icon: <Icon fontSize='large'>admin_panel_settings</Icon>,
     submenu: [
       {
         type: 'collapse',
         name: 'Administration Setting',
+        showMenu : true,
         key: 'administration-setting',
         icon: <Icon fontSize='large'>login</Icon>,
         route: '/admin/administration-setting',
@@ -134,6 +148,7 @@ const routes = [
   {
     name: 'Administration Setting',
     key: 'administration-setting',
+    showMenu : true,
     icon: <Icon fontSize='large'>login</Icon>,
     route: '/admin/administration-setting',
     component: <AdministrationSetting />,
@@ -141,6 +156,7 @@ const routes = [
   {
     name: 'Notifications',
     key: 'notifications',
+    showMenu : true,
     icon: <Icon fontSize='large'>notifications</Icon>,
     route: '/notifications',
     component: <Notifications />,
@@ -148,6 +164,7 @@ const routes = [
   {
     name: 'User management',
     key: 'user-management',
+    showMenu : true,
     icon: <Icon fontSize='large'>person</Icon>,
     route: '/user-management',
     component: <UserManagement />,

@@ -7,11 +7,21 @@ import { useDispatch } from 'react-redux'
 import _ from 'lodash'
 import { deleteRule } from '../../../store/rules/saga/ruleSaga'
 import { actionTypes } from '../../device-management/constants'
-
+import Dialog from '@mui/material/Dialog'
+import Button from '@mui/material/Button'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import Paper, { PaperProps } from '@mui/material/Paper'
+import Draggable from 'react-draggable'
+import * as React from 'react'
 const RuleData = ({
   setSelectedRule,
   rules,
   devices,
+  setIsDeleted,
+  setIsError
 }) => {
   // Function to get the background color and label based on status
   const getStatusColor = (status) => {
@@ -39,13 +49,26 @@ const RuleData = ({
     }
     return ''
   }
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false)
+  const [deletedTemplatedId, setdeletedTemplatedId] = React.useState()
 
+
+  const handleDialog = (id) => {
+    setIsDialogOpen(true)
+    setdeletedTemplatedId(id)
+  }
   const dispatch = useDispatch()
   const handleDelete = (ruleId) => {
     setSelectedRule()
     dispatch(deleteRule({
       ruleObject: { ruleId }, onSuccess: (status) => {
-        if(!status) alert('Error in Device')
+        if(!status){
+          setIsError(true)
+        }
+          else {  
+            setIsDialogOpen(false)
+            setIsDeleted(true)
+        }
       },
     }))
   }
@@ -100,7 +123,7 @@ const RuleData = ({
           href='#'
           mx='1.5rem'
           color='text'
-          onClick={() => handleDelete(rule.ruleId)}
+          onClick={() => handleDialog(rule.ruleId)}
         >
           <Icon>{'delete'}</Icon>
         </MDTypography>
@@ -118,7 +141,8 @@ const RuleData = ({
     { Header: 'action', accessor: 'action', align: 'center' },
   ]
   return (
-    <MDBox>
+    <>
+ <MDBox>
       <DataTable
         hideEntries={true}
         table={{ columns, rows }}
@@ -127,8 +151,33 @@ const RuleData = ({
         showTotalEntries={true}
         noEndBorder
       />
-
     </MDBox>
+    
+    {isDialogOpen && (
+      <Dialog
+        open={isDialogOpen}
+        onClose={() => {setIsDialogOpen(false)}}
+        PaperComponent={Paper}
+        aria-labelledby='draggable-dialog-title'
+      >
+        <DialogTitle style={{ cursor: 'move' }} id='draggable-dialog-title'>
+          Delete
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this rule data ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={() => setIsDialogOpen(false)}>
+            Cancel
+          </Button>
+          <Button onClick={() => handleDelete(deletedTemplatedId)}>Delete</Button>
+        </DialogActions>
+      </Dialog>
+   
+    )}
+    </>
   )
 }
 export default RuleData

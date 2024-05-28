@@ -4,6 +4,7 @@ import MDBox from 'components/MDBox'
 import MDTypography from 'components/MDTypography'
 import DataTable from 'examples/Tables/DataTable'
 import { useDispatch } from 'react-redux'
+import { useState } from 'react'
 import _ from 'lodash'
 import { deleteRule } from '../../../store/rules/saga/ruleSaga'
 import { actionTypes } from '../../device-management/constants'
@@ -15,7 +16,6 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import Paper, { PaperProps } from '@mui/material/Paper'
 import Draggable from 'react-draggable'
-import * as React from 'react'
 const RuleData = ({
   setSelectedRule,
   rules,
@@ -49,13 +49,13 @@ const RuleData = ({
     }
     return ''
   }
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false)
-  const [deletedTemplatedId, setdeletedTemplatedId] = React.useState()
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [deletedRuleId, setDeletedRuleId] = useState(null)
 
 
   const handleDialog = (id) => {
     setIsDialogOpen(true)
-    setdeletedTemplatedId(id)
+    setDeletedRuleId(id)
   }
   const dispatch = useDispatch()
   const handleDelete = (ruleId) => {
@@ -172,7 +172,7 @@ const RuleData = ({
           <Button autoFocus onClick={() => setIsDialogOpen(false)}>
             Cancel
           </Button>
-          <Button onClick={() => handleDelete(deletedTemplatedId)}>Delete</Button>
+          <Button onClick={() => handleDelete(deletedRuleId)}>Delete</Button>
         </DialogActions>
       </Dialog>
    

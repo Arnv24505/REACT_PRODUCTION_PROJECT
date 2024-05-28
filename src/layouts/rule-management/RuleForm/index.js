@@ -1,6 +1,5 @@
 import { FormHelperText, LinearProgress, MenuItem, Select, TextField } from '@mui/material'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import * as React from 'react'
 import _ from 'lodash'
 import Grid from '@mui/material/Grid'
 import InputLabel from '@mui/material/InputLabel'
@@ -19,7 +18,7 @@ const RuleForm = ({ selectedRule, fields, rules, devices, setSelectedRule, setIs
       .required('Rule name is required')
       .min(3, 'Rule name must be at least 3 characters long')
       .max(50, 'Rule name must be at most 50 characters long'),
-    active: Yup.boolean().required('Selection is required'),
+    active: Yup.boolean().required('Rule must be active or inactive'),
     actionDescription: Yup.string().required('Action description is required'),
     actionType: Yup.string().required('Action type is required'),
     endpoint: Yup.string().required('Source parameter is required'),
@@ -70,36 +69,26 @@ const RuleForm = ({ selectedRule, fields, rules, devices, setSelectedRule, setIs
   }
 
   const RuleField = ({ field, form, ...props }) => {
-    const getError = () => {
-      const fieldName = field.name
-      const isTouched = form.touched[fieldName]
-      const error = form.errors[fieldName]
-      return {
-        error: isTouched && !!error,
-        helperText: isTouched && error,
-      }
-    }
+    const error = form.touched[field.name] && !!form.errors[field.name]
+    const helperText = form.touched[field.name] && form.errors[field.name]
 
     const { type, InputProps } = props
     const { values } = InputProps
-    const { error, helperText } = getError()
     switch (type) {
       case 'text':
         return (
-          <>
-            <TextField
-              value={field.value}
-              fullWidth
-              sx={{ minHeight: '50px', mt: 2 }}
-              {...field}
-              {...props}
-              error={error}
-              helperText={helperText}
-              onChange={(evt) => {
-                InputProps.change(field.name, evt.target.value)
-              }}
-            />
-          </>
+          <TextField
+            value={field.value}
+            fullWidth
+            sx={{ minHeight: '50px', mt: 2 }}
+            {...field}
+            {...props}
+            error={error}
+            helperText={helperText}
+            onChange={(evt) => {
+              InputProps.change(field.name, evt.target.value)
+            }}
+          />
         )
       case 'select':
         return getSelect({
@@ -170,11 +159,16 @@ const RuleForm = ({ selectedRule, fields, rules, devices, setSelectedRule, setIs
     }
   }
 
+  const initialErrors = {}
+  if (!selectedRule.ruleId) {
+    initialErrors.endpoint = 'Source parameter is required'
+  }
+
   return (
     <Formik
       initialValues={selectedRule}
       initialTouched={{ endpoint: true }}
-      initialErrors={{ endpoint: 'Source parameter is required' }}
+      initialErrors={initialErrors}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         if (_.isEmpty(values.ruleId)) {
@@ -210,44 +204,42 @@ const RuleForm = ({ selectedRule, fields, rules, devices, setSelectedRule, setIs
         }
       }}
     >
-      {({ submitForm, isSubmitting, setFieldValue, values, isValid, errors }) => {
-        return (
-          <Grid container sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
-            <Grid item lg={4} xs={6} mg={4}>
-              <Typography sx={{ textAlign: 'center' }} variant={'h6'}>
-                {values.ruleId ? 'Rule Edit' : 'Rule Add'}
-              </Typography>
-              <Form>
-                {_.map(fields, (field, index) => {
-                  const { name, type, label, options, initValue } = field
-                  return (
-                    <Field
-                      component={RuleField}
-                      name={name}
-                      type={type}
-                      label={label}
-                      InputProps={{
-                        options,
-                        initial: initValue,
-                        change: setFieldValue,
-                        values,
-                      }}
-                      key={index}
-                    />
-                  )
-                })}
-                {isSubmitting && <LinearProgress />}
-                <br />
-                <MDBox display="flex" justifyContent="flex-end" paddingRight="1rem">
-                  <MDButton color="info" variant="contained" disabled={!isValid} onClick={submitForm}>
-                    Submit
-                  </MDButton>
-                </MDBox>
-              </Form>
-            </Grid>
+      {({ submitForm, isSubmitting, setFieldValue, values, isValid, errors }) => (
+        <Grid container sx={{ display: 'flex', justifyContent: 'center', mb: 5 }}>
+          <Grid item lg={4} xs={6} mg={4}>
+            <Typography sx={{ textAlign: 'center' }} variant={'h6'}>
+              {values.ruleId ? 'Rule Edit' : 'Rule Add'}
+            </Typography>
+            <Form>
+              {_.map(fields, (field, index) => {
+                const { name, type, label, options, initValue } = field
+                return (
+                  <Field
+                    component={RuleField}
+                    name={name}
+                    type={type}
+                    label={label}
+                    InputProps={{
+                      options,
+                      initial: initValue,
+                      change: setFieldValue,
+                      values,
+                    }}
+                    key={index}
+                  />
+                )
+              })}
+              {isSubmitting && <LinearProgress />}
+              <br />
+              <MDBox display="flex" justifyContent="flex-end" paddingRight="1rem">
+                <MDButton color="info" variant="contained" disabled={!isValid} onClick={submitForm}>
+                  Submit
+                </MDButton>
+              </MDBox>
+            </Form>
           </Grid>
-        )
-      }}
+        </Grid>
+      )}
     </Formik>
   )
 }

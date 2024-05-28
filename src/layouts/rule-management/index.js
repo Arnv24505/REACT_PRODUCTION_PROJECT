@@ -30,7 +30,6 @@ import { getUser } from '../../store/user/saga/userSaga'
 import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 
-import * as React from 'react'
 
 const RuleMain = () => {
   const dispatch = useDispatch()
@@ -140,7 +139,7 @@ const RuleMain = () => {
             {isAdded
               ? 'Successfully Added'
               : isError
-                ? 'Error in Template'
+                ? 'Error in Rule management'
                 : isUpdated
                   ? 'Updated Successfully'
                   : 'Deleted Successfully'}

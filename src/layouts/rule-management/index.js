@@ -30,7 +30,6 @@ import { getUser } from '../../store/user/saga/userSaga'
 import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 
-
 const RuleMain = () => {
   const dispatch = useDispatch()
   const [selectedRule, setSelectedRule] = useState()

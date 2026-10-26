@@ -39,10 +39,9 @@ const formatJsonToTable = (data) => {
   return JSON.stringify(data, null, 2) // Pretty print JSON with 2 spaces indentation
 }
 
-const Dummyjson = ({ setdummyJsonshow }) => {
-
+const Dummyjson = ({ setDummyJsonShow }) => {
   const handleButton = () => {
-    setdummyJsonshow(false)
+    setDummyJsonShow(false)
   }
 
   // Sample JSON data
@@ -78,8 +77,14 @@ const Dummyjson = ({ setdummyJsonshow }) => {
         style={{ fontFamily: '"Roboto","Helvetica","Arial","sans-serif"', fontSize: '16px', whiteSpace: 'pre-wrap' }}
       />
       <Container style={{ display: 'flex', justifyContent: 'center' }}>
-        <MDButton color='info' variant='contained' onClick={() => { handleButton() }}
-                  style={{ height: '1rem', marginTop: '3vh', marginLeft: '2rem' }}>
+        <MDButton
+          color="info"
+          variant="contained"
+          onClick={() => {
+            handleButton()
+          }}
+          style={{ height: '1rem', marginTop: '3vh', marginLeft: '2rem' }}
+        >
           Back
         </MDButton>
       </Container>

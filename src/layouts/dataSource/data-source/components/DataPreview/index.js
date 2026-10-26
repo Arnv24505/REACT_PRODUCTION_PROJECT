@@ -12,7 +12,7 @@ const DataPreview = ({ numberOfColumn, file, onFileSelect, setSelectedFile, setA
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0]
     setSelectedFile = selectedFile
-    if(selectedFile) {
+    if (selectedFile) {
       setFileName(selectedFile.name)
       setTableData(file)
       setActiveStep(2)
@@ -36,13 +36,13 @@ const DataPreview = ({ numberOfColumn, file, onFileSelect, setSelectedFile, setA
 
   return (
     <Card sx={{ my: 3 }}>
-      <MDBox display='flex' justifyContent='center'>
+      <MDBox display="flex" justifyContent="center">
         <MDBox sx={{ width: tableData.length !== 0 ? 'fit-content' : '60rem' }}>
-          <MDBox display='flex' alignItems='center' justifyContent='space-between' my={2}>
-            <MDBox display='flex' width='maxWidth' sx={{ width: '100%', marginRight: 5 }}>
+          <MDBox display="flex" alignItems="center" justifyContent="space-between" my={2}>
+            <MDBox display="flex" width="maxWidth" sx={{ width: '100%', marginRight: 5 }}>
               <MDTypography
-                display='flex'
-                variant='subtitle1'
+                display="flex"
+                variant="subtitle1"
                 sx={{
                   border: '1px solid #ccc',
                   px: 2,
@@ -53,30 +53,22 @@ const DataPreview = ({ numberOfColumn, file, onFileSelect, setSelectedFile, setA
                 {fileName ? fileName : 'Select File'}
               </MDTypography>
             </MDBox>
-            <label htmlFor='file-upload'>
-              <MDButton variant='contained' color='info' ml={2} component='span'>
+            <label htmlFor="file-upload">
+              <MDButton variant="contained" color="info" ml={2} component="span">
                 Upload
               </MDButton>
             </label>
-            <input
-              type='file'
-              id='file-upload'
-              style={{ display: 'none' }}
-              onChange={handleFileChange}
-            />
+            <input type="file" id="file-upload" style={{ display: 'none' }} onChange={handleFileChange} />
           </MDBox>
           {tableData && tableData.length > 0 && (
-            <MDBox display='flex' justifyContent='center' width='100%'>
+            <MDBox display="flex" justifyContent="center" width="100%">
               <Table sx={{ width: 'fit-content' }}>
                 <TableHead>
                   <TableRow>
                     {Object.keys(tableData[0])
                       .slice(0, numberOfColumn)
                       .map((column) => (
-                        <TableCell
-                          key={column}
-                          sx={{ border: '1px solid #ccc', fontWeight: 'bold', px: 5 }}
-                        >
+                        <TableCell key={column} sx={{ border: '1px solid #ccc', fontWeight: 'bold', px: 5 }}>
                           {column}
                         </TableCell>
                       ))}
@@ -88,10 +80,7 @@ const DataPreview = ({ numberOfColumn, file, onFileSelect, setSelectedFile, setA
                       {Object.entries(row)
                         .slice(0, numberOfColumn)
                         .map(([key, value], idx) => (
-                          <TableCell
-                            key={idx}
-                            sx={{ border: '1px solid #ccc', fontWeight: 400, px: 5 }}
-                          >
+                          <TableCell key={idx} sx={{ border: '1px solid #ccc', fontWeight: 400, px: 5 }}>
                             {value}
                           </TableCell>
                         ))}
@@ -103,11 +92,11 @@ const DataPreview = ({ numberOfColumn, file, onFileSelect, setSelectedFile, setA
           )}
 
           {tableData && tableData.length > 0 && (
-            <MDBox display='flex' justifyContent='flex-end' sx={{ my: 2 }}>
-              <MDButton variant='contained' color='error' onClick={handleCancel} sx={{ mx: 2 }}>
+            <MDBox display="flex" justifyContent="flex-end" sx={{ my: 2 }}>
+              <MDButton variant="contained" color="error" onClick={handleCancel} sx={{ mx: 2 }}>
                 Cancel
               </MDButton>
-              <MDButton variant='contained' color='success' onClick={handleConfirm}>
+              <MDButton variant="contained" color="success" onClick={handleConfirm}>
                 Confirm
               </MDButton>
             </MDBox>
@@ -127,29 +116,11 @@ DataPreview.propTypes = {
   fileName: PropTypes.string.isRequired,
   file: PropTypes.node.isRequired,
 
-  color: PropTypes.oneOf([
-    'primary',
-    'secondary',
-    'info',
-    'success',
-    'warning',
-    'error',
-    'light',
-    'dark',
-  ]),
+  color: PropTypes.oneOf(['primary', 'secondary', 'info', 'success', 'warning', 'error', 'light', 'dark']),
   title: PropTypes.string.isRequired,
   count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   percentage: PropTypes.shape({
-    color: PropTypes.oneOf([
-      'primary',
-      'secondary',
-      'info',
-      'success',
-      'warning',
-      'error',
-      'dark',
-      'white',
-    ]),
+    color: PropTypes.oneOf(['primary', 'secondary', 'info', 'success', 'warning', 'error', 'dark', 'white']),
     amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     label: PropTypes.string,
   }),

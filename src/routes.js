@@ -14,6 +14,7 @@ import Notifications from 'layouts/notifications'
 import UserManagement from 'layouts/user-management'
 import AdministrationSetting from 'layouts/administration-setting'
 import DataSource from 'layouts/dataSource/data-source'
+import DatapipelineMain from 'layouts/data-pipeline'
 
 // @mui icons
 import Icon from '@mui/material/Icon'
@@ -99,6 +100,15 @@ const routes = [
     icon: <Icon fontSize='large'>receipt_long</Icon>,
     route: '/rule-Management',
     component: <RuleManagement />,
+  },
+  {
+    type: 'collapse',
+    name: 'Data Pipeline',
+    showMenu : true,
+    key: 'data-pipline',
+    icon: <Icon fontSize='large'>receipt_long</Icon>,
+    route: '/data-pipline',
+    component: <DatapipelineMain />,
   },
   {
     type: 'collapse',
